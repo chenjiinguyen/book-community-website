@@ -1,16 +1,137 @@
 <!DOCTYPE html>
 <html lang="en">
+@!section('css')
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>
-        @yield($data.title) 
-            Book Comunity 
-        @endyield
-    </title>
+    <title>Homepage</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,600;0,700;1,600;1,700&display=swap"
+        rel="stylesheet">
+    
+    <link rel="stylesheet" href="/assets/css/master.css">
+    <link rel="stylesheet" href="/assets/css/reponsive.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/typicons/2.1.1/typicons.min.css">
 </head>
+
 <body>
-    @!section('content') 
+    <div class="top">
+        <div class="top-container">
+            <div class="top-logo">
+                <img src="https://mangatoon.mobi/official/logo.svg" alt="">
+            </div>
+            <div class="top-nav">
+                <div class="nav-item">
+                    <a href="#">Trang Chủ</a>
+                </div>
+                <div class="nav-item">
+                    <a href="#">Truyện tranh</a>
+                </div>
+                <div class="nav-item">
+                    <a href="#">Trang Chủ</a>
+                </div>
+                <div class="nav-item">
+                    <a href="#">Trang Chủ</a>
+                </div>
+            </div>
+            <div class="top-user">
+                <a href="#"> <i class="typcn typcn-user-outline icon-main white-icon"></i></a>
+            </div>
+            <div id="top-menu-icon" class="top-menu-icon">
+                <i class="typcn typcn-th-menu icon-main"></i>
+            </div>
+        </div>
+    </div>
+    <div id="top-menu-reponsive" class="top-menu animate left">
+        <div class="top-menu-list">
+            <div class="top-menu-logo">
+                <img src="https://mangatoon.mobi/official/logo.svg" alt="">
+            </div>
+            <a href="#">
+                <div class="top-menu-search-box">
+                    <div class="top-menu-search-info">Tìm kiếm tên truyện</div>
+                    <div class="top-menu-search-icon"><i class="typcn typcn-zoom-outline"></i>
+                    </div>
+                </div>
+            </a>
+            <div class="top-menu-items">
+                <a href="#">
+                    <div class="top-menu-item"><i class="typcn typcn-home-outline top-menu-list-icon"></i>Trang chủ
+                    </div>
+                </a>
+                <div class="top-menu-line"></div>
+                <a href="#">
+                    <div class="top-menu-item"><i class="typcn typcn-book top-menu-list-icon"></i>Truyện tranh
+                    </div>
+                </a>
+                <div class="top-menu-line"></div>
+                <a href="#">
+                    <div class="top-menu-item" style="color:#ff5454"><i
+                            class="typcn typcn-edit top-menu-list-icon"></i>Đăng tác phẩm
+                    </div>
+                </a>
+                <div class="top-menu-line"></div>
+            </div>
+
+        </div>
+        <div id="top-menu-close-btn" class="top-menu-close-btn">
+            <i class="typcn typcn-delete icon-close-btn"></i>
+        </div>
+    </div>
+    <div class="page-content">
+        <div class="breadcrumb-bg">
+            <ul class="breadcrumb">
+                <li><a class="breadcrumb-active" href="#">Trang chủ</a></li>
+                <li><a class="breadcrumb-active" href="#">Truyện tranh</a></li>
+                <li>Đây là tiêu đề dài rất là dài</li>
+            </ul>
+        </div>
+        @!section('content')
+    </div>
+    <div class="footer">
+        <div class="footer-contact">
+            <div class="footer-container">
+                <div class="footer-contact-item">
+                    <div class="contact-group-title">Email</div>
+                    <div class="contact-group-2">MangaToon</div>
+                    <div class="contact-group"><a href="mailto:support@book.community"
+                            style="color:#ccc;">support@book.community</a></div>
+                    <div class="contact-group-2">Send your comics to email</div>
+                    <div class="contact-group"><a href="mailto:contribute@book.community"
+                            style="color:#ccc;">contribute@book.community</a>
+                    </div>
+                </div>
+                <div class="footer-contact-item">
+                    <div class="contact-group-title">Facebook</div>
+                    <div class="contact-group-2">English</div>
+                    <div class="contact-group"><a style="color:#ccc;" target="_blank"
+                            href="https://www.facebook.com/MangaToonEN/">@MangaToonEN</a>
+                    </div>
+                    <div class="contact-group-2">Tiếng việt</div>
+                    <div class="contact-group"><a style="color:#ccc;" target="_blank"
+                            href="https://www.facebook.com/MangaToon_VI-346983792722490/">@MangaToon_VI</a></div>
+                </div>
+                <div class="footer-contact-item">
+                    <div class="contact-group-title">INS</div>
+                    <div class="contact-group-2">Instagram</div>
+                    <div class="contact-group"><a style="color:#ccc;" target="_blank"
+                            href="https://www.instagram.com/mangatoon_vn">@mangatoon_vn</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-about">
+            <a href="http://online.gov.vn/Home/WebDetails/75444">
+                <img src="https://mangatoon.mobi/images/icon/logosalenoti.png" style="width:150px;height:57px;margin-top:10px;">
+            </a>
+            <div class="about-copyright">©2021 chenjinguyen
+            </div>
+        </div>
+    </div>
+
+    <script src="./assets/js/navigation.js"></script>
 </body>
+
 </html>
