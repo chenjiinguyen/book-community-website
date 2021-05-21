@@ -36,4 +36,12 @@ router.get('/novel/createChapter', function(req, res, next) {
 router.get('/contract', function(req, res, next) {
     res.render('page.admin.contract', { title: 'Express', breadcrumb: breadcrumb });
 });
+
+router.get('/comment', function(req, res, next) {
+    res.render('page.admin.comment', { title: 'Express', breadcrumb: breadcrumb });
+});
+
+router.get('/novel/submitWait', function(req, res, next) {
+    res.render('page.admin.novel.submitWait', { title: 'Express', breadcrumb: breadcrumb });
+});
 module.exports = router;
