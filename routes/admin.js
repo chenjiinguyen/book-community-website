@@ -16,8 +16,16 @@ let breadcrumb = [{
 ]
 
 /* GET home page. */
+
 router.get('/', function(req, res, next) {
     res.render('page.admin.dashboard', { title: 'Express', breadcrumb: breadcrumb });
 });
 
+router.get('/novel/create', function(req, res, next) {
+    res.render('page.admin.novel.create', { title: 'Express', breadcrumb: breadcrumb });
+});
+
+router.get('/novel/content', function(req, res, next) {
+    res.render('page.admin.novel.content', { title: 'Express', breadcrumb: breadcrumb });
+});
 module.exports = router;
