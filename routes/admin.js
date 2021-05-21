@@ -28,4 +28,12 @@ router.get('/novel/create', function(req, res, next) {
 router.get('/novel/content', function(req, res, next) {
     res.render('page.admin.novel.content', { title: 'Express', breadcrumb: breadcrumb });
 });
+
+router.get('/novel/createChapter', function(req, res, next) {
+    res.render('page.admin.novel.createChapter', { title: 'Express', breadcrumb: breadcrumb });
+});
+
+router.get('/contract', function(req, res, next) {
+    res.render('page.admin.contract', { title: 'Express', breadcrumb: breadcrumb });
+});
 module.exports = router;

@@ -1,4 +1,13 @@
 @layout('layout.admin')
+
+@section('css')
+<link href="http://mangatoon.mobi/js/tui-editor/codemirror.css" rel="stylesheet">
+<link href="http://mangatoon.mobi/js/tui-editor/github.css" rel="stylesheet">
+<link href="http://mangatoon.mobi/js/tui-editor/explain.css" rel="stylesheet">
+<link href="http://mangatoon.mobi/js/tui-editor/tui-editor.css" rel="stylesheet">
+<link href="http://mangatoon.mobi/js/tui-editor/tui-editor-contents.css" rel="stylesheet">
+@endsection
+
 @section('content')
 <div class="content-wrapper create-page-content">
     <div class="content-left">
@@ -70,4 +79,47 @@
         </table>
     </div>
 </div>
+@endsection
+
+@section('js')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous"></script>
+<script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
+<script>
+    var initialValue = [""];
+    initialValue = initialValue.join('\n');
+    const Editor = toastui.Editor;
+    const editor = new Editor({
+        el: document.querySelector('#editSection'),
+        initialEditType: 'wysiwyg',
+        height: '500px',
+        previewStyle: 'vertical',
+        initialValue: initialValue,
+        usageStatistics: false,
+        toolbarItems: [
+            'heading',
+            'bold',
+            'italic',
+            'strike',
+            'divider',
+            'hr',
+            'quote',
+            'divider',
+            'ul',
+            'ol',
+        ]
+    });
+    editor.on('pasteBefore', function(event) {
+        var html = event.$clipboardContainer.html();
+        html = html.replace(/<\/div>/g, "</div>\n");
+        html = html.replace(/<\/p>/g, "</p>\n");
+        html = html.replace(/<br>/g, "<br>\n");
+        html = html.replace(/<br\/>/g, "<br>\n");
+        var doc = new DOMParser().parseFromString(html, 'text/html');
+        html = doc.body.textContent || "";
+        html = htmlEncode(html);
+        html = html.replace(/\n/g, "<br/>");
+        event.$clipboardContainer.html(html);
+    });
+    editor.getHtml();
+</script>
 @endsection

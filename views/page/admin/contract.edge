@@ -1,0 +1,90 @@
+@layout('layout.admin')
+
+@section('content')
+<div class="apply-contract-bg">
+    <div class="dialog">
+        <a href="#" class="close"></a>
+        <div class="apply-info">
+            <div class="title">Xin ký hợp đồng</div>
+            <div class="description">Đăng kí tác quyền để nhận dc thêm nhiều quyền lợi</div>
+            <div class="reward">
+                <div>
+                    <ul>
+                        <li>Tỷ lệ phân chia thu nhập 50%</li>
+                        <li>Thưởng ký hợp đồng</li>
+                    </ul>
+                </div>
+                <div>
+                    <ul>
+                        <li>Phụ cấp lượt đọc</li>
+                        <li>Thu nhập cơ bản</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="condition-title">Các điều kiện khi xin ký hợp đồng</div>
+            <div class="condition-description fiction">
+                1. Tiểu thuyết cần đạt 20 chương và không ít hơn 20.000 chữ.
+                <br> 2. Tác phẩm phải là nguyên tác đồng thời có bản quyền hoàn chỉnh, tác phẩm không được phép sao chép,đạo văn tác phẩm khác, ngôn từ không được thô tục,không liên quan đến chính trị...
+                <br> 3. Tác phẩm đăng tải độc quyền trên App.
+            </div>
+            <div class="condition-description dialogue">
+
+                1. Truyện Chat cần đạt 20 chương và không ít hơn 5000 chữ.
+                <br> 2. Tác phẩm phải là nguyên tác đồng thời có bản quyền hoàn chỉnh, tác phẩm không được phép sao chép,đạo văn tác phẩm khác, ngôn từ không được thô tục,không liên quan đến chính trị...
+                <br> 3. Tác phẩm đăng tải độc quyền trên App.
+            </div>
+            <div style="margin-bottom:20px;display:flex;justify-content:center;">
+                <label style="display:flex;justify-content:center;align-items:center;margin:0 70px;">
+                    <input class="agree" type="checkbox">
+                    <span style="text-align:left;margin-left:8px">
+
+                        Tôi đã đọc và đồng ý
+                        <a href="#" class="preview_contract text-red">Thỏa thuận ký hợp đồng</a>
+                    </span>
+                </label>
+            </div>
+            <a href="#" class="btn btn-red apply-next-button disabled">Tiếp theo</a>
+        </div>
+    </div>
+</div>
+<div id="report-page" class="content-wrapper">
+    <div id="report">
+        <table class="report-table table">
+            <thead>
+                <tr>
+                    <th width="25%">Tác phẩm</th>
+                    <th>Loại hình tác phẩm</th>
+                    <th width="8%">Số chữ</th>
+                    <th width="8%">Số chương</th>
+                    <th>Cấp trong tháng</th>
+                    <th width="12%">Lần xin ký gần nhất</th>
+                    <th>Trạng thái</th>
+                    <th width="12%"></th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+    <div class="description">
+        <h1>Chi tiết về việc xin ký hợp đồng</h1>
+        <p>1. Tác phẩm đang viết trên App, đã cập nhật được 20 chương và đạt 20.000 chữ trở lên (đối với tiểu thuyết); hoặc 5000 chữ và 20 chương đối với truyện chat, đều có thể xin ký hợp đồng.</p>
+        <p>2. Hệ thống tự động gửi đến tác giả điểm đánh giá sơ bộ về tác phẩm.</p>
+        <p>3. Tác giả phải đảm bảo tác phẩm là nguyên tác và có bản quyền toàn diện. Tác phẩm không có các nội dung vi phạm liên quan đến chính trị, thuần phong mỹ tục, không sao chép, đạo nhái tác phẩm khác.
+        </p>
+        <p>4. Các tác phẩm không phù hợp để ký hợp đồng.</p>
+        <p> Tác phẩm đã ký hợp đồng độc quyền với nền tảng khác.</p>
+        <p> Tác phẩm vi phạm các quy định của pháp luật</p>
+        <p> Không phù hợp với giá trị quan của thanh thiếu niên, hoặc không phù hợp để xuất bản công khai.
+        </p>
+        <h2>Các quyền lợi chủ yếu của tác giả ký hợp đồng:</h2>
+        <p>1. Tác phẩm ký hợp đồng có thể có phụ cấp lượt đọc, phân chia phí trả từ người dùng, phân chia lợi nhuận bản quyền...
+        </p>
+        <p>2. Các tác phẩm ký hợp đồng có thể được ưu tiên quảng cáo đa kênh.</p>
+        <p>3.Tác phẩm ký hợp đồng có cơ hội được thiết kế nhân vật, xuất bản, sách nói, chuyển thể truyện tranh, trò chơi, phim ảnh...</p>
+        <h2>Nghĩa vụ của tác giả ký hợp đồng:</h2>
+        <p>1. Tác giả đảm bảo tác phẩm là nguyên tác và có bản quyền toàn diện, không có nội dung khiêu dâm, các nội dung vi phạm pháp luật, liên quan chính trị...</p>
+        <p>2. Trong thời gian ký hợp đồng, tác giả ủy quyền độc quyền về bản quyền điện tử, xuất bản, chuyển thể cho phía nền tảng.</p>
+        <p>3. Trong thời gian ký hợp đồng, tác giả không được phép đăng tải tác phẩm lên bất kỳ nền tảng nào khác, nếu đã đăng thì phải xóa.</p>
+
+    </div>
+</div>
+@endsection
