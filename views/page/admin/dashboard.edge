@@ -1,0 +1,96 @@
+@layout('layout.admin')
+
+
+@section('content')
+<div id="index-page">
+    <div id="performance">
+        <div class="performance">
+            <div class="items">
+                <div class="item">
+                    <div class="subject">Độ hot</div>
+                    <div class="count">0</div>
+                </div>
+                <div class="item">
+                    <div class="subject">Thích</div>
+                    <div class="count">0</div>
+                </div>
+            </div>
+            <div>
+                <a href="#">Thống kê ></a>
+            </div>
+        </div>
+        <div class="comments">
+            <div class="items">
+                <div class="item">
+                    <div class="subject">Lượt bình luận</div>
+                    <div class="count">0</div>
+                </div>
+            </div>
+            <div><a href="#">Bình luận ></a></div>
+        </div>
+        <div class="withdrawal">
+            <div class="items">
+                <div class="item">
+                    <div class="subject">Số tiền có thể rút</div>
+                    <div class="count">
+                        - </div>
+                </div>
+                <div class="item">
+                    <div class="subject">Thu nhập</div>
+                    <div class="count">
+                        - </div>
+                </div>
+            </div>
+            <div>
+                <a href="#">Rút tiền ></a>
+            </div>
+        </div>
+    </div>
+    <div id="content-wrapper">
+        <div class="nav-tags-div">
+            <ul id="nav-tags">
+                <li class="selected" data-type="novel">
+
+                    Tiểu thuyết của tôi (0)
+                </li>
+                <li class data-type="comic">
+
+                    Truyện tranh của tôi (0)
+                </li>
+            </ul>
+            <a href="#" class="btn btn-red create-content selected" id="btn-create-novel" style="display: block;">
+                Tạo tiểu thuyết
+            </a>
+            <a href="#" class="btn btn-red create-content" id="btn-create-comic" style="display: none;">
+                Tạo truyện tranh
+            </a>
+        </div>
+        <div id="my-contents">
+            <div class="my-novel" style="display:block">
+                <div class="no-content">
+                    <div class="icon"><i class="fa fa-book" aria-hidden="true"></i></div>
+                    <div class="description">Hiện tại chưa có tác phẩm nào</div>
+                </div>
+            </div>
+            <div class="my-comic">
+                <div class="no-content">
+                    <div class="icon"></div>
+                    <div class="description">Hiện tại chưa có tác phẩm nào</div>
+                </div>
+            </div>
+            <div class="my-audio">
+                <div class="no-content">
+                    <div class="icon"></div>
+                    <div class="description">Tạm thời chưa có nhiệm vụ ghi âm</div>
+                </div>
+            </div>
+            <div class="apply-contract-div">
+                <div>Bạn muốn kiếm thêm nhiều thu nhập?</div>
+                <div>
+                    <a href="#" class="btn btn-yellow btn-apply-contract">Xin ký hợp đồng</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@endsection

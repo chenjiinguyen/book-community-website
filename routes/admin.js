@@ -1,0 +1,23 @@
+var express = require('express');
+var router = express.Router();
+
+let breadcrumb = [{
+        title: "Trang chu",
+        link: "/admin/",
+    },
+    {
+        title: "Admin",
+        link: "/admin/",
+    },
+    {
+        title: "Bang dieu khien",
+        link: "",
+    }
+]
+
+/* GET home page. */
+router.get('/', function(req, res, next) {
+    res.render('page.admin.dashboard', { title: 'Express', breadcrumb: breadcrumb });
+});
+
+module.exports = router;
