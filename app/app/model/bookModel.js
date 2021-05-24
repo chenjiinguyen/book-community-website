@@ -51,6 +51,7 @@ const Book = sequelize.define('Book', {
 }, {
     sequelize,
     modelName: 'BOOK',
+    tableName: "BOOKS",
   // Other model options go here
 });
 

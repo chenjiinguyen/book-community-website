@@ -53,6 +53,7 @@ const User = sequelize.define(
   {
     sequelize,
     modelName: "USER",
+    tableName: "USERS",
     hooks: {
       afterSave: async (user, options) => {
         const hash = await bcrypt.hash(user.password, 10);

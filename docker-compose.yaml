@@ -13,6 +13,7 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: $MYSQL_ROOT_PASSWORD
       MYSQL_DATABASE: $MYSQL_DATABASE
+      MYSQL_ROOT_HOST: $MYSQL_ROOT_HOST
     ports:
       - $MYSQL_LOCAL_PORT:$MYSQL_DOCKER_PORT
     volumes: 
@@ -30,13 +31,13 @@ services:
     networks:
       - book-net
     ports:
-      - "30002:80"
+      - "$PMA_LOCAL_PORT:$PMA_DOCKER_PORT"
     environment:
       - PMA_HOST=book_mysql
       - PMA_PORT= 3306
     volumes:
       - /sessions
-    container_name: moe-phpmyadmin-app
+    container_name: book_phpmyadmin
   app:
     build:
       context: .

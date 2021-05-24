@@ -35,6 +35,7 @@ const Episode = sequelize.define('Episode', {
 },{
     sequelize,
     modelName: 'EPISODE',
+    tableName: "EPISODES",
   // Other model options go here
 });
 
