@@ -16,14 +16,27 @@ services:
     ports:
       - $MYSQL_LOCAL_PORT:$MYSQL_DOCKER_PORT
     volumes: 
-      - ./mysql/config/:/etc/mysql/conf.d
-      - ./mysql/data/:/var/lib/mysql
+      - db-data:/var/lib/mysql
+      - ./mysql/my.cnf:/etc/my.cnf
       - ./mysql/backup/:/data_backup/data
-      - ./mysql/mysql-files:/var/lib/mysql-files
-    command:
-      - '--character-set-server=utf8mb4'
+    command:  --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci 
+              --default-authentication-plugin=mysql_native_password
     networks:
       - book-net
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:4.7
+    depends_on:
+      - mysqldb
+    networks:
+      - book-net
+    ports:
+      - "30002:80"
+    environment:
+      - PMA_HOST=book_mysql
+      - PMA_PORT= 3306
+    volumes:
+      - /sessions
+    container_name: moe-phpmyadmin-app
   app:
     build:
       context: .
@@ -40,9 +53,10 @@ services:
       - mysqldb
     stdin_open: true
     tty: true
-    networks:
+    networks: 
       - book-net
 
-# volumes: 
-#   db-config:
-#   db-data: 
+
+volumes: 
+  # db-config:
+  db-data: 
