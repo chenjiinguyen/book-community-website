@@ -1,0 +1,48 @@
+version: '3.8'
+
+networks:
+  book-net:
+    driver: bridge
+
+services: 
+  mysqldb:
+    image: mysql
+    container_name: book_mysql
+    restart: always
+    env_file: ./.env
+    environment:
+      MYSQL_ROOT_PASSWORD: $MYSQL_ROOT_PASSWORD
+      MYSQL_DATABASE: $MYSQL_DATABASE
+    ports:
+      - $MYSQL_LOCAL_PORT:$MYSQL_DOCKER_PORT
+    volumes: 
+      - ./mysql/config/:/etc/mysql/conf.d
+      - ./mysql/data/:/var/lib/mysql
+      - ./mysql/backup/:/data_backup/data
+      - ./mysql/mysql-files:/var/lib/mysql-files
+    command:
+      - '--character-set-server=utf8mb4'
+    networks:
+      - book-net
+  app:
+    build:
+      context: .
+      dockerfile: ./app/Dockerfile
+    image: node-mysql-app
+    container_name: book_app
+    env_file: ./.env
+    ports:
+      - $NODE_LOCAL_PORT:$NODE_DOCKER_PORT
+    volumes: 
+      - ./app:/app
+      - /app/node_modules
+    depends_on:
+      - mysqldb
+    stdin_open: true
+    tty: true
+    networks:
+      - book-net
+
+# volumes: 
+#   db-config:
+#   db-data: 
