@@ -1,6 +1,7 @@
 const User = require("../../model/userModel");
 const type = require("../../../lib/type");
 const utils = require("../../../lib/utils");
+const moment = require('moment'); 
 
 const controller = {
   signin: async (req, res, next) => {
@@ -37,7 +38,7 @@ const controller = {
   },
   signup: async (req, res, next) => {
     const attributes = ["username","email","password","name","gender","birthday"];
-    const param = req.body;
+    const param = req.query;
     if(utils.checkPropertiesInObject(attributes,param)){
       let data = await User.findOne({
         where: {
@@ -51,7 +52,7 @@ const controller = {
           gender: param.gender,
           password : param.password,
           name : param.name,
-          birthday : new Date(param.birthday),
+          birthday : moment(param.birthday,["DD-MM-YYYY", "DD/MM/YYYY"]),
           avatar : "https://ui-avatars.com/api/?size=256&name="+param.name,
         });
         if(user){
