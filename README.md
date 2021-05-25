@@ -18,7 +18,7 @@
 copy .env.example .env
 copy app\.env.example app\.env
 copy mysql\BOOKCOMMUNITY.sql.example mysql\BOOKCOMMUNITY.sql
-sed -i 's/\r//' bot.sh
+sed -i 's/\r//' app\run.sh
 ```
 
 ### FOR MACOS/LINUX
