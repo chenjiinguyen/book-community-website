@@ -49,6 +49,7 @@ services:
       - $NODE_LOCAL_PORT:$NODE_DOCKER_PORT
     volumes: 
       - ./app:/app
+      - .env:/app/.env
       - ./mysql/BOOKCOMMUNITY.sql:/database/BOOKCOMMUNITY.sql
       - /app/node_modules
     depends_on:

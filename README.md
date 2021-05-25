@@ -11,25 +11,28 @@
 - Docker
 
 ## SETUP
-
+After cloning the project, you need to run the commands below for the project to work. And only need to run once after cloning.
 ### FOR WINDOWS
-- Run command in folder
 ``` 
 copy .env.example .env
-copy app\.env.example app\.env
 copy mysql\BOOKCOMMUNITY.sql.example mysql\BOOKCOMMUNITY.sql
 sed -i 's/\r//' app\run.sh
 ```
 
 ### FOR MACOS/LINUX
-- Run command in folder
 ``` 
 cp .env.example .env
-cp app/.env.example app/.env
 cp mysql/BOOKCOMMUNITY.sql.example mysql/BOOKCOMMUNITY.sql
 ```
 
 ## START SERVER
+
+For the first run
+```
+docker-compose up --build
+```
+
+From the 2nd run onwards
 ```
 docker-compose up --build
 ```
