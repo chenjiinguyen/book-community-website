@@ -34,5 +34,5 @@ docker-compose up --build
 
 From the 2nd run onwards
 ```
-docker-compose up --build
+docker-compose up
 ```
