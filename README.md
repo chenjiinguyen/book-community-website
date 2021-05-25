@@ -17,7 +17,7 @@
 ``` 
 copy .env.example .env
 copy app\.env.example app\.env
-copy app\BOOKCOMMUNITY.sql.example app\BOOKCOMMUNITY.sql
+copy mysql\BOOKCOMMUNITY.sql.example mysql\BOOKCOMMUNITY.sql
 sed -i 's/\r//' bot.sh
 ```
 
@@ -26,7 +26,7 @@ sed -i 's/\r//' bot.sh
 ``` 
 cp .env.example .env
 cp app/.env.example app/.env
-cp app/BOOKCOMMUNITY.sql.example app/BOOKCOMMUNITY.sql
+cp mysql/BOOKCOMMUNITY.sql.example mysql/BOOKCOMMUNITY.sql
 ```
 
 ## START SERVER
