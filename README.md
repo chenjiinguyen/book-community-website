@@ -29,10 +29,10 @@ cp mysql/BOOKCOMMUNITY.sql.example mysql/BOOKCOMMUNITY.sql
 
 For the first run
 ```
-docker-compose up --build
+docker compose up --build
 ```
 
 From the 2nd run onwards
 ```
-docker-compose up
+docker compose up
 ```

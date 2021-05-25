@@ -16,5 +16,6 @@ else
     mysql -hmysqldb -uroot -proot BOOKCOMMUNITY < /database/BOOKCOMMUNITY.sql;
     echo "Finish restore database";
 fi
+
 echo "Start server";
 yarn dev;
