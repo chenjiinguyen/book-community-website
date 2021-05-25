@@ -16,7 +16,7 @@ After cloning the project, you need to run the commands below for the project to
 ``` 
 copy .env.example .env
 copy mysql\BOOKCOMMUNITY.sql.example mysql\BOOKCOMMUNITY.sql
-sed -i 's/\r//' app\run.sh
+win\dos2unix.exe app\run.sh
 ```
 
 ### FOR MACOS/LINUX
