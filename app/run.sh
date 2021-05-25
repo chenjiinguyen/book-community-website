@@ -1,3 +1,4 @@
+#!/bin/bash
 while ! mysql -hmysqldb -uroot -proot -e";" > /dev/null ; do
     echo "Reconnect after 2 seconds";
     sleep 2;
