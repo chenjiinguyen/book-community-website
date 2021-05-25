@@ -9,8 +9,8 @@
 1. Run command in folder
 ``` 
 copy .env.example .env
-copy app/.env.example app/.env
-docker-compose up
+copy app\.env.example app\.env
+docker-compose up --build
 ```
 
 ### FOR MACOS/LINUX
@@ -18,5 +18,5 @@ docker-compose up
 ``` 
 cp .env.example .env
 cp app/.env.example app/.env
-docker-compose up
+docker-compose up --build
 ```
