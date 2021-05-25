@@ -34,7 +34,7 @@ services:
       - "$PMA_LOCAL_PORT:$PMA_DOCKER_PORT"
     environment:
       - PMA_HOST=book_mysql
-      - PMA_PORT= 3306
+      - PMA_PORT=$MYSQL_DOCKER_PORT
     volumes:
       - /sessions
     container_name: book_phpmyadmin
@@ -49,6 +49,7 @@ services:
       - $NODE_LOCAL_PORT:$NODE_DOCKER_PORT
     volumes: 
       - ./app:/app
+      - ./mysql/BOOKCOMMUNITY.sql:/database/BOOKCOMMUNITY.sql
       - /app/node_modules
     depends_on:
       - mysqldb

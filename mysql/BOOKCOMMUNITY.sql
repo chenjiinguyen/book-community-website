@@ -1,35 +1,29 @@
--- phpMyAdmin SQL Dump
--- version 4.7.9
--- https://www.phpmyadmin.net/
+-- MySQL dump 10.16  Distrib 10.1.48-MariaDB, for debian-linux-gnu (x86_64)
 --
--- Máy chủ: book_mysql: 3306
--- Thời gian đã tạo: Th5 24, 2021 lúc 05:18 PM
--- Phiên bản máy phục vụ: 8.0.23
--- Phiên bản PHP: 7.2.2
-
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
-START TRANSACTION;
-SET time_zone = "+00:00";
-
+-- Host: mysqldb    Database: BOOKCOMMUNITY
+-- ------------------------------------------------------
+-- Server version	8.0.23
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8mb4 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Cơ sở dữ liệu: `BOOKCOMMUNITY`
+-- Table structure for table `BOOKS`
 --
 
--- --------------------------------------------------------
-
---
--- Cấu trúc bảng cho bảng `BOOKS`
---
-
+DROP TABLE IF EXISTS `BOOKS`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `BOOKS` (
-  `IDBOOK` bigint NOT NULL,
+  `IDBOOK` bigint NOT NULL AUTO_INCREMENT,
   `TITLE` varchar(255) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NOT NULL,
   `AUTHOR` varchar(50) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NOT NULL,
   `UPLOADER` varchar(50) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NOT NULL,
@@ -39,53 +33,90 @@ CREATE TABLE `BOOKS` (
   `STATUS` int NOT NULL DEFAULT '0',
   `VIEW` bigint NOT NULL DEFAULT '0',
   `CREATEDAT` datetime DEFAULT NULL,
-  `UPDATEDAT` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese_ci;
-
--- --------------------------------------------------------
+  `UPDATEDAT` datetime DEFAULT NULL,
+  PRIMARY KEY (`IDBOOK`) USING BTREE,
+  KEY `UPLOADER` (`UPLOADER`),
+  KEY `CATEGORY` (`CATEGORY`),
+  KEY `AUTHOR` (`AUTHOR`),
+  CONSTRAINT `books_ibfk_1` FOREIGN KEY (`UPLOADER`) REFERENCES `USERS` (`USERNAME`),
+  CONSTRAINT `books_ibfk_2` FOREIGN KEY (`CATEGORY`) REFERENCES `CATEGORY` (`IDCATEGORY`) ON DELETE RESTRICT ON UPDATE RESTRICT
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Cấu trúc bảng cho bảng `CATEGORY`
+-- Dumping data for table `BOOKS`
 --
 
+LOCK TABLES `BOOKS` WRITE;
+/*!40000 ALTER TABLE `BOOKS` DISABLE KEYS */;
+/*!40000 ALTER TABLE `BOOKS` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `CATEGORY`
+--
+
+DROP TABLE IF EXISTS `CATEGORY`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `CATEGORY` (
   `IDCATEGORY` varchar(50) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NOT NULL,
   `NAME` varchar(255) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NOT NULL,
   `CREATEDAT` datetime DEFAULT NULL,
-  `UPDATEDAT` datetime DEFAULT NULL
+  `UPDATEDAT` datetime DEFAULT NULL,
+  PRIMARY KEY (`IDCATEGORY`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Đang đổ dữ liệu cho bảng `CATEGORY`
+-- Dumping data for table `CATEGORY`
 --
 
-INSERT INTO `CATEGORY` (`IDCATEGORY`, `NAME`, `CREATEDAT`, `UPDATEDAT`) VALUES
-('AUDIO', 'Truyện Audio', '2021-05-25 00:00:00', '2021-05-25 00:00:00'),
-('IMAGE', 'Truyện Tranh', '2021-05-25 00:00:00', '2021-05-25 00:00:00'),
-('TEXT', 'Truyện Chữ', '2021-05-25 00:00:00', '2021-05-25 00:00:00');
-
--- --------------------------------------------------------
+LOCK TABLES `CATEGORY` WRITE;
+/*!40000 ALTER TABLE `CATEGORY` DISABLE KEYS */;
+INSERT INTO `CATEGORY` VALUES ('AUDIO','Truyện Audio','2021-05-25 00:00:00','2021-05-25 00:00:00'),('IMAGE','Truyện Tranh','2021-05-25 00:00:00','2021-05-25 00:00:00'),('TEXT','Truyện Chữ','2021-05-25 00:00:00','2021-05-25 00:00:00');
+/*!40000 ALTER TABLE `CATEGORY` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
--- Cấu trúc bảng cho bảng `COMMENTS`
+-- Table structure for table `COMMENTS`
 --
 
+DROP TABLE IF EXISTS `COMMENTS`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `COMMENTS` (
-  `IDCOMMENT` bigint NOT NULL,
+  `IDCOMMENT` bigint NOT NULL AUTO_INCREMENT,
   `IDUSER` varchar(50) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NOT NULL,
   `IDBOOK` bigint NOT NULL,
   `PARENT` bigint DEFAULT NULL,
-  `CONTENT` text CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NOT NULL
+  `CONTENT` text CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NOT NULL,
+  PRIMARY KEY (`IDCOMMENT`),
+  KEY `IDUSER` (`IDUSER`),
+  KEY `IDBOOK` (`IDBOOK`),
+  CONSTRAINT `comments_ibfk_1` FOREIGN KEY (`IDUSER`) REFERENCES `USERS` (`USERNAME`),
+  CONSTRAINT `comments_ibfk_2` FOREIGN KEY (`IDBOOK`) REFERENCES `BOOKS` (`IDBOOK`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese_ci;
-
--- --------------------------------------------------------
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Cấu trúc bảng cho bảng `EPISODES`
+-- Dumping data for table `COMMENTS`
 --
 
+LOCK TABLES `COMMENTS` WRITE;
+/*!40000 ALTER TABLE `COMMENTS` DISABLE KEYS */;
+/*!40000 ALTER TABLE `COMMENTS` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `EPISODES`
+--
+
+DROP TABLE IF EXISTS `EPISODES`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `EPISODES` (
-  `IDEPISODE` bigint NOT NULL,
+  `IDEPISODE` bigint NOT NULL AUTO_INCREMENT,
   `IDBOOK` bigint NOT NULL,
   `INDEX` bigint NOT NULL,
   `NAME` varchar(255) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NOT NULL,
@@ -93,122 +124,226 @@ CREATE TABLE `EPISODES` (
   `VIEW` int NOT NULL,
   `STATUS` int NOT NULL,
   `CREATEDAT` datetime NOT NULL,
-  `UPDATEDAT` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese_ci;
-
--- --------------------------------------------------------
+  `UPDATEDAT` datetime NOT NULL,
+  PRIMARY KEY (`IDEPISODE`),
+  KEY `IDBOOK` (`IDBOOK`),
+  CONSTRAINT `episodes_ibfk_1` FOREIGN KEY (`IDBOOK`) REFERENCES `BOOKS` (`IDBOOK`)
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Cấu trúc bảng cho bảng `LIKES`
+-- Dumping data for table `EPISODES`
 --
 
+LOCK TABLES `EPISODES` WRITE;
+/*!40000 ALTER TABLE `EPISODES` DISABLE KEYS */;
+/*!40000 ALTER TABLE `EPISODES` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `LIKES`
+--
+
+DROP TABLE IF EXISTS `LIKES`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `LIKES` (
   `IDUSER` varchar(50) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NOT NULL,
   `IDBOOK` bigint NOT NULL,
   `CREATEDAT` datetime DEFAULT NULL,
-  `UPDATEDAT` datetime DEFAULT NULL
+  `UPDATEDAT` datetime DEFAULT NULL,
+  PRIMARY KEY (`IDUSER`,`IDBOOK`),
+  KEY `IDBOOK` (`IDBOOK`),
+  CONSTRAINT `likes_ibfk_1` FOREIGN KEY (`IDUSER`) REFERENCES `USERS` (`USERNAME`),
+  CONSTRAINT `likes_ibfk_2` FOREIGN KEY (`IDBOOK`) REFERENCES `BOOKS` (`IDBOOK`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese_ci;
-
--- --------------------------------------------------------
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Cấu trúc bảng cho bảng `MODERATION_BOOKS`
+-- Dumping data for table `LIKES`
 --
 
+LOCK TABLES `LIKES` WRITE;
+/*!40000 ALTER TABLE `LIKES` DISABLE KEYS */;
+/*!40000 ALTER TABLE `LIKES` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `MODERATION_BOOKS`
+--
+
+DROP TABLE IF EXISTS `MODERATION_BOOKS`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `MODERATION_BOOKS` (
   `IDBOOK` bigint NOT NULL,
   `MODERATOR` varchar(50) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NOT NULL,
   `MODERATION` bigint NOT NULL,
   `CONTENT` text CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NOT NULL,
   `CREATEDAT` datetime DEFAULT NULL,
-  `UPDATEDAT` datetime DEFAULT NULL
+  `UPDATEDAT` datetime DEFAULT NULL,
+  PRIMARY KEY (`IDBOOK`),
+  KEY `MODERATOR` (`MODERATOR`),
+  CONSTRAINT `moderations_ibfk_1` FOREIGN KEY (`IDBOOK`) REFERENCES `BOOKS` (`IDBOOK`),
+  CONSTRAINT `moderations_ibfk_2` FOREIGN KEY (`MODERATOR`) REFERENCES `USERS` (`USERNAME`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese_ci;
-
--- --------------------------------------------------------
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Cấu trúc bảng cho bảng `MODERATION_EPISODES`
+-- Dumping data for table `MODERATION_BOOKS`
 --
 
+LOCK TABLES `MODERATION_BOOKS` WRITE;
+/*!40000 ALTER TABLE `MODERATION_BOOKS` DISABLE KEYS */;
+/*!40000 ALTER TABLE `MODERATION_BOOKS` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `MODERATION_EPISODES`
+--
+
+DROP TABLE IF EXISTS `MODERATION_EPISODES`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `MODERATION_EPISODES` (
   `IDEPISODE` bigint NOT NULL,
   `MODERATOR` varchar(50) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NOT NULL,
   `MODERATION` bigint NOT NULL,
   `CONTENT` text CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NOT NULL,
   `CREATEDAT` datetime DEFAULT NULL,
-  `UPDATEDAT` datetime DEFAULT NULL
+  `UPDATEDAT` datetime DEFAULT NULL,
+  PRIMARY KEY (`IDEPISODE`,`MODERATOR`) USING BTREE,
+  KEY `MODERATOR` (`MODERATOR`),
+  CONSTRAINT `MODERATION_EPISODES_ibfk_1` FOREIGN KEY (`IDEPISODE`) REFERENCES `EPISODES` (`IDEPISODE`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT `MODERATION_EPISODES_ibfk_2` FOREIGN KEY (`MODERATOR`) REFERENCES `USERS` (`USERNAME`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese_ci;
-
--- --------------------------------------------------------
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Cấu trúc bảng cho bảng `POINTS`
+-- Dumping data for table `MODERATION_EPISODES`
 --
 
+LOCK TABLES `MODERATION_EPISODES` WRITE;
+/*!40000 ALTER TABLE `MODERATION_EPISODES` DISABLE KEYS */;
+/*!40000 ALTER TABLE `MODERATION_EPISODES` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `POINTS`
+--
+
+DROP TABLE IF EXISTS `POINTS`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `POINTS` (
   `USERNAME` varchar(50) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NOT NULL,
   `IDEPISODE` bigint NOT NULL,
   `CHARGE` bit(1) NOT NULL,
   `POINT` bigint NOT NULL,
   `CREATEDAT` datetime DEFAULT NULL,
-  `UPDATEDAT` datetime DEFAULT NULL
+  `UPDATEDAT` datetime DEFAULT NULL,
+  PRIMARY KEY (`USERNAME`,`IDEPISODE`) USING BTREE,
+  KEY `IDEPISODE` (`IDEPISODE`),
+  CONSTRAINT `POINTS_ibfk_1` FOREIGN KEY (`IDEPISODE`) REFERENCES `EPISODES` (`IDEPISODE`),
+  CONSTRAINT `POINTS_ibfk_2` FOREIGN KEY (`USERNAME`) REFERENCES `USERS` (`USERNAME`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
--- --------------------------------------------------------
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Cấu trúc bảng cho bảng `ROLE`
+-- Dumping data for table `POINTS`
 --
 
+LOCK TABLES `POINTS` WRITE;
+/*!40000 ALTER TABLE `POINTS` DISABLE KEYS */;
+/*!40000 ALTER TABLE `POINTS` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `ROLE`
+--
+
+DROP TABLE IF EXISTS `ROLE`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `ROLE` (
   `IDROLE` varchar(50) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NOT NULL,
   `NAME` varchar(255) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NOT NULL,
   `CREATEDAT` datetime DEFAULT NULL,
-  `UPDATEDAT` datetime DEFAULT NULL
+  `UPDATEDAT` datetime DEFAULT NULL,
+  PRIMARY KEY (`IDROLE`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese_ci;
-
--- --------------------------------------------------------
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Cấu trúc bảng cho bảng `USERGROUP`
+-- Dumping data for table `ROLE`
 --
 
+LOCK TABLES `ROLE` WRITE;
+/*!40000 ALTER TABLE `ROLE` DISABLE KEYS */;
+/*!40000 ALTER TABLE `ROLE` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `USERGROUP`
+--
+
+DROP TABLE IF EXISTS `USERGROUP`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `USERGROUP` (
   `IDGROUP` varchar(50) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NOT NULL,
   `NAME` varchar(255) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NOT NULL,
   `CREATEDAT` datetime DEFAULT NULL,
-  `UPDATEDAT` datetime DEFAULT NULL
+  `UPDATEDAT` datetime DEFAULT NULL,
+  PRIMARY KEY (`IDGROUP`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Đang đổ dữ liệu cho bảng `USERGROUP`
+-- Dumping data for table `USERGROUP`
 --
 
-INSERT INTO `USERGROUP` (`IDGROUP`, `NAME`, `CREATEDAT`, `UPDATEDAT`) VALUES
-('ADMIN', 'Admin', '2021-05-25 00:00:00', '2021-05-25 00:00:00'),
-('MEMBER', 'Member', '2021-05-25 00:00:00', '2021-05-25 00:00:00'),
-('MODERATOR', 'Moderator', '2021-05-25 00:00:00', '2021-05-25 00:00:00'),
-('UPLOADER', 'Uploader', '2021-05-25 00:00:00', '2021-05-25 00:00:00');
-
--- --------------------------------------------------------
+LOCK TABLES `USERGROUP` WRITE;
+/*!40000 ALTER TABLE `USERGROUP` DISABLE KEYS */;
+INSERT INTO `USERGROUP` VALUES ('ADMIN','Admin','2021-05-25 00:00:00','2021-05-25 00:00:00'),('MEMBER','Member','2021-05-25 00:00:00','2021-05-25 00:00:00'),('MODERATOR','Moderator','2021-05-25 00:00:00','2021-05-25 00:00:00'),('UPLOADER','Uploader','2021-05-25 00:00:00','2021-05-25 00:00:00');
+/*!40000 ALTER TABLE `USERGROUP` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
--- Cấu trúc bảng cho bảng `USERGROUP_ROLE`
+-- Table structure for table `USERGROUP_ROLE`
 --
 
+DROP TABLE IF EXISTS `USERGROUP_ROLE`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `USERGROUP_ROLE` (
   `IDGROUP` varchar(50) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NOT NULL,
   `IDROLE` varchar(50) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NOT NULL,
   `CREATEDAT` datetime DEFAULT NULL,
-  `UPDATEDAT` datetime DEFAULT NULL
+  `UPDATEDAT` datetime DEFAULT NULL,
+  PRIMARY KEY (`IDGROUP`,`IDROLE`),
+  KEY `IDROLE` (`IDROLE`),
+  CONSTRAINT `usergroup_role_ibfk_1` FOREIGN KEY (`IDGROUP`) REFERENCES `USERGROUP` (`IDGROUP`),
+  CONSTRAINT `usergroup_role_ibfk_2` FOREIGN KEY (`IDROLE`) REFERENCES `ROLE` (`IDROLE`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese_ci;
-
--- --------------------------------------------------------
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Cấu trúc bảng cho bảng `USERS`
+-- Dumping data for table `USERGROUP_ROLE`
 --
 
+LOCK TABLES `USERGROUP_ROLE` WRITE;
+/*!40000 ALTER TABLE `USERGROUP_ROLE` DISABLE KEYS */;
+/*!40000 ALTER TABLE `USERGROUP_ROLE` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `USERS`
+--
+
+DROP TABLE IF EXISTS `USERS`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `USERS` (
   `USERNAME` varchar(50) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NOT NULL,
   `EMAIL` varchar(255) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NOT NULL,
@@ -220,192 +355,30 @@ CREATE TABLE `USERS` (
   `AVATAR` varchar(512) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NOT NULL,
   `POINT` bigint NOT NULL DEFAULT '0',
   `CREATEDAT` datetime NOT NULL,
-  `UPDATEDAT` datetime NOT NULL
+  `UPDATEDAT` datetime NOT NULL,
+  PRIMARY KEY (`USERNAME`),
+  KEY `USERGROUP` (`USERGROUP`),
+  CONSTRAINT `users_ibfk_1` FOREIGN KEY (`USERGROUP`) REFERENCES `USERGROUP` (`IDGROUP`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Đang đổ dữ liệu cho bảng `USERS`
+-- Dumping data for table `USERS`
 --
 
-INSERT INTO `USERS` (`USERNAME`, `EMAIL`, `PASSWORD`, `NAME`, `GENDER`, `USERGROUP`, `BIRTHDAY`, `AVATAR`, `POINT`, `CREATEDAT`, `UPDATEDAT`) VALUES
-('chenjinguyen', 'duyntp2000@gmail.com', 'ngusaonoi', 'Nguyễn Duy', 'Nam', 'member', '2000-10-20', 'https://ui-avatars.com/api/?size=256&name=Nguyễn Duy', 0, '2021-05-24 17:14:28', '2021-05-24 17:14:28');
+LOCK TABLES `USERS` WRITE;
+/*!40000 ALTER TABLE `USERS` DISABLE KEYS */;
+INSERT INTO `USERS` VALUES ('nhuquynhnt0711','nhuquynhnt0711@gmail.com','$2b$10$syi0GRZOLa9UH2Mxqp/TTeSVLuwluCyp/eE4//n4tWkVF4laQjvZi','Như Quỳnh','Nữ','member','2000-11-07','https://ui-avatars.com/api/?size=256&name=Như Quỳnh',0,'2021-05-25 11:43:25','2021-05-25 11:43:25');
+/*!40000 ALTER TABLE `USERS` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
---
--- Chỉ mục cho các bảng đã đổ
---
-
---
--- Chỉ mục cho bảng `BOOKS`
---
-ALTER TABLE `BOOKS`
-  ADD PRIMARY KEY (`IDBOOK`) USING BTREE,
-  ADD KEY `UPLOADER` (`UPLOADER`),
-  ADD KEY `CATEGORY` (`CATEGORY`),
-  ADD KEY `AUTHOR` (`AUTHOR`);
-
---
--- Chỉ mục cho bảng `CATEGORY`
---
-ALTER TABLE `CATEGORY`
-  ADD PRIMARY KEY (`IDCATEGORY`) USING BTREE;
-
---
--- Chỉ mục cho bảng `COMMENTS`
---
-ALTER TABLE `COMMENTS`
-  ADD PRIMARY KEY (`IDCOMMENT`),
-  ADD KEY `IDUSER` (`IDUSER`),
-  ADD KEY `IDBOOK` (`IDBOOK`);
-
---
--- Chỉ mục cho bảng `EPISODES`
---
-ALTER TABLE `EPISODES`
-  ADD PRIMARY KEY (`IDEPISODE`),
-  ADD KEY `IDBOOK` (`IDBOOK`);
-
---
--- Chỉ mục cho bảng `LIKES`
---
-ALTER TABLE `LIKES`
-  ADD PRIMARY KEY (`IDUSER`,`IDBOOK`),
-  ADD KEY `IDBOOK` (`IDBOOK`);
-
---
--- Chỉ mục cho bảng `MODERATION_BOOKS`
---
-ALTER TABLE `MODERATION_BOOKS`
-  ADD PRIMARY KEY (`IDBOOK`),
-  ADD KEY `MODERATOR` (`MODERATOR`);
-
---
--- Chỉ mục cho bảng `MODERATION_EPISODES`
---
-ALTER TABLE `MODERATION_EPISODES`
-  ADD PRIMARY KEY (`IDEPISODE`,`MODERATOR`) USING BTREE,
-  ADD KEY `MODERATOR` (`MODERATOR`);
-
---
--- Chỉ mục cho bảng `POINTS`
---
-ALTER TABLE `POINTS`
-  ADD PRIMARY KEY (`USERNAME`,`IDEPISODE`) USING BTREE,
-  ADD KEY `IDEPISODE` (`IDEPISODE`);
-
---
--- Chỉ mục cho bảng `ROLE`
---
-ALTER TABLE `ROLE`
-  ADD PRIMARY KEY (`IDROLE`);
-
---
--- Chỉ mục cho bảng `USERGROUP`
---
-ALTER TABLE `USERGROUP`
-  ADD PRIMARY KEY (`IDGROUP`);
-
---
--- Chỉ mục cho bảng `USERGROUP_ROLE`
---
-ALTER TABLE `USERGROUP_ROLE`
-  ADD PRIMARY KEY (`IDGROUP`,`IDROLE`),
-  ADD KEY `IDROLE` (`IDROLE`);
-
---
--- Chỉ mục cho bảng `USERS`
---
-ALTER TABLE `USERS`
-  ADD PRIMARY KEY (`USERNAME`),
-  ADD KEY `USERGROUP` (`USERGROUP`);
-
---
--- AUTO_INCREMENT cho các bảng đã đổ
---
-
---
--- AUTO_INCREMENT cho bảng `BOOKS`
---
-ALTER TABLE `BOOKS`
-  MODIFY `IDBOOK` bigint NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
--- AUTO_INCREMENT cho bảng `COMMENTS`
---
-ALTER TABLE `COMMENTS`
-  MODIFY `IDCOMMENT` bigint NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT cho bảng `EPISODES`
---
-ALTER TABLE `EPISODES`
-  MODIFY `IDEPISODE` bigint NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
-
---
--- Các ràng buộc cho các bảng đã đổ
---
-
---
--- Các ràng buộc cho bảng `BOOKS`
---
-ALTER TABLE `BOOKS`
-  ADD CONSTRAINT `books_ibfk_1` FOREIGN KEY (`UPLOADER`) REFERENCES `USERS` (`USERNAME`),
-  ADD CONSTRAINT `books_ibfk_2` FOREIGN KEY (`CATEGORY`) REFERENCES `CATEGORY` (`IDCATEGORY`) ON DELETE RESTRICT ON UPDATE RESTRICT;
-
---
--- Các ràng buộc cho bảng `COMMENTS`
---
-ALTER TABLE `COMMENTS`
-  ADD CONSTRAINT `comments_ibfk_1` FOREIGN KEY (`IDUSER`) REFERENCES `USERS` (`USERNAME`),
-  ADD CONSTRAINT `comments_ibfk_2` FOREIGN KEY (`IDBOOK`) REFERENCES `BOOKS` (`IDBOOK`);
-
---
--- Các ràng buộc cho bảng `EPISODES`
---
-ALTER TABLE `EPISODES`
-  ADD CONSTRAINT `episodes_ibfk_1` FOREIGN KEY (`IDBOOK`) REFERENCES `BOOKS` (`IDBOOK`);
-
---
--- Các ràng buộc cho bảng `LIKES`
---
-ALTER TABLE `LIKES`
-  ADD CONSTRAINT `likes_ibfk_1` FOREIGN KEY (`IDUSER`) REFERENCES `USERS` (`USERNAME`),
-  ADD CONSTRAINT `likes_ibfk_2` FOREIGN KEY (`IDBOOK`) REFERENCES `BOOKS` (`IDBOOK`);
-
---
--- Các ràng buộc cho bảng `MODERATION_BOOKS`
---
-ALTER TABLE `MODERATION_BOOKS`
-  ADD CONSTRAINT `moderations_ibfk_1` FOREIGN KEY (`IDBOOK`) REFERENCES `BOOKS` (`IDBOOK`),
-  ADD CONSTRAINT `moderations_ibfk_2` FOREIGN KEY (`MODERATOR`) REFERENCES `USERS` (`USERNAME`);
-
---
--- Các ràng buộc cho bảng `MODERATION_EPISODES`
---
-ALTER TABLE `MODERATION_EPISODES`
-  ADD CONSTRAINT `MODERATION_EPISODES_ibfk_1` FOREIGN KEY (`IDEPISODE`) REFERENCES `EPISODES` (`IDEPISODE`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  ADD CONSTRAINT `MODERATION_EPISODES_ibfk_2` FOREIGN KEY (`MODERATOR`) REFERENCES `USERS` (`USERNAME`);
-
---
--- Các ràng buộc cho bảng `POINTS`
---
-ALTER TABLE `POINTS`
-  ADD CONSTRAINT `POINTS_ibfk_1` FOREIGN KEY (`IDEPISODE`) REFERENCES `EPISODES` (`IDEPISODE`),
-  ADD CONSTRAINT `POINTS_ibfk_2` FOREIGN KEY (`USERNAME`) REFERENCES `USERS` (`USERNAME`);
-
---
--- Các ràng buộc cho bảng `USERGROUP_ROLE`
---
-ALTER TABLE `USERGROUP_ROLE`
-  ADD CONSTRAINT `usergroup_role_ibfk_1` FOREIGN KEY (`IDGROUP`) REFERENCES `USERGROUP` (`IDGROUP`),
-  ADD CONSTRAINT `usergroup_role_ibfk_2` FOREIGN KEY (`IDROLE`) REFERENCES `ROLE` (`IDROLE`);
-
---
--- Các ràng buộc cho bảng `USERS`
---
-ALTER TABLE `USERS`
-  ADD CONSTRAINT `users_ibfk_1` FOREIGN KEY (`USERGROUP`) REFERENCES `USERGROUP` (`IDGROUP`);
-COMMIT;
-
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2021-05-25 11:52:30
