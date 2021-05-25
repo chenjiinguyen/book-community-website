@@ -48,6 +48,18 @@ router.get('/novel/submitWait', function(req, res, next) {
 router.get('/comic/content', function(req, res, next) {
     res.render('page.admin.comic.content', { title: 'Express', breadcrumb: breadcrumb });
 });
+router.get('/comic/create', function(req, res, next) {
+    res.render('page.admin.comic.create', { title: 'Express', breadcrumb: breadcrumb });
+});
+router.get('/comic/createChaper', function(req, res, next) {
+    res.render('page.admin.comic.createChaper', { title: 'Express', breadcrumb: breadcrumb });
+});
 
+router.get('/comic/submitWait', function(req, res, next) {
+    res.render('page.admin.comic.submitWait', { title: 'Express', breadcrumb: breadcrumb });
+});
 
+router.get('/question', function(req, res, next) {
+    res.render('page.admin.question', { title: 'Express', breadcrumb: breadcrumb });
+});
 module.exports = router;
