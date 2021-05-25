@@ -13,7 +13,7 @@ const controller = {
             success: false,
             message: "No such user found"});
       }
-      if (user.isValidPassword(password)) {
+      if (await user.isValidPassword(password)) {
         // from now on we’ll identify the user by the id and the id is
         // the only personalized value that goes into our tokend 
         const jwt = utils.issueJWT(user,(remember)?true:false);
