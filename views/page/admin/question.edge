@@ -1,0 +1,123 @@
+@layout('layout.admin')
+
+@section('content')
+<div id="page-content"><h1>Hỏi Đáp Tác Giả</h1>
+    <!-- 上传作品 -->
+    <h2>Đăng tác phẩm</h2>
+    <h3>1.  Đăng tác phẩm lên MangaToon/NovelToon cần điều kiện gì?</h3>
+    <p>●  Tác phẩm nguyên tác, không được sao chép, đạo nhái.</p>
+    <p>●  Không được đăng nội dung khiêu dâm, bạo lực, liên quan đến chính trị, tôn giáo, vi phạm thuần phong mỹ tục...</p>
+    <h3>2.  Làm sao để đăng tải tác phẩm lên app MangaToon/NovelToon?</h3>
+    <p>Có thể đăng tải từ trang web: mangatoon.mobi, hoặc tải app MangaToon/NovelToon từ kho ứng dụng và đăng tải trực tiếp từ app.</p>
+    <div style="padding-left: 20px;">
+      <h3>MangaToon</h3>
+      <p>●  Đăng nhập, bấm vào Tôi - Trở thành tác giả - bấm nút “+” ở góc dưới – chọn loại hình tiểu thuyết (tiểu thuyết thường/ tiểu thuyết đối thoại) – điền thông tin tiểu thuyết – viết nội dung chương.</p>
+      <h3>NovelToon</h3>
+      <p>●  Bấm Gửi bản thảo – bấm nút “+” ở góc dưới – điền thông tin tiểu thuyết – viết nội dung chương.</p>
+      <h3>Website</h3>
+      <p>●  Bấm Đăng tác phẩm (nếu vào trang web từ điện thoại thì bấm vào 3 gạch ngang) – bấm Tạo tác phẩm – tạo tiểu thuyết – thêm thông tin tiểu thuyết – viết nội dung.</p>
+    </div>
+    <h3>3.  Có phải viết hoàn trước mới được đăng?</h3>
+    <p>●  Không, tác phẩm hoàn hay đang viết đều có thể đăng tải..</p>
+    <h3>4.  Tại sao tác phẩm đã thông qua kiểm duyệt nhưng tìm kiếm lại không có?</h3>
+    <p>●  Bạn vui lòng đợi thêm một lát, từ lúc thông qua kiểm duyệt cho đến khi được up lên app cần một chút thời gian.</p>
+    <h3>5.  Thời gian kiểm duyệt là bao lâu?</h3>
+    <p>●  Thời gian kiểm duyệt trung bình từ 1 đến 3 ngày.</p>
+    <h3>6.  Tại sao phải có bước kiểm duyệt tác phẩm?</h3>
+    <p>●  Để loại bỏ các tác phẩm không phù hợp với quy định đăng tải của MangaToon/NovelToon.</p>
+    <h3>7.  Ngày cập nhật nghĩa là sao?</h3>
+    <p>●  Bạn có thể lưu thành bản nháp, rồi cài đặt xem ngày nào chương được đăng lên. Cần lưu ý: chương này không được cài ngày ra trước chương trước, và không được muộn hơn chương sau. Nếu bạn cài sai, thì chương đó sẽ không thể được đăng lên.</p>
+    <h3>8.  Thiết lập FULL cho tiểu thuyết bằng cách nào?</h3>
+    <p>●  Trên App: Bấm vào bộ truyện cần cài đặt - bấm Sửa – trượt nút bật Full.</p>
+    <p>●  Trên websize https://mangatoon.mobi/vi : Bấm vào bộ truyện cần cài đặt – ở dưới ảnh bìa bấm Sửa tiểu thuyết – Tình trạng cập nhật chọn sang Đã Full.</p>
+    <h3>9.  Các chương đã đăng có sửa được nội dung không?</h3>
+    <p>●  Bạn hoàn toàn có thể sửa nội dung chương đã đăng trên Bản thảo của mình.</p>
+    <h3>10.  Có nhất định phải có ảnh bìa không?</h3>
+    <p>●  Không nhất thiết. MangaToon/NovelToon có kho ảnh bìa mặc định có thể tự động thêm vào tác phẩm của bạn. Tuy nhiên chúng tôi khuyến khích bạn tự chuẩn bị ảnh bìa. Bạn là tác giả, sẽ hiểu nội dung tiểu thuyết hơn và sẽ lựa chọn được ảnh bìa phù hợp hơn.</p>
+    <h3>11.  Kích cỡ ảnh bìa là bao nhiêu?</h3>
+    <p>●  450 x 600 pixel.</p>
+    <h3>12.  Tại sao không thể tải lên ảnh bìa?</h3>
+    <p>●  Có thể là do mạng không tốt, bạn có thể thử lại vài lần. Hoặc nếu cần hỗ trợ thêm, liên hệ facebook: NovelToon_VI</p>
+    <h3>13.  Muốn đổi tên tác giả?</h3>
+    <p>●  Rất tiếc, hiện tại MangaToon/NovelToon không hỗ trợ thay đổi tên tác giả.</p>
+    <h3>14.  Khi đăng nhập vào MangaToon/NovelToon (app hoặc websize) lại xuất hiện 2 tài khoản phải làm sao?</h3>
+    <p>●  Trước hết bạn phải xác nhận lại xem 2 tài khoản đó có đúng là được đăng nhập bằng cùng một phương thức đăng nhập hay không (đăng nhập bằng cùng 1 tài khoản google, facebook...). Nếu vẫn xuất hiện 2 tài khoản, vui lòng liên hệ facebook: NovelToon_VI để được giải quyết.</p>
+    <h3>15.  Người khác có thể copy nội dung tác phẩm của tôi không?</h3>
+    <p>●  MangaToon/NovelToon sẽ bảo vệ nghiêm ngặt bản quyền của tác giả. Chúng tôi sẽ cố gắng hết sức để ngăn chặn tác phẩm của bạn bị sao chép. Một trong số các phương pháp, đó là không ai ngoài bạn ra có thể copy paste nội dung tác phẩm của bạn.</p>
+    
+    <!-- 签约 -->
+    <h2>Ký hợp đồng</h2>
+    <h3>1.  Tác phẩm ký hợp đồng độc quyền thì có lợi gì?</h3>
+    <p>●  Thu nhập cao hơn (xem chi tiết ở mục hỏi đáp về thu nhập)</p>
+    <p>●  Các tác phẩm ký độc quyền có thể được ưu tiên quảng cáo đa kênh.</p>
+    <p>●  Tác phẩm ký độc quyền có cơ hội được thiết kế nhân vật, xuất bản, sách nói, chuyển thể truyện tranh, trò chơi, phim ảnh...</p>
+    <h3>2.  Xin ký hợp đồng cần điều kiện gì?</h3>
+    <p>●  Các tác phẩm đạt 20.000 chữ và 20 chương (tiểu thuyết), 5000 chữ và 20 chương (truyện chat), đều có thể xin ký hợp đồng.</p>
+    <p>●  Tác phẩm phải là nguyên tác, không sao chép, đạo nhái tác phẩm khác, không vi phạm thuần phong mĩ tục, khiêu dâm, liên quan chính trị, tôn giáo...</p>
+    <p>●  Tác phẩm đăng tải độc quyền trên MangaToon/NovelToon.</p>
+    <h3>3.  Quy trình xin ký hợp đồng?</h3>
+    <p>●  Trên App: Vào bản thảo, bấm "Xin ký hợp đồng". Sau khi gửi xin ký xong (hoặc sau khi nhận được thông báo thông qua vòng kiểm duyệt sơ thẩm), vui lòng đăng nhập trên trang web chính thức của chúng tôi và điền thông tin yêu cầu.</p>
+    <p>●  Trên trang web: Đăng nhập - bấm Đăng tác phẩm - Ký hợp đồng – Bổ sung thông tin -Gửi. Sau khi thông qua xét duyệt, vào lại để tải xuống hợp đồng.</p>
+    <h3>4.  Nếu không có chứng minh thư nhân dân/thẻ căn cước và tài khoản ngân hàng phải làm sao?</h3>
+    <p>●  Nếu bạn chưa có CMTND/ thẻ căn cước thì có thẻ dùng thẻ học sinh (điền số thẻ học sinh thay cho số CMTND/ thẻ căn cước). Nếu không có số thẻ học sinh, hãy dùng giấy tờ tùy thân của người thân như: CMTND/ thẻ căn cướ, bằng lái xe... Nếu không có tài khoản ngân hàng thì dùng tài khoản ngân hàng của người thân.</p>
+    <h3>5.  Cấp của tác phẩm là gì?</h3>
+    <p>●  Cấp là đánh giá tổng hợp hàng tháng của hệ thống dựa theo biểu hiện của truyện, số chữ...Biểu hiện của truyện: nội dung, tình tiết, tần suất cập nhật, phạm vi sử dụng từ ngữ... đều ảnh hưởng đến biểu hiện của truyện.</p>
+    <p>●  Số chữ mỗi chương: khuyến khích tiểu thuyết từ 1000-2000 chữ/ chương, truyện chat là 200-500 chữ/ chương, thấp hơn mức này, cấp đánh giá của tác phẩm sẽ bị ảnh hưởng.</p>
+    <p>●  Nếu tác phẩm ký hợp đồng vẫn đang ra chương, nếu trong 1 tháng không cập nhật thêm chương nội dung chính nào, sẽ bị hạ một bậc đánh giá.</p>
+    <p>●  Hệ thống sẽ gửi đến tác giả Cấp đánh giá sơ bộ của tác phẩm. Nếu tác phẩm chưa có Cấp hoặc Cấp bằng 0, sau khi xin ký hợp đồng, tác phẩm sẽ được đưa lên đề xuất để quan sát biểu hiện.</p>
+    <p>●  Nếu tác phẩm chưa có cấp hoặc cấp bằng 0 nhưng vẫn được ký hợp đồng, thì cấp 3 sẽ là cấp mặc định ban đầu của tác phẩm.</p>
+    <h3>6.  Tại sao tác phẩm của tôi lại hiển thị “Chưa có cấp”?</h3>
+    <p>●  Cấp được đánh giá dựa trên số liệu về truyện trong tháng, nếu số liệu quá thấp thì sẽ tạm thời không thể đánh giá. Khi đó, bạn có thể xin ký hợp đồng và truyện sẽ nhận được đề xuất từ App và bước vào giai đoạn quan sát biểu hiện, từ có có được cấp.</p>
+    <h3>7.  Có phải chỉ có tác phẩm đã ký độc quyền mới có Cấp?</h3>
+    <p>●  Tất cả tác phẩm đều có Cấp. Cấp của tác phẩm ký độc quyền sẽ quyết định đến phúc lợi của tác phẩm. Cấp của tác phẩm sẽ được cập nhật mới mỗi tháng. Phúc lợi của tác phẩm không độc quyền không phụ thuộc vào Cấp.</p>
+    <h3>8.  Làm thế nào để tăng Cấp của tác phẩm?</h3>
+    <p>●  Cấp của tác phẩm phụ thuộc vào số liệu của tác phẩm đó. Số liệu của tác phẩm chịu ảnh hưởng từ nhiều yếu tố: nội dung, tình tiết, phạm vi sử dụng từ ngữ, tần suất cập nhật, số chữ mỗi chương... Nói đơn giản, tác phẩm phải viết hay và thu hút người đọc, tỷ lệ giữ chân người đọc cao, là yếu tố quyết định để tăng cấp của tác phẩm.</p>
+    <h3>9.  Tại sao tác phẩm của tôi không thông qua xét duyệt ký hợp đồng?</h3>
+    <p>●  Không phải nguyên tác.</p>
+    <p>●  Tác phẩm fan-fic, đồng nhân.</p>
+    <p>●  Tác phẩm chứa nội dung khiêu dâm, bạo lực, các nội dung liên quan đến chính trị, tôn giáo...</p>
+    <p>●  Chất lượng tác phẩm chưa tốt, ví dụ quá nhiều lỗi sai chính tả, viết tắt, teencode, cốt truyện không rõ ràng...</p>
+    <p>●  Tác phẩm biểu hiện chưa tốt.</p>
+    <h3>10.  Làm thế nào để cải thiện biểu hiện của truyện?</h3>
+    <p>●  Bổ sung giới thiệu và chọn một ảnh bìa bắt mắt.</p>
+    <p>●  Cập nhật chương mới thường xuyên và có quy luật.</p>
+    <p>●  Lắng nghe ý kiến đóng góp của độc giả.</p>
+    <p>●  Thường xuyên tương tác với độc giả.</p>
+    <p>●  Học hỏi thêm từ các tác giả khác, đọc nhiều.</p>
+    <p>●  Chia sẻ tác phẩm lên các diễn đàn, hội nhóm, cho bạn bè.... để tăng lượng độc giả.</p>
+    
+    <!-- 收入 -->
+    <h2>Thu nhập</h2>
+    <h3>1.  Tác phẩm không độc quyền có thu nhập không?</h3>
+    <p>●  Tác phẩm cho dù là ký độc quyền hay không độc quyền đều có thu nhập, chỉ là thu nhập của tác phẩm ký độc quyền sẽ cao hơn, và ngoài ra còn nhiều phúc lợi hơn. Vậy nên hãy mau mau bấm xin ký hợp đồng tác phẩm của bạn nhé.</p>
+    <h3>2.  Thu nhập của tác phẩm độc quyền và không độc quyền khác nhau như nào?</h3>
+    <p>●  Tác phẩm không độc quyền: phụ cấp lượt đọc + phân chia phí trả từ người dùng + phân chia thu nhập từ bản quyền.</p>
+    <p>●  Tác phẩm độc quyền: phụ cấp lượt đọc + phân chia phí trả từ người dùng + phân chia thu nhập từ bản quyền + thưởng bảng xếp hạng.</p>
+    <p>*Phụ cấp lượt đọc của tác phẩm độc quyền cao hơn, và chia làm 8 cấp. Chi tiết xem tại mục Phúc lợi trên trang web: https://mangatoon.mobi/vi.</p>
+    <p>Ngoài ra, chúng tôi còn thường xuyên tổ chức các hoạt động, cuộc thi viết có thưởng, tất các tác phẩm đều có tham gia và lĩnh thưởng nhé.</p>
+    <h3>3.  “Thu nhập” và “Số tiền có thể rút” nghĩa là sao?</h3>
+    <p>●  “Thu nhập” để chỉ tổng thu nhập của bạn, thu nhập này sẽ không ngừng tăng hoặc biến động.</p>
+    <p>●  “Số tiền có thể rút” chỉ số tiền được phép rút ra tiền mặt. Thu nhập của tháng này sẽ được chuyển vào “Số tiền có thể rút” sau ngày mùng 6 của tháng sau. Khi số tiền có thể rút đủ 1.000.000 đồng thì có thể rút ra tiền mặt.</p>
+    <p>●  Ví dụ thu nhập của tháng 1/2019 thì đến sau 6/2/2019 sẽ được chuyển vào “Số tiền có thể rút”. Cứ tích lũy như vậy cho đến khi đủ 1 triệu đồng thì có thể bấm Rút tiền.</p>
+    <h3>4.  Rút tiền như nào?</h3>
+    <p>●  Tại giao diện của tác giả, bấm Rút tiền – Thiết lập tài khoản – điền thông tin thẻ ngân hàng. Sau khi xác nhận lại tài khoản nhận tiền là chính xác, chúng tôi sẽ chuyển tiền cho bạn.</p>
+    <p>●  Nếu bạn xin rút tiền trước ngày 15 hàng tháng, tiền sẽ được chuyển cho bạn vào cuối tháng. Nếu xin rút sau ngày 15, tiền sẽ được chuyển vào cuối tháng sau. Phí rút tiền và thuế phí liên quan do bên nhận tiền chi trả.</p>
+    <h3>5.  Sau khi rút tiền thì bao giờ nhận được?</h3>
+    <p>●  Nếu bạn xin rút tiền trước ngày 15, tiền sẽ được thanh toán vào cuối tháng. Nếu xin rút sau ngày 15, tiền sẽ được chuyển vào cuối tháng tiếp theo. Phí chuyển tiền và thuế phí liên quan do bên nhận tiền chi trả.</p>
+    
+    <!-- 其他 -->
+    <h2>Khác</h2>
+    <h3>1.  Nếu tôi phát hiện có tiểu thuyết không phải chính chủ, hoặc có chứa các nội dung không phù hợp, tôi phải báo cáo vấn đề này như thế nào?</h3>
+    <p>●  Ở giao diện thông tin tác phẩm, kéo xuống cuối màn hình có dấu chấm than (!) Báo cáo tác phẩm, hoặc dấu chấm than ở góc trên trong mỗi chương – chọn nội dung muốn báo cáo, ghi thông tin mô tả và gửi kèm ảnh bằng chứng về. Tuy nhiên, hãy nhớ rằng các báo cáo vô căn cứ sẽ không được giải quyết.</p>
+    <h3>2.  Độ hot (hình ngọn lửa) có phải lượt đọc không?</h3>
+    <p>●  Độ hot là số liệu tổng hợp của lượt đọc, lượt theo dõi và bình luận. Khác với lượt đọc, để chỉ views của tác phẩm đó.</p>
+    <style>
+        body{background-color:#fff;}
+        p,h3,h2{padding:0 10%;font-family:Calibri,Verdana;font-size:16px;}
+        h3{font-size:18px;margin-bottom:10px;font-weight:bold;}
+        h2{font-size:20px;margin-bottom:10px;font-weight:bold;}
+        h1{font-size:24px;padding:30px 20px;text-align:center;font-family:Calibri,Verdana;font-weight:bold;}
+        a{text-decoration:none;}
+      </style>
+</div>
+    @endsection

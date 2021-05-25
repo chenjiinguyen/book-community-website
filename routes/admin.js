@@ -44,4 +44,10 @@ router.get('/comment', function(req, res, next) {
 router.get('/novel/submitWait', function(req, res, next) {
     res.render('page.admin.novel.submitWait', { title: 'Express', breadcrumb: breadcrumb });
 });
+
+router.get('/comic/content', function(req, res, next) {
+    res.render('page.admin.comic.content', { title: 'Express', breadcrumb: breadcrumb });
+});
+
+
 module.exports = router;
