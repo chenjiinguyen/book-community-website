@@ -1,0 +1,20 @@
+@layout('layout.admin')
+@section('content')
+<div id="comment-page" class="content-wrapper">
+    <label class="txt-label">
+        <a href="#" class="iconfont custom-select-down">
+            <i class="fa fa-caret-down" aria-hidden="true"></i>
+        </a>
+        <select class="custom-select" id="my-contents"></select>
+    </label>
+    <select id="episodes" style="display: none;"></select>
+    <div id="comment-list"></div>
+    <a href="#" id="btn-send-comment-show">Viết bình luận</a>
+    <a href="#" id="btn-comment-more">Trang sau</a>
+    <div id="send-comment-div">
+        <textarea class="txt-comment-content"></textarea>
+        <div class="result-message">Đã gửi</div>
+        <a href="#" class="btn-send-comment">Gửi</a>
+    </div>
+</div>
+@endsection

@@ -1,0 +1,125 @@
+@layout('layout.admin')
+
+@section('css')
+<link href="http://mangatoon.mobi/js/tui-editor/codemirror.css" rel="stylesheet">
+<link href="http://mangatoon.mobi/js/tui-editor/github.css" rel="stylesheet">
+<link href="http://mangatoon.mobi/js/tui-editor/explain.css" rel="stylesheet">
+<link href="http://mangatoon.mobi/js/tui-editor/tui-editor.css" rel="stylesheet">
+<link href="http://mangatoon.mobi/js/tui-editor/tui-editor-contents.css" rel="stylesheet">
+@endsection
+
+@section('content')
+<div class="content-wrapper create-page-content">
+    <div class="content-left">
+        <div class="cover-img">
+            <img style="width:100%;height:100%" src="http://cn.e.pic.mangatoon.mobi/novel-contribute/cover_default.png">
+        </div>
+        <a class="content-btn btn btn-white" href="#">Sửa tiểu thuyết</a>
+        <a class="content-btn btn btn-red" href="#">Thêm chapter</a>
+    </div>
+    <div class="content-right">
+        <div>
+            <div class="content-title">
+                <div>
+                    Ngày Mai Nắng Lên </div>
+                <div class="apply_contract-div">
+                    <div class="btn btn-red btn-apply-contract-content disabled" style="display:flex;">
+                        <span>Không thể xin ký</span>
+                        <div>
+                            <a href="javascript:void(0)" class="icon-reject-message" style="font-size:16px;">
+                                <span class="iconfont">
+                                    <i class="far fa-question-circle"></i>
+                                </span>
+                                <div class="reject-message" style="bottom:42px;left:-255px;width:300px;">
+                                    <div class="triangle_border_down" style="left: 252px;"></div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-description">abc xyz</div>
+            <div class="content-tags">
+                <ul>
+                    <li>Đam mỹ</li>
+                </ul>
+            </div>
+        </div>
+        <table class="table content-table">
+            <thead>
+                <tr>
+                    <th style="width:35px"></th>
+                    <th style="width:30%">Chapter Tiêu đề</th>
+                    <th style="width:15%">Thời gian</th>
+                    <th style="width:15%">Trạng thái</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="td-weight">#2</td>
+                    <td class="td-title">Phân tích hồi quy với biến phân loại và định lượng<br><span class="word-count">Số chữ: 828</span></td>
+                    <td class="td-date">2021-05-06</td>
+                    <td class="episode_status episode_status_100">Thành công</td>
+                    <td><a class="td-btn btn-edit" href="/contribute/updateFictionEpisode?id=9983509">Sửa</a>
+                        <a class="td-btn btn-delete" data-id="9983509" href="javascript:void(0)">Xóa</a>
+                        <a class="td-btn btn-preview" data-id="9983509" href="/contribute/preview?type=2&amp;episode_id=9983509">Xem trước</a></td>
+                </tr>
+                <tr>
+                    <td class="td-weight">#1</td>
+                    <td class="td-title">Mô hình hồi quy Logistic<br><span class="word-count">Số chữ: 811</span></td>
+                    <td class="td-date">2021-05-05</td>
+                    <td class="episode_status episode_status_100">Thành công</td>
+                    <td><a class="td-btn btn-edit" href="/contribute/updateFictionEpisode?id=9965296">Sửa</a>
+                        <a class="td-btn btn-delete" data-id="9965296" href="javascript:void(0)">Xóa</a>
+                        <a class="td-btn btn-preview" data-id="9965296" href="/contribute/preview?type=2&amp;episode_id=9965296">Xem trước</a></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+@endsection
+
+@section('js')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous"></script>
+<script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
+<script>
+    var initialValue = [""];
+    initialValue = initialValue.join('\n');
+    const Editor = toastui.Editor;
+    const editor = new Editor({
+        el: document.querySelector('#editSection'),
+        initialEditType: 'wysiwyg',
+        height: '500px',
+        previewStyle: 'vertical',
+        initialValue: initialValue,
+        usageStatistics: false,
+        toolbarItems: [
+            'heading',
+            'bold',
+            'italic',
+            'strike',
+            'divider',
+            'hr',
+            'quote',
+            'divider',
+            'ul',
+            'ol',
+        ]
+    });
+    editor.on('pasteBefore', function(event) {
+        var html = event.$clipboardContainer.html();
+        html = html.replace(/<\/div>/g, "</div>\n");
+        html = html.replace(/<\/p>/g, "</p>\n");
+        html = html.replace(/<br>/g, "<br>\n");
+        html = html.replace(/<br\/>/g, "<br>\n");
+        var doc = new DOMParser().parseFromString(html, 'text/html');
+        html = doc.body.textContent || "";
+        html = htmlEncode(html);
+        html = html.replace(/\n/g, "<br/>");
+        event.$clipboardContainer.html(html);
+    });
+    editor.getHtml();
+</script>
+@endsection

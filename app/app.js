@@ -6,11 +6,12 @@ const logger = require('morgan');
 const { config, engine } = require('express-edge');
 const passport = require('./app/config/passport');
 const swagger = require('./app/config/swagger');
-
-const webRouter = require('./routes/web');
-const apiRouter = require('./routes/api');
-
 require('dotenv').config();
+
+const webRouter = require('./routes/web/web');
+const apiRouter = require('./routes/api');
+const adminRouter = require('./routes/admin');
+
 
 const app = express();
 
@@ -32,24 +33,23 @@ app.use(passport.initialize());
 app.use('/', webRouter);
 app.use('/api', apiRouter);
 app.use('/api-docs',swagger.serve,swagger.setup);
+app.use('/admin', adminRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
-  next(createError(404));
+    next(createError(404));
 });
 
 // error handler
 app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
+    // set locals, only providing error in development
+    res.locals.message = err.message;
+    res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-  // render the error page
-  res.status(err.status || 500);
-  res.render('page/error/index');
+    // render the error page
+    res.status(err.status || 500);
+    res.render('page/error/index');
 });
 
 
 module.exports = app;
-
-
