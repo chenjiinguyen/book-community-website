@@ -1,7 +1,6 @@
 const { Op,fn,col } = require("sequelize");
 const { Sequelize } = require("sequelize");
-const Book = require('../../model/bookModel');
-const Like = require('../../model/likeModel');
+const models = require("../../model/index");
 const type = require('../../../lib/type');
 const utils = require('../../../lib/utils');
 const status = require('../../../lib/status');
@@ -12,7 +11,7 @@ const controller = {
         let data = {};
         let result = {};
         if(id != null){
-            result = await Book.findOne({
+            result = await models.book.findOne({
                 where : {
                     idbook : id,
                     status: {
@@ -24,7 +23,7 @@ const controller = {
             if(result != null){
                 code = type.SUCCESS;
                 await result.map(async (x) => {
-                    x.like = await Like.count({
+                    x.like = await models.like.count({
                         where: {
                           id: x.idbook
                         }
@@ -39,7 +38,7 @@ const controller = {
                 data: result
             }
         }else{
-            result = await Book.findAll({
+            result = await models.book.findAll({
                 where: {
                     status: {
                         [Op.or] : [status.CHECKED,status.DRAFT]
@@ -50,7 +49,7 @@ const controller = {
             if(result != null){
                 code = type.SUCCESS;
                 for (let i = 0; i < result.length; i++) {
-                    result[i].like = await Like.count({
+                    result[i].like = await models.like.count({
                         where: {
                             idbook: result[i].idbook
                         }
@@ -73,7 +72,7 @@ const controller = {
         let data = {};
         let result = {};
         if(id != null){
-            result = await Book.findOne({
+            result = await models.book.findOne({
                 where : {
                     idbook : id,
                     status: status.CHECKED
@@ -89,7 +88,7 @@ const controller = {
                 data: result
             }
         }else{
-            result = await Book.findAll({
+            result = await models.book.findAll({
                 where : {
                     status: status.CHECKED
                 }
@@ -112,7 +111,7 @@ const controller = {
         let result = {};
         let author = req.user;
         if(id != null){
-            result = await Book.findOne({
+            result = await models.book.findOne({
                 where : {
                     idbook : id,
                     status: {
@@ -131,7 +130,7 @@ const controller = {
                 data: result
             }
         }else{
-            result = await Book.findAll({
+            result = await models.book.findAll({
                 where : {
                     status: {
                         [Op.or] : [status.CHECKED,status.DRAFT]
@@ -157,7 +156,7 @@ const controller = {
         if(utils.checkPropertiesInObject(attributes,req.query)){
             let author = req.user;
             let param = req.query;
-            let book = await Book.create({
+            let book = await models.book.create({
                 title: param.title,
                 author: param.author,
                 uploader: author.username,
@@ -188,7 +187,7 @@ const controller = {
         let attributes = ["title","author","category","poster","description","status"];
         if(utils.checkPropertiesInObject(["id"],req.query)){
             let param = req.query;
-            let book = await Book.findOne({
+            let book = await models.book.findOne({
                 where: {
                     idbook: param.id,
                     uploader: author.username,
@@ -233,7 +232,7 @@ const controller = {
         let data = {}
         if(utils.checkPropertiesInObject(["id"],req.query)){
             let param = req.query;
-            let book = await Book.findOne({
+            let book = await models.book.findOne({
                 where: {
                     idbook: param.id,
                     uploader: author.username,

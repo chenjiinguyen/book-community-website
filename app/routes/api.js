@@ -2,10 +2,10 @@ var express = require('express');
 var router = express.Router();
 const passport = require('../app/config/passport');
 
-const user = require('../app/controller/api/userController');
-const book = require('../app/controller/api/bookController');
-const auth = require('../app/controller/api/authController');
-const episode = require('../app/controller/api/episodeController');
+const user = require('../app/controller/api/user');
+const book = require('../app/controller/api/book');
+const auth = require('../app/controller/api/auth');
+const episode = require('../app/controller/api/episode');
 
 // User
 router.get('/user',user.index);

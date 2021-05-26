@@ -1,7 +1,7 @@
 const passport = require('passport');
 const passportJWT = require('passport-jwt');
 const JwtStrategy = passportJWT.Strategy;
-const User = require('../model/userModel');
+const models = require('../model/index');
 const jwtOptions = require('../../lib/utils').jwtOptions;
 const type = require('../../lib/type');
 
@@ -10,7 +10,7 @@ var jwtLogin = new JwtStrategy(jwtOptions, async function(jwt_payload, done) {
     const second_div = jwt_payload.exp - jwt_payload.iat;
     const back_time = jwt_payload.iat + (second_div * 1000);
     if(current_time <= back_time){
-      const user = await User.findOne({ where: { username: jwt_payload.username } });
+      const user = await models.user.findOne({ where: { username: jwt_payload.username } });
       if (user) {
         done(null, user);
       } else {

@@ -1,22 +1,21 @@
 const { Op,fn,col } = require("sequelize");
 const { Sequelize } = require("sequelize");
-const Book = require("../../model/BookModel");
-const Episode = require("../../model/episodeModel");
+const models = require("../../model/index");
 const type = require("../../../lib/type");
 const utils = require("../../../lib/utils");
 const status = require("../../../lib/status");
-
+da2fe99b910aa86b1b495329d78490d7
 const controller = {
   index: async (req, res, next) => {
     let _book = req.params.bookId;
     let _episode = req.params.episodeId;
     let data = {};
     if (_book != null) {
-      let book = await Book.findOne({ where: { idbook: _book } });
+      let book = await models.book.findOne({ where: { idbook: _book } });
       let result = {};
       if (book != null) {
         if (_episode != null) {
-          let episode = await Episode.findOne({
+          let episode = await models.episode.findOne({
             where: {
               idepisode: _episode,
               status: status.CHECKED,
@@ -29,7 +28,7 @@ const controller = {
               ? []
               : result.content.split("|");
         } else {
-          let episodes = await Episode.findAll({
+          let episodes = await models.episode.findAll({
             where: { idbook: _book, status: status.CHECKED },
             raw: true,
           });
@@ -67,16 +66,16 @@ const controller = {
     };
     let attributes = ["name", "content"];
     let author = req.user;
-    let book = await Book.findOne({ where: { idbook: req.params.bookId } });
+    let book = await models.book.findOne({ where: { idbook: req.params.bookId } });
     if (author.username == book.uploader) {
       if (utils.checkPropertiesInObject(attributes, req.query)) {
-        let chapOfBook = await Episode.findAll({
+        let chapOfBook = await models.episode.findAll({
           where: { idbook: req.params.bookId },
           raw: true,
         });
         let param = req.query;
         let index = Math.max(...chapOfBook.map((x) => x.index))+1;
-          let episode = await Episode.create({
+          let episode = await models.episode.create({
             idbook: req.params.bookId,
             index: index,
             name: param.name,
@@ -103,11 +102,11 @@ const controller = {
     };
     let attributes = ["name", "content"];
     let author = req.user;
-    let book = await Book.findOne({ where: { idbook: req.params.bookId } });
+    let book = await models.book.findOne({ where: { idbook: req.params.bookId } });
     if (author.username == book.uploader) {
       if (utils.checkPropertiesInObject(attributes, req.query)) {
         let param = req.query;
-        let episode = await Episode.findOne({
+        let episode = await models.episode.findOne({
           where: { idepisode: req.params.episodeId },
         });
         if (!episode) {
@@ -149,10 +148,10 @@ const controller = {
     let data = {
       ...type.BAD_REQUEST,
     };
-    let book = await Book.findOne({ where: { idbook: req.params.bookId } });
+    let book = await models.book.findOne({ where: { idbook: req.params.bookId } });
     if (author.username == book.uploader) {
     let param = req.query;
-    let episode = await Episode.findOne({
+    let episode = await models.episode.findOne({
       where: {
         idepisode: req.params.episodeId,
         status: {

@@ -1,11 +1,11 @@
 const { Sequelize, DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
-const Book = require('./bookModel');
-const User = require('./userModel');
+const Book = require('./book');
+const User = require('./user');
 
 const Like = sequelize.define('Like', {
   // Model attributes are defined here
-  iduser : {
+  username : {
     type: DataTypes.STRING,
     primaryKey: true,
     allowNull: false,
@@ -34,7 +34,7 @@ Like.associate = (models) => {
     });
     Like.belongsTo(models.User, {
         as: 'User',
-        foreignKey: "iduser"
+        foreignKey: "username"
     });
 };
 module.exports = Like;
