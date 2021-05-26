@@ -1,23 +1,16 @@
-var express = require("express");
+var express = require('express');
 var router = express.Router();
 
-
 /* GET home page. */
-router.get("/", function (req, res, next) {
-  const data = [
-    {
-      name: "Quỳnh",
-      age: 18,
-    },
-    {
-      name: "Xuân",
-      age: 21,
-    },{
-      name: "Sơn",
-      age: 21,
-    }
-  ];
-  res.render("page.index", { data });
+router.get('/', function(req, res, next) {
+  res.render('page.index', { title: 'Express' });
 });
+
+router.get('/truyentranh', function(req, res, next) {
+  res.render('page.truyentranh', { title: 'Express' });
+});
+
+module.exports = router;
+
 
 module.exports = router;

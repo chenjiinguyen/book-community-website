@@ -1,0 +1,102 @@
+/* Reponsive */
+@media only screen and (max-width: 800px) {
+    .container {
+      width: 100%;
+    }
+  
+    .badge {
+      font-size: 10px;
+    }
+  
+    /** TopBar **/
+    .top-info {
+      width: 100%;
+      position: relative;
+    }
+  
+    .top-container {
+      width: 100%;
+      position: relative;
+    }
+  
+    .top-logo {
+      float: left;
+      font-size: 24px;
+      font-weight: bold;
+      transform: translateX(-50%);
+      margin-left: 50%;
+    }
+  
+    .top-logo img {
+      height: 27px;
+    }
+  
+    .top-nav {
+      display: none;
+    }
+  
+    .top-user {
+      position: absolute;
+      top: 0;
+      right: 20px;
+    }
+  
+    .top-menu-icon {
+      display: block;
+      height: 25px;
+      width: 25px;
+      position: absolute;
+      top: 2px;
+      left: 20px;
+      line-height: 20px;
+    }
+  
+    /* Book List */
+    .book-list {
+      margin-top: 20px;
+      overflow: hidden;
+      margin-bottom: 0;
+    }
+  
+    .book-list .book-item {
+      width: 32%;
+      margin-left: 0;
+      margin-bottom: 0;
+      margin-bottom: 20px;
+      margin-right: 2%;
+    }
+  
+    .book-list .book-item:nth-child(6n + 1) {
+      margin-bottom: 20px;
+      margin-right: 2%;
+    }
+  
+    .book-list .book-item:nth-child(3n) {
+      margin-left: 0;
+      margin-right: 0;
+    }
+  
+    .book-item .book-image {
+      padding-bottom: 133.33%;
+      height: 0;
+      width: 100%;
+    }
+  
+    /* Footer */
+    .footer-container {
+      width: 100%;
+    }
+  
+    .footer-contact,
+    .footer-about {
+      background-color: #363636;
+      border-bottom: 1px solid #444;
+      overflow: hidden;
+      width: 100%;
+    }
+  
+    .footer-contact-item {
+      width: 100%;
+    }
+  }
+  
