@@ -8,9 +8,10 @@ const passport = require('./app/config/passport');
 const swagger = require('./app/config/swagger');
 require('dotenv').config();
 
+const adminRouter = require('./routes/web/admin');
 const webRouter = require('./routes/web/web');
 const apiRouter = require('./routes/api');
-const adminRouter = require('./routes/admin');
+
 
 
 const app = express();
