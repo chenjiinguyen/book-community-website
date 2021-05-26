@@ -4,7 +4,7 @@ const models = require("../../model/index");
 const type = require("../../../lib/type");
 const utils = require("../../../lib/utils");
 const status = require("../../../lib/status");
-da2fe99b910aa86b1b495329d78490d7
+
 const controller = {
   index: async (req, res, next) => {
     let _book = req.params.bookId;
