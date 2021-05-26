@@ -1,0 +1,151 @@
+.channels {
+    width: 1200px;
+    margin: 0 auto;
+    padding-bottom: 20px;
+    overflow: hidden;
+    margin-top: 10px;
+}
+div {
+    display: block;
+}
+.channel-item {
+    overflow: hidden;
+    margin-bottom: 15px;
+}
+.channel-title {
+    float: left;
+    width: 80px;
+    color: #9D9D9D;
+    font-size: 18px;
+    margin: 5px 50px 0 0;
+    padding: 5px 0;
+}
+.type-items {
+    width: 1060px;
+    float: left;
+}
+.channel-a {
+    display: inline-block;
+    
+}
+a {
+    color: #999;
+    text-decoration: none;
+}
+
+.channel-activity {
+    background-color: #FF5454;
+    border-radius: 16px;
+    color: #fff;
+    padding: 5px 20px;
+}
+
+.channel {
+    float: left;
+    color: #333333;
+    font-size: 16px;
+    margin: 5px 20px 5px 0;
+    padding: 5px 0;
+}
+
+
+.category-book {
+    margin-top: 20px;
+   
+  }
+  
+  .category-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .book-list {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .book-list .book-item {
+    width: 175px;
+    position: relative;
+    margin-left: 30px;
+    margin-bottom: 30px;
+  }
+  
+  .book-list .book-item:nth-child(6n + 1) {
+    margin-left: 0;
+    margin-bottom: 0;
+  }
+  
+  .book-image {
+    height: 233px;
+    position: relative;
+  }
+  .book-image img {
+    width: 100%;
+  }
+  
+  .book-item .book-view {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 30px;
+    display: flex;
+    justify-content: space-between;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    margin: 0;
+  }
+  .book-view .book-view--left,
+  .book-view .book-view--right {
+    position: relative;
+    margin-left: 10px;
+    margin-right: 10px;
+    vertical-align: middle;
+    line-height: 30px;
+  }
+  
+  .book-title {
+    font-size: 18px;
+    color: #333333;
+    line-height: 22px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    margin-top: 10px;
+  }
+  .page {
+    padding: 25px 0;
+    width: 1200px;
+    margin: 0 auto;
+    overflow: hidden;
+}
+.un-click {
+    border: 1px solid #ccc;
+    color: #ccc;
+}
+.previous {
+    border: 1px solid #666666;
+    border-radius: 25px;
+    width: 180px;
+    height: 50px;
+    line-height: 50px;
+    color: #666666;
+    font-size: 14px;
+    text-align: center;
+    float: left;
+    margin-left: 410px;
+}
+.next {
+    border: 1px solid #666666;
+    border-radius: 25px;
+    width: 180px;
+    height: 50px;
+    line-height: 50px;
+    color: #666666;
+    font-size: 14px;
+    text-align: center;
+    float: left;
+    margin-left: 20px;
+}
