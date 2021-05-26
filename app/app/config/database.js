@@ -13,6 +13,7 @@ const sequelize = new Sequelize(
   process.env.MYSQL_USERNAME || 'root', 
   process.env.MYSQL_PASSWORD || 'root', {
   host: process.env.MYSQL_HOST || 'localhost',
+  port: parseInt(process.env.MYSQL_PORT) || 3306,
   dialect: 'mysql',
   operatorsAliases: 0,
   logging: false,

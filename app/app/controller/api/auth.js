@@ -1,4 +1,4 @@
-const User = require("../../model/userModel");
+const models = require("../../model/index");
 const type = require("../../../lib/type");
 const utils = require("../../../lib/utils");
 const moment = require('moment'); 
@@ -7,13 +7,13 @@ const controller = {
   signin: async (req, res, next) => {
     const { username, password, remember} = req.query;
     if (username && password) {
-      let user = await User.findOne({ where: { username: username } });
+      let user = await models.user.findOne({ where: { username: username } });
       if (!user) {
         res.json({ 
             success: false,
             message: "No such user found"});
       }
-      if (user.isValidPassword(password)) {
+      if (await user.isValidPassword(password)) {
         // from now on we’ll identify the user by the id and the id is
         // the only personalized value that goes into our tokend 
         const jwt = utils.issueJWT(user,(remember)?true:false);
@@ -40,13 +40,13 @@ const controller = {
     const attributes = ["username","email","password","name","gender","birthday"];
     const param = req.query;
     if(utils.checkPropertiesInObject(attributes,param)){
-      let data = await User.findOne({
+      let data = await models.user.findOne({
         where: {
           username : param.username,
         }
       })
       if(data == null){
-        let user = await User.create({
+        let user = await models.user.create({
           username : param.username,
           email : param.email,
           gender: param.gender,

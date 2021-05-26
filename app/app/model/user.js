@@ -55,11 +55,11 @@ const User = sequelize.define(
     modelName: "USER",
     tableName: "USERS",
     hooks: {
-      afterSave: async (user, options) => {
+      beforeCreate: async (user, options) => {
         const hash = await bcrypt.hash(user.password, 10);
         user.password = hash;
       },
-      afterCreate: async (user, options) => {
+      beforeCreate: async (user, options) => {
         const hash = await bcrypt.hash(user.password, 10);
         user.password = hash;
       },
@@ -71,7 +71,6 @@ const User = sequelize.define(
 User.prototype.isValidPassword = async function (password) {
   const user = this;
   const compare = await bcrypt.compare(password, user.password);
-
   return compare;
 };
 

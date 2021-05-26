@@ -1,6 +1,6 @@
 const { Sequelize, DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
-const Like = require('./likeModel');
+const Like = require('./like');
 
 const Book = sequelize.define('Book', {
   // Model attributes are defined here

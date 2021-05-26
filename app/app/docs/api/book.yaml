@@ -1,0 +1,17 @@
+paths:
+ /api/user:
+    get:
+      tags: [User]
+      summary: Returns a user
+      parameters:
+        - name: username
+          required: false
+          description: Username of user
+        - name: email
+          required: false
+          description: Email of user
+      responses:
+        200:
+          description: Returns a user
+        404:
+          description: Not found

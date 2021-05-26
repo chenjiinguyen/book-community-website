@@ -1,4 +1,4 @@
-const User = require('../../model/userModel');
+const models = require("../../model/index");
 const type = require('../../../lib/type');
 
 const controller = {
@@ -8,7 +8,7 @@ const controller = {
         let data = {};
         let result = {};
         if(username!= null){
-            result = await User.findOne({
+            result = await models.user.findOne({
                 attributes: { exclude: ['password'] },
                 where : {username : username}
             })
@@ -22,7 +22,7 @@ const controller = {
                 data: result
             }
         }else if(email != null){
-            result = await User.findOne({
+            result = await models.user.findOne({
                 attributes: { exclude: ['password'] },
                 where : {email : email}
             });
@@ -36,7 +36,7 @@ const controller = {
                 data: result
             }
         }else{
-            result = await User.findAll({
+            result = await models.user.findAll({
                 attributes: { exclude: ['password'] },
             });
             if(result != null)
@@ -50,9 +50,6 @@ const controller = {
             }
         }
         res.json(data);
-    },
-    create: async function(req,res,next){
-
     }
 }
 

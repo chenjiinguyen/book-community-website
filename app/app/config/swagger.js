@@ -20,7 +20,7 @@ const options = {
         url: "http://localhost:3000/api",
       },
     ],
-  apis: ["./routes/api.js"],
+  apis: ["./app/docs/api/*.yaml"],
 };
 const specs = swaggerJsdoc(options);
 

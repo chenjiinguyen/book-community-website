@@ -7,7 +7,7 @@ const { config, engine } = require('express-edge');
 const passport = require('./app/config/passport');
 const swagger = require('./app/config/swagger');
 
-const indexRouter = require('./routes/index');
+const webRouter = require('./routes/web');
 const apiRouter = require('./routes/api');
 
 require('dotenv').config();
@@ -29,7 +29,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(passport.initialize());
-app.use('/', indexRouter);
+app.use('/', webRouter);
 app.use('/api', apiRouter);
 app.use('/api-docs',swagger.serve,swagger.setup);
 

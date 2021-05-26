@@ -1,0 +1,42 @@
+
+components:
+  schemas:
+    User:
+      type: object
+      required:
+        - username
+        - password
+        - email
+        - name
+        - gender
+        - usergroup
+        - birthday
+        - avatar
+        - point
+      properties:
+        username:
+          type: string
+          description: Username with user choose
+        email:
+          type: string
+          description: Email of user
+        name:
+          type: string
+          description: Name of user.
+        gender:
+          type: string
+          description: User is Male or Female.
+        usergroup:
+          type: string
+          description: Permissions of users in the system.
+        birthday:
+          type: string
+          format: date
+          description: The date the user was born   
+        avatar:
+          type: string
+          format: url
+          description: User avatar     
+        point:
+          type: int
+          description: The current number of points the user has on the system.
