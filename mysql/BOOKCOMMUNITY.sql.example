@@ -16,31 +16,6 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `usergroups`
---
-
-DROP TABLE IF EXISTS `usergroups`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `usergroups` (
-  `idgroup` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `createdat` datetime NOT NULL,
-  `updatedat` datetime NOT NULL,
-  PRIMARY KEY (`idgroup`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `usergroups`
---
-
-LOCK TABLES `usergroups` WRITE;
-/*!40000 ALTER TABLE `usergroups` DISABLE KEYS */;
-/*!40000 ALTER TABLE `usergroups` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `book`
 --
 
@@ -50,10 +25,10 @@ DROP TABLE IF EXISTS `book`;
 CREATE TABLE `book` (
   `idbook` bigint NOT NULL AUTO_INCREMENT,
   `title` varchar(255) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NOT NULL,
-  `author` varchar(255) COLLATE utf8_vietnamese_ci NOT NULL,
+  `author` varchar(255) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NOT NULL,
   `uploader` varchar(50) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NOT NULL,
   `category` varchar(50) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NOT NULL,
-  `poster` varchar(512) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NOT NULL,
+  `poster` text CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NOT NULL,
   `description` text CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NOT NULL,
   `status` int NOT NULL DEFAULT '0',
   `view` bigint NOT NULL DEFAULT '0',
@@ -62,9 +37,9 @@ CREATE TABLE `book` (
   PRIMARY KEY (`idbook`) USING BTREE,
   KEY `uploader` (`uploader`),
   KEY `category` (`category`),
-  CONSTRAINT `books_ibfk_1` FOREIGN KEY (`uploader`) REFERENCES `user` (`username`),
-  CONSTRAINT `books_ibfk_2` FOREIGN KEY (`category`) REFERENCES `category` (`idcategory`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese_ci ROW_FORMAT=COMPACT;
+  CONSTRAINT `books_ibfk_1` FOREIGN KEY (`uploader`) REFERENCES `user` (`USERNAME`),
+  CONSTRAINT `books_ibfk_2` FOREIGN KEY (`category`) REFERENCES `category` (`IDCATEGORY`) ON DELETE RESTRICT ON UPDATE RESTRICT
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese_ci ROW_FORMAT=COMPACT;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -73,7 +48,6 @@ CREATE TABLE `book` (
 
 LOCK TABLES `book` WRITE;
 /*!40000 ALTER TABLE `book` DISABLE KEYS */;
-INSERT INTO `book` VALUES (3,'Attack on Titan ','Isayama Hajime','nhuquynhnt0711','IMAGE','https://i.pinimg.com/736x/16/cd/ea/16cdead23629f526f975f8e3001a1dc8.jpg','Shingeki no Kyojin – Attack on Titan. Shingeki no Kyojin bắt đầu khi hơn 100 năm trước. Giống người khổng lồ Titan đã tấn công và đẩy loài người tới bờ vực tuyệt chủng. Những con người sống sót tụ tập lại, xây bao quanh mình một tòa thành 3 lớp kiên cố. Và tự nhốt mình bên trong để trốn tránh những cuộc tấn công của người khổng lồ. Họ tìm mọi cách để tiêu diệt người khổng lồ nhưng không thành công. Và sau một thế kỉ hòa bình, giống khổng lồ đã xuất hiện trở lại, một lần nữa đe dọa sự tồn vong của con người…\r\n\r\nNhân vật chính của Shingeki no Kyojin là Eren, một nạn nhân của những kẻ khổng lồ này. Eren và cô em gái Mikasa phải chứng kiến một cảnh tượng cực kinh khủng – mẹ của mình bị ăn thịt ngay trước mắt. Eren thề rằng cậu sẽ giết tất cả những tên khổng lồ mà cậu gặp. Thế nhưng số phận thật trớ trêu. Khi chính Eren cũng có được những năng lực kỳ lạ của các Titan. Trở thành đối tượng bị săn đuổi của cả hai phe phái – con người và người khổng lồ.\r\n\r\nShingeki no Kyojin có nội dung vô cùng độc đáo và cuốn hút. Khiến cho bộ truyện trở thành một trong những manga mới nổi đình đám nhất hiện nay. Đừng bỏ lỡ Shingeki no Kyojin nếu bạn đang tìm một bộ truyện kịch tính, góc nhìn mới lạ và nội dung sâu sắc.',1,0,'2021-05-26 20:43:00','2021-05-26 20:43:00');
 /*!40000 ALTER TABLE `book` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -119,7 +93,7 @@ CREATE TABLE `comment` (
   PRIMARY KEY (`idcomment`),
   KEY `iduser` (`iduser`),
   KEY `idbook` (`idbook`),
-  CONSTRAINT `comments_ibfk_1` FOREIGN KEY (`iduser`) REFERENCES `user` (`username`),
+  CONSTRAINT `comments_ibfk_1` FOREIGN KEY (`iduser`) REFERENCES `user` (`USERNAME`),
   CONSTRAINT `comments_ibfk_2` FOREIGN KEY (`idbook`) REFERENCES `book` (`idbook`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese_ci ROW_FORMAT=COMPACT;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -153,7 +127,7 @@ CREATE TABLE `episode` (
   PRIMARY KEY (`idepisode`),
   KEY `idbook` (`idbook`),
   CONSTRAINT `episodes_ibfk_1` FOREIGN KEY (`idbook`) REFERENCES `book` (`idbook`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese_ci ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=347 DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese_ci ROW_FORMAT=COMPACT;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -179,7 +153,7 @@ CREATE TABLE `like` (
   `updatedat` datetime DEFAULT NULL,
   PRIMARY KEY (`username`,`idbook`),
   KEY `idbook` (`idbook`),
-  CONSTRAINT `likes_ibfk_1` FOREIGN KEY (`username`) REFERENCES `user` (`username`),
+  CONSTRAINT `likes_ibfk_1` FOREIGN KEY (`username`) REFERENCES `user` (`username`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `likes_ibfk_2` FOREIGN KEY (`idbook`) REFERENCES `book` (`idbook`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese_ci ROW_FORMAT=COMPACT;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -201,16 +175,19 @@ DROP TABLE IF EXISTS `moderation_book`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `moderation_book` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
   `idbook` bigint NOT NULL,
-  `moderator` varchar(50) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NOT NULL,
-  `moderation` bigint NOT NULL,
-  `content` text CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NOT NULL,
+  `moderator` varchar(50) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci DEFAULT NULL,
+  `moderation` bigint DEFAULT NULL,
+  `content` text CHARACTER SET utf8 COLLATE utf8_vietnamese_ci,
+  `review` tinyint(1) NOT NULL DEFAULT '0',
   `createdat` datetime DEFAULT NULL,
   `updatedat` datetime DEFAULT NULL,
-  PRIMARY KEY (`idbook`),
+  PRIMARY KEY (`id`),
   KEY `moderator` (`moderator`),
+  KEY `idbook` (`idbook`) USING BTREE,
   CONSTRAINT `moderations_ibfk_1` FOREIGN KEY (`idbook`) REFERENCES `book` (`idbook`),
-  CONSTRAINT `moderations_ibfk_2` FOREIGN KEY (`moderator`) REFERENCES `user` (`username`)
+  CONSTRAINT `moderations_ibfk_2` FOREIGN KEY (`moderator`) REFERENCES `user` (`USERNAME`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese_ci ROW_FORMAT=COMPACT;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -231,15 +208,18 @@ DROP TABLE IF EXISTS `moderation_episode`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `moderation_episode` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
   `idepisode` bigint NOT NULL,
-  `moderator` varchar(50) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NOT NULL,
-  `moderation` bigint NOT NULL,
-  `content` text CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NOT NULL,
+  `moderator` varchar(50) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci DEFAULT NULL,
+  `moderation` bigint DEFAULT NULL,
+  `content` text CHARACTER SET utf8 COLLATE utf8_vietnamese_ci,
+  `review` tinyint(1) NOT NULL DEFAULT '0',
   `createdat` datetime DEFAULT NULL,
   `updatedat` datetime DEFAULT NULL,
-  PRIMARY KEY (`idepisode`,`moderator`) USING BTREE,
+  PRIMARY KEY (`id`) USING BTREE,
   KEY `moderator` (`moderator`),
-  CONSTRAINT `moderation_episode_ibfk_1` FOREIGN KEY (`idepisode`) REFERENCES `episode` (`idepisode`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  KEY `idepisode` (`idepisode`),
+  CONSTRAINT `moderation_episode_ibfk_1` FOREIGN KEY (`idepisode`) REFERENCES `episode` (`idepisode`),
   CONSTRAINT `moderation_episode_ibfk_2` FOREIGN KEY (`moderator`) REFERENCES `user` (`username`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese_ci ROW_FORMAT=COMPACT;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -270,7 +250,7 @@ CREATE TABLE `point` (
   PRIMARY KEY (`username`,`idepisode`) USING BTREE,
   KEY `idepisode` (`idepisode`),
   CONSTRAINT `point_ibfk_1` FOREIGN KEY (`idepisode`) REFERENCES `episode` (`idepisode`),
-  CONSTRAINT `point_ibfk_2` FOREIGN KEY (`username`) REFERENCES `user` (`username`)
+  CONSTRAINT `point_ibfk_2` FOREIGN KEY (`username`) REFERENCES `user` (`USERNAME`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=COMPACT;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -293,8 +273,7 @@ DROP TABLE IF EXISTS `role`;
 CREATE TABLE `role` (
   `idrole` varchar(50) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NOT NULL,
   `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NOT NULL,
-  `createdat` datetime DEFAULT NULL,
-  `updatedat` datetime DEFAULT NULL,
+  `description` text COLLATE utf8_vietnamese_ci,
   PRIMARY KEY (`idrole`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese_ci ROW_FORMAT=COMPACT;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -305,7 +284,7 @@ CREATE TABLE `role` (
 
 LOCK TABLES `role` WRITE;
 /*!40000 ALTER TABLE `role` DISABLE KEYS */;
-INSERT INTO `role` VALUES ('DANGSACH','Đăng Sách','2021-05-26 00:00:00','2021-05-26 00:00:00');
+INSERT INTO `role` VALUES ('DANGSACH','Quyền Đăng Sách','Quyền này cho phép đăng sách lên hệ thống'),('DIEUKHIEN','Quyền Điều Khiển','Quyền này cho phép truy cập vào bảng điều khiển'),('KIEMDUYET','Quyền Kiểm Duyệt','Quyền này sẽ cho phép người dùng kiểm duyệt truyện và chương');
 /*!40000 ALTER TABLE `role` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -330,7 +309,13 @@ CREATE TABLE `user` (
   `updatedat` datetime NOT NULL,
   PRIMARY KEY (`username`),
   KEY `usergroup` (`usergroup`),
-  CONSTRAINT `users_ibfk_1` FOREIGN KEY (`usergroup`) REFERENCES `usergroup` (`idgroup`)
+  KEY `username` (`username`),
+  KEY `username_2` (`username`),
+  KEY `username_3` (`username`),
+  KEY `username_4` (`username`),
+  KEY `username_5` (`username`),
+  KEY `username_6` (`username`),
+  CONSTRAINT `users_ibfk_1` FOREIGN KEY (`usergroup`) REFERENCES `usergroup` (`IDGROUP`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese_ci ROW_FORMAT=COMPACT;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -340,7 +325,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES ('nhuquynhnt0711','nhuquynhnt0711@gmail.com','$2b$10$syi0GRZOLa9UH2Mxqp/TTeSVLuwluCyp/eE4//n4tWkVF4laQjvZi','Như Quỳnh','Nữ','member','2000-11-07','https://ui-avatars.com/api/?size=256&name=Như Quỳnh',0,'2021-05-25 11:43:25','2021-05-25 11:43:25');
+INSERT INTO `user` VALUES ('chenjinguyen','duyntp2000@gmail.com','$2b$10$GcXW4vCtOAA90HC6hFqYbumkCV0DZxgD0k1E5fIde3qfSqoqDeeke','Nguyễn Duy','Nam','ADMIN','2000-10-20','https://ui-avatars.com/api/?size=256&name=Nguyễn Duy',0,'2021-05-27 10:10:20','2021-05-27 10:10:20'),('nhuquynhnt0711','nhuquynhnt0711@gmail.com','$2b$10$syi0GRZOLa9UH2Mxqp/TTeSVLuwluCyp/eE4//n4tWkVF4laQjvZi','Như Quỳnh','Nữ','MEMBER','2000-11-07','https://ui-avatars.com/api/?size=256&name=Như Quỳnh',0,'2021-05-25 11:43:25','2021-05-25 11:43:25');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -354,8 +339,6 @@ DROP TABLE IF EXISTS `usergroup`;
 CREATE TABLE `usergroup` (
   `idgroup` varchar(50) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NOT NULL,
   `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NOT NULL,
-  `createdat` datetime DEFAULT NULL,
-  `updatedat` datetime DEFAULT NULL,
   PRIMARY KEY (`idgroup`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese_ci ROW_FORMAT=COMPACT;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -366,7 +349,7 @@ CREATE TABLE `usergroup` (
 
 LOCK TABLES `usergroup` WRITE;
 /*!40000 ALTER TABLE `usergroup` DISABLE KEYS */;
-INSERT INTO `usergroup` VALUES ('ADMIN','Admin','2021-05-25 00:00:00','2021-05-25 00:00:00'),('MEMBER','Member','2021-05-25 00:00:00','2021-05-25 00:00:00'),('MODERATOR','Moderator','2021-05-25 00:00:00','2021-05-25 00:00:00'),('UPLOADER','Uploader','2021-05-25 00:00:00','2021-05-25 00:00:00');
+INSERT INTO `usergroup` VALUES ('ADMIN','Admin'),('MEMBER','Member'),('MODERATOR','Moderator'),('UPLOADER','Uploader');
 /*!40000 ALTER TABLE `usergroup` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -380,8 +363,6 @@ DROP TABLE IF EXISTS `usergroup_role`;
 CREATE TABLE `usergroup_role` (
   `idgroup` varchar(50) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NOT NULL,
   `idrole` varchar(50) CHARACTER SET utf8 COLLATE utf8_vietnamese_ci NOT NULL,
-  `createdat` datetime DEFAULT NULL,
-  `updatedat` datetime DEFAULT NULL,
   PRIMARY KEY (`idgroup`,`idrole`),
   KEY `idrole` (`idrole`),
   CONSTRAINT `usergroup_role_ibfk_1` FOREIGN KEY (`idgroup`) REFERENCES `usergroup` (`idgroup`),
@@ -395,7 +376,7 @@ CREATE TABLE `usergroup_role` (
 
 LOCK TABLES `usergroup_role` WRITE;
 /*!40000 ALTER TABLE `usergroup_role` DISABLE KEYS */;
-INSERT INTO `usergroup_role` VALUES ('UPLOADER','DANGSACH','2021-05-26 00:00:00','2021-05-26 00:00:00');
+INSERT INTO `usergroup_role` VALUES ('ADMIN','DANGSACH'),('MODERATOR','DANGSACH'),('UPLOADER','DANGSACH'),('ADMIN','DIEUKHIEN'),('MODERATOR','DIEUKHIEN'),('UPLOADER','DIEUKHIEN'),('ADMIN','KIEMDUYET'),('MODERATOR','KIEMDUYET');
 /*!40000 ALTER TABLE `usergroup_role` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -408,4 +389,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-05-27  6:34:00
+-- Dump completed on 2021-05-29 14:10:39
