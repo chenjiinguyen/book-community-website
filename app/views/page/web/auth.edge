@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>{{ (title)?title+" - Book Community":"Book Community" }} </title>
+  <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+  <link rel="stylesheet" href="/assets/css/auth.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
+</head>
+<body>
+<div class="container">
+<div id="signInSignUpBox">
+  <div id="overlay">
+    <div id="overlayInner">
+      <div id="signUp">
+        <h1>Welcome Back!</h1>
+        <p>To keep connected with us pelase login with your personal info.</p>
+        <button onClick='moveSliderRight()'>Sign In</button>
+      </div>
+      <div id="signIn">
+        <h1>Hello, Friend!</h1>
+        <p>Enter your personal details and start your journey with us.</p>
+        <button onClick='moveSliderLeft()'>Sign Up</button>
+      </div>
+    </div>
+  </div>
+  <div id="forms">
+    <form action="/login" method="POST" id="signInForm" class='shiftRight'>
+      <div class="holder">
+        <h1>Sign in</h1>
+        <p></p>
+        <input type="email" name="username" placeholder="Email or Username"><br>
+        <input type="password" name="password" placeholder='Password'>
+
+        <button type="submit">Sign In</button>
+      </div>
+    </form>
+    <div id="signUpForm">
+        <div class="holder">
+          <h1>Create Account</h1>
+
+          <p></p>
+          <input type="text" placeholder="Name"><br>
+          <input type="email" placeholder="Email"><br>
+          <input type="password" placeholder='Password'>
+          <button>Sign Up</button>
+        </div>
+    </div>
+  </div>
+</div>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+@include('partial.web.messages')
+<script src='/assets/js/auth.js'></script>
+</body>
+</html>

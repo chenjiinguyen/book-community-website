@@ -5,12 +5,12 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bản thảo của tôi</title>
-    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <title>{{ (title)?title+" - Book Community":"Book Community" }} </title>
     <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,600;0,700;1,600;1,700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/assets/css/admin.css">
     {{--  <link rel="stylesheet" href="./assets/css/reponsive.css">  --}}
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/typicons/2.1.1/typicons.min.css">
     @!section('css')
 </head>
@@ -18,25 +18,15 @@
 <body>
     <div id="frame-left">
         <div class="logo-left">
-            <a href="#">
-                <img class="logo-icon" src="https://mangatoon.mobi/official/logo.svg" alt="">
+            <a href="/">
+                <img class="logo-icon" src="/assets/img/logo.png" alt="">
             </a>
         </div>
         <div id="contribute-buttons">
-            <a href="#" id="btn-contribute">
+            <a href="/admin/book/create" id="btn-contribute">
                 <i class="fas fa-envelope-open-text"></i>
                 <span style="padding-left: 8px;">Gửi bản thảo</span>
             </a>
-            <div class="buttons" style="display: none;">
-                <a href="#">
-                    <img src="http://mangatoon.mobi/images/contribute/create_comic_icon.png">
-                    <br> Tạo truyện tranh
-                </a>
-                <a href="#">
-                    <img src="http://mangatoon.mobi/images/contribute/create_novel_icon.png">
-                    <br> Tạo tiểu thuyết
-                </a>
-            </div>
         </div>
         <ul id="nav-items">
             <li class="index selected">
@@ -85,16 +75,13 @@
                 </ul>
             </div>
             <div id="login-user">
-                <img class="user-img" src="https://lh3.googleusercontent.com/a-/AOh14GjmUpXdKmlUMvfomcb2Q4TNfVKpxMZWxeXd3E_yZA=s96-c">
+                <img class="user-img" src="{{ me.avatar }}">
                 <div class="nickname">
                     <div style="display:flex">
-                        <a href="#" class="yourname" style="max-height:22px;overflow:hidden">Quỳnh Như</a>
-                        <a href="#" class="message iconfont" style="margin-top:4px">
-                            <i style="color:#ff5454" class="fa fa-envelope" aria-hidden="true"></i>
-
-                        </a>
+                        <a href="#" class="yourname" style="max-height:22px;overflow:hidden">{{ me.name }}</a>
+                        
                     </div>
-                    <div class="user-id">20258701</div>
+                    <div class="user-id">{{ me.username }}</div>
                 </div>
 
                 <div class="down-icon" data-id="login-user-down-menus">
@@ -102,7 +89,7 @@
                 </div>
                 <ul id="login-user-down-menus" class="down-menus" style="display: none;">
                     <li>
-                        <a href="#">Đăng xuất</a>
+                        <a href="/logout">Đăng xuất</a>
                     </li>
                 </ul>
             </div>
@@ -111,6 +98,11 @@
             @!section('content')
         </div>
     </div>
+
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+    @include('partial.web.messages')
     @!section('js')
 </body>
 

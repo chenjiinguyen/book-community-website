@@ -1,0 +1,29 @@
+@layout('layout.master')
+
+
+@section('content')
+<div class="container my-2">
+<div class="category-book">
+  <div class="category-title">
+      <h2>Truyện tranh - Mới nhất</h2>
+      <a href="#">Toàn bộ ></a>
+  </div>
+  <div class="book-list">
+      @each(book in new_manga)
+          @!component('component.book.item',book)
+      @endeach
+  </div>
+</div>
+<div class="category-book">
+    <div class="category-title">
+        <h2>Sách Chữ - Mới nhất</h2>
+        <a href="#">Toàn bộ ></a>
+    </div>
+    <div class="book-list">
+        @each(book in new_textbook)
+            @!component('component.book.item',book)
+        @endeach
+    </div>
+  </div>
+</div>
+@endsection

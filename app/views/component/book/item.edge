@@ -1,0 +1,32 @@
+<div class="book-item">
+    <a href="/detail/{{ idbook }}">
+        <div class="book-image">
+            @if(!trending)
+              @if(trending == "hot")
+                <div class="badge badge-hot">
+                    HOT
+                </div>
+              @else
+                <div class="badge badge-new">
+                    NEW
+                </div>
+              @endif
+            @endif
+            <img src="{{poster}}"  alt="{{ title }}"/>
+            <div class="book-view">
+                <div class="book-view--left">
+                     <i class="typcn typcn-zoom"></i>
+                     {{ view+0 }}
+                </div>
+                <div class="book-view--right">
+                     <i class="typcn typcn-heart"></i>
+                     {{ like+0 }}
+                </div> 
+         </div>
+        </div>
+        
+        <div class="book-title">
+            {{ title }}
+        </div>
+    </a>
+</div>

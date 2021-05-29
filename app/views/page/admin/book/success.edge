@@ -1,4 +1,5 @@
 @layout('layout.admin')
+
 @section('content')
 <div class="content-wrapper create-page">
     <div class="top-title">
@@ -24,10 +25,9 @@
             </span>
         </div>
         <div style="font-size:16px;font-weight:bold;color:#333333;text-align:center;font-family:Nunito-Bold;">Gửi thành công, đang chờ kiểm duyệt. <br>Bạn có thể tiếp tục chỉnh sửa, lưu và gửi lại trong thời gian chờ kiểm duyệt.</div>
-        <div style="color:#999;text-align:center;margin-top:10px;">Chúng tôi sẽ tiến hành kiểm duyệt tác phẩm của bạn trong thời gian 3 ngày làm việc. Vui lòng để ý thông báo của Hệ thống trong thời gian này. Xin cảm ơn!</div>
         <div style="margin-top:40px;text-align:center;">
-            <a href="#" class="btn_link" style="border:1px solid #929598;color:#4B4D4E;margin-right:20px;">Quay lại nội dung</a>
-            <a href="#" class="btn_link" style="border:1px solid #FF5454;color:#FFFFFF;background-color:#FF5454">Thêm chương</a>
+            <a href="/admin/book/{{book.idbook}}/detail" class="btn_link" style="border:1px solid #929598;color:#4B4D4E;margin-right:20px;">Quay lại nội dung</a>
+            <a href="/admin/book/{{book.idbook}}/create" class="btn_link" style="border:1px solid #FF5454;color:#FFFFFF;background-color:#FF5454">Thêm chương</a>
         </div>
     </div>
 

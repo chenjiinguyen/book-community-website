@@ -1,0 +1,10 @@
+<script>
+$( document ).ready(function() {
+        @each(success in messages.success)
+            toastr.success("{{ success }}","Thông báo");
+        @endeach
+        @each(error in messages.error)
+            toastr.error("{{ error }}","Lỗi");
+        @endeach
+});
+</script>

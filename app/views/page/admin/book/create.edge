@@ -1,0 +1,546 @@
+@layout('layout.admin')
+
+@section('content')
+<div class="content-wrapper create-page">
+    <div class="top-title">
+        <div class="navigation">
+            <div class="navigation_num navigation_num_selectd">1</div>
+            <div class="navigation_item navigation_item_selected">Tạo tác phẩm</div>
+            <div style="float: left;font-weight:bold;font-size:20px;background-size:16px 60px;width:16px;height:60px;margin:0px 20px;">
+                <i class="fal fa-angle-right"></i>
+            </div>
+            <div class="navigation_num">2</div>
+            <div class="navigation_item">Thêm chapter</div>
+            <div style="float: left;font-weight:bold;font-size:20px;background-size:16px 60px;width:16px;height:60px;margin:0px 20px;">
+                <i class="fal fa-angle-right"></i>
+            </div>
+            <div class="navigation_num">3</div>
+            <div class="navigation_item">Nộp chờ</div>
+        </div>
+    </div>
+    <form method="POST" action="/admin/book/create" id="create-content">
+        <div class="content">
+            <div class="form-group">
+                <div class="left">
+                    <div class="name">
+                        <span style="color:red">* </span>Tiêu đề:
+
+                    </div>
+                </div>
+                <div class="right">
+                    <label class="txt-label">
+                        <input class="calculate-count txt-input" data-max-num="100" name="title" value id="content-title" type="text"></input>
+                        <span class="text-count">
+                            <span class="current-text-count">0</span>
+                            <span class="text-max-count">/100</span>
+                        </span>
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="left">
+                    <div class="name">
+                        <span style="color:red">* </span> Tên tác giả:
+
+                    </div>
+                </div>
+                <div class="right">
+                    <label class="txt-label">
+                        <input class="calculate-count txt-input" data-max-num="100" name="author" value id="content-author" type="text"></input>
+                        <span class="text-count">
+                            <span class="current-text-count">0</span>
+                            <span class="text-max-count">/100</span>
+                        </span>
+                    </label>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <div class="left">
+                    <div class="name"><span style="color:red">* </span>Thể loại:
+                    </div>
+                </div>
+                <div class="right" style="color:#A8B0B6;font-size:12px;">
+                    <label class="txt-label">
+                        <a href="#" class="custom-select-down">
+                            <i class="fa fa-caret-down" aria-hidden="true"></i>
+                        </a>
+                        <select id="is-end" class="custom-select" name="category">
+                            <option value="TEXT" selected>Truyện Chữ</option>
+                            <option value="IMAGE">Truyện Tranh</option>
+                            <option value="AUDIO">Truyện Audio</option>
+                        </select>
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="left">
+                    <div class="name" style="align-items:unset">
+                        Ảnh bìa:
+                    </div>
+                </div>
+                <div class="right">
+                    <div class="cover">
+                        <div class="cover-img-bg"></div>
+
+                        <div class="upload-btn">
+                            <img class="upload-cover" src="" style="width:100%;height:0%;"/>
+                            <div class="upload-cover-blank">
+                                <div style="height:60px;"></div>
+                                <div>
+                                    <span style="font-size:40px;">
+                                        <i class="fa fa-cloud-upload" aria-hidden="true"></i>
+                                    </span>
+                                </div>
+                                <div style="margin-top:10px;">
+                                    <span>IMAGE 450*600px</span>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    
+                    <label class="txt-label" style="margin-top: 10px;">
+                        <input class="calculate-count txt-input" data-max-num="100" name="poster" value="" id="content-poster" type="text">
+                    </label>
+                   
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="left">
+                    <div class="name" style="align-items:unset">
+                        <span style="color:red">* </span> Giới thiệu:
+                    </div>
+
+                </div>
+                <div class="right">
+                    <label class="txt-label">
+                        <textarea class="calculate-count txt-area" data-max-num="1000" name="description" rows="10" id="description-content"></textarea>
+                        <span class="text-count" style="bottom:16px">
+                            <span class="current-text-count">0</span>
+                            <span class="text-max-count">/1000</span>
+                        </span>
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="left">
+                    <div class="name"> </div>
+                </div>
+                <div class="right" style="font-size:13px;">
+                    <div style="display:flex; margin-top: 5px;">
+                        <div class="custom-checkbox-wrapper">
+
+                            <span style="color:red">*</span>
+                            <input type="checkbox" id="checkbox-author-registration-agreement" class="custom-checkbox" style="position:relative;">
+
+                        </div>
+                        <div style="padding-left:10px;line-height:26px;" id="author-registration-agreement-description">
+
+                            Tôi đồng ý với "
+                            <a href="#" id="btn-show-policy">Đăng ký tác giả và thỏa thuận đăng tải truyện</a>” của MangaToon
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+            <div class="btn-submit-div">
+                <label for="no-id">
+                    <input id="submitTao" type="submit" style="display:none;"/>
+                    <a type="submit" id="btn-submit" class="btn btn-red">Tạo</a>
+                </label>
+            </div>
+        </div>
+    </form>
+</div>
+@endsection
+
+@section('js')
+<script>
+     $( "#btn-submit" ).click(function() {
+        if($("#checkbox-author-registration-agreement").is(":checked")){
+            $( "#submitTao" ).click();
+        }else{
+            toastr.error("Vui lòng tích chọn điều khoản người dùng","Lỗi");
+        }
+    });
+    $( "#btn-submit" ).click(function() {
+        $( "#submitTao" ).click();
+    });
+    $("#content-poster").on('input propertychange',() => {
+        let link = $("#content-poster").val();
+        
+        let regex = new RegExp(/^(http(s?):).*.(?:jpg|png|mp3)([/|.|w|s|-])*$/);
+        if(link.match(regex) != null){
+            $(".upload-cover").attr("src",link);
+            $(".upload-cover").css("height","100%");
+        }else{
+            $(".upload-cover").css("height","0%");
+        }
+        
+    });
+
+    $("#content-title").on('input propertychange',() => {
+        let count = $("#content-title").val().length;
+        $("#content-title+.text-count .current-text-count").html(count)
+    })
+    $("#content-author").on('input propertychange',() => {
+        let count = $("#content-author").val().length;
+        $("#content-author+.text-count .current-text-count").html(count)
+    })
+    $("#description-content").on('input propertychange',() => {
+        let count = $("#description-content").val().length;
+        $("#description-content+.text-count .current-text-count").html(count)
+    })
+
+
+    function checkLink(url) {
+        let regex = /(http(s?):)([/|.|\w|\s|-])*\.(?:jpg|png)([/|.|\w|\s|-])*/;
+        check = url.match(regex);
+        console.log(check)
+        return check;
+    }
+</script>
+@endsection
+
+
+
+@section('xxxx')
+<div class="form-group" id="div-wrapper-categories" style="display:flex">
+    <div class="left">
+        <div class="name" style="align-items:unset">
+            <span style="color:red">* </span>Thể loại:
+        </div>
+    </div>
+    <div class="right custom-checkbox-wrapper" id="categories-div">
+        <div id="categories-8" style="display:block;">
+            <div class="categories">
+                <label>
+                    <a href="#" class="custom-checkbox" data-group="custom-checkbox-group-category-8" data-max-count="1" style="margin-right:9px">
+                        <i class="fa fa-square-o" aria-hidden="true"></i>
+                        <input type="checkbox" name="Contribute[category_ids][]" value="1" data-group="custom-checkbox-group-category-8" style="display:none">
+                    </a>
+                    <span style="position:relative;word-break:break-word">Bá đạo tổng tài</span>
+                </label>
+            </div>
+            <div class="categories">
+                <label>
+                    <a href="#" class="custom-checkbox" data-group="custom-checkbox-group-category-8" data-max-count="1" style="margin-right:9px">
+                        <i class="fa fa-square-o" aria-hidden="true"></i>
+                        <input type="checkbox" name="Contribute[category_ids][]" value="2" data-group="custom-checkbox-group-category-8" style="display:none">
+                    </a>
+                    <span style="position:relative;word-break:break-word">Ngôn tình đô thị</span>
+                </label>
+            </div>
+            <div class="categories">
+                <label>
+                    <a href="#" class="custom-checkbox" data-group="custom-checkbox-group-category-8" data-max-count="1" style="margin-right:9px">
+                        <i class="fa fa-square-o" aria-hidden="true"></i>
+                        <input type="checkbox" name="Contribute[category_ids][]" value="4" data-group="custom-checkbox-group-category-8" style="display:none">
+                    </a>
+                    <span style="position:relative;word-break:break-word">Ngôn tình cổ đại</span>
+                </label>
+            </div>
+            <div class="categories">
+                <label>
+                    <a href="#" class="custom-checkbox" data-group="custom-checkbox-group-category-8" data-max-count="1" style="margin-right:9px">
+                        <i class="fa fa-square-o" aria-hidden="true"></i>
+                        <input type="checkbox" name="Contribute[category_ids][]" value="4" data-group="custom-checkbox-group-category-8" style="display:none">
+                    </a>
+                    <span style="position:relative;word-break:break-word">Ngôn tình viễn tưởng</span>
+                </label>
+            </div>
+            <div class="categories">
+                <label>
+                    <a href="#" class="custom-checkbox" data-group="custom-checkbox-group-category-8" data-max-count="1" style="margin-right:9px">
+                        <i class="fa fa-square-o" aria-hidden="true"></i>
+                        <input type="checkbox" name="Contribute[category_ids][]" value="5" data-group="custom-checkbox-group-category-8" style="display:none">
+                    </a>
+                    <span style="position:relative;word-break:break-word">Thanh xuân vườn trường</span>
+                </label>
+            </div>
+            <div class="categories">
+                <label>
+                    <a href="#" class="custom-checkbox" data-group="custom-checkbox-group-category-8" data-max-count="1" style="margin-right:9px">
+                        <i class="fa fa-square-o" aria-hidden="true"></i>
+                        <input type="checkbox" name="Contribute[category_ids][]" value="6" data-group="custom-checkbox-group-category-8" style="display:none">
+                    </a>
+                    <span style="position:relative;word-break:break-word">Minh hôn</span>
+                </label>
+            </div>
+            <div class="categories">
+                <label>
+                    <a href="#" class="custom-checkbox" data-group="custom-checkbox-group-category-8" data-max-count="1" style="margin-right:9px">
+                        <i class="fa fa-square-o" aria-hidden="true"></i>
+                        <input type="checkbox" name="Contribute[category_ids][]" value="7" data-group="custom-checkbox-group-category-8" style="display:none">
+                    </a>
+                    <span style="position:relative;word-break:break-word">Đam bách</span>
+                </label>
+            </div>
+            <div class="categories">
+                <label>
+                    <a href="#" class="custom-checkbox" data-group="custom-checkbox-group-category-8" data-max-count="1" style="margin-right:9px">
+                        <i class="fa fa-square-o" aria-hidden="true"></i>
+                        <input type="checkbox" name="Contribute[category_ids][]" value="11" data-group="custom-checkbox-group-category-8" style="display:none">
+                    </a>
+                    <span style="position:relative;word-break:break-word">Kinh dị</span>
+                </label>
+            </div>
+            <div class="categories">
+                <label>
+                    <a href="#" class="custom-checkbox" data-group="custom-checkbox-group-category-8" data-max-count="1" style="margin-right:9px">
+                        <i class="fa fa-square-o" aria-hidden="true"></i>
+                        <input type="checkbox" name="Contribute[category_ids][]" value="12" data-group="custom-checkbox-group-category-8" style="display:none">
+                    </a>
+                    <span style="position:relative;word-break:break-word">Đô thị</span>
+                </label>
+            </div>
+            <div class="categories">
+                <label>
+                    <a href="#" class="custom-checkbox" data-group="custom-checkbox-group-category-8" data-max-count="1" style="margin-right:9px">
+                        <i class="fa fa-square-o" aria-hidden="true"></i>
+                        <input type="checkbox" name="Contribute[category_ids][]" value="16" data-group="custom-checkbox-group-category-8" style="display:none">
+                    </a>
+                    <span style="position:relative;word-break:break-word">Khoa huyễn</span>
+                </label>
+            </div>
+            <div class="categories">
+                <label>
+                    <a href="#" class="custom-checkbox" data-group="custom-checkbox-group-category-8" data-max-count="1" style="margin-right:9px">
+                        <i class="fa fa-square-o" aria-hidden="true"></i>
+                        <input type="checkbox" name="Contribute[category_ids][]" value="10" data-group="custom-checkbox-group-category-8" style="display:none">
+                    </a>
+                    <span style="position:relative;word-break:break-word">Kỳ ảo</span>
+                </label>
+            </div>
+            <div class="categories">
+                <label>
+                    <a href="#" class="custom-checkbox" data-group="custom-checkbox-group-category-8" data-max-count="1" style="margin-right:9px">
+                        <i class="fa fa-square-o" aria-hidden="true"></i>
+                        <input type="checkbox" name="Contribute[category_ids][]" value="17" data-group="custom-checkbox-group-category-8" style="display:none">
+                    </a>
+                    <span style="position:relative;word-break:break-word">Light Novel</span>
+                </label>
+            </div>
+            <div class="categories">
+                <label>
+                    <a href="#" class="custom-checkbox" data-group="custom-checkbox-group-category-8" data-max-count="1" style="margin-right:9px">
+                        <i class="fa fa-square-o" aria-hidden="true"></i>
+                        <input type="checkbox" name="Contribute[category_ids][]" value="8" data-group="custom-checkbox-group-category-8" style="display:none">
+                    </a>
+                    <span style="position:relative;word-break:break-word">Đồng nhân</span>
+                </label>
+            </div>
+            <div class="categories">
+                <label>
+                    <a href="#" class="custom-checkbox" data-group="custom-checkbox-group-category-8" data-max-count="1" style="margin-right:9px">
+                        <i class="fa fa-square-o" aria-hidden="true"></i>
+                        <input type="checkbox" name="Contribute[category_ids][]" value="18" data-group="custom-checkbox-group-category-8" style="display:none">
+                    </a>
+                    <span style="position:relative;word-break:break-word">Xuyên không</span>
+                </label>
+            </div>
+            <div class="categories">
+                <label>
+                    <a href="#" class="custom-checkbox" data-group="custom-checkbox-group-category-8" data-max-count="1" style="margin-right:9px">
+                        <i class="fa fa-square-o" aria-hidden="true"></i>
+                        <input type="checkbox" name="Contribute[category_ids][]" value="18" data-group="custom-checkbox-group-category-8" style="display:none">
+                    </a>
+                    <span style="position:relative;word-break:break-word">Khác</span>
+                </label>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="form-group">
+    <div class="left">
+        <div class="name" style="align-items:unset">Phân loại:</div>
+    </div>
+    <div class="right custom-checkbox-wrapper" id="tags-div">
+        <div id="tags-div" style="display:block">
+            <div class="tags">
+                <label style="display:flex">
+                    <a href="#" class="custom-checkbox" data-group="custom-checkbox-group-category-8" data-max-count="1" style="margin-right:9px">
+                        <i class="fa fa-square-o" aria-hidden="true"></i>
+                        <input type="checkbox" name="Contribute[category_ids][]" value="2" data-group="custom-checkbox-group-category-8" style="display:none">
+                    </a>
+                    <span style="position:relative;word-break:break-word">Trường học</span>
+                </label>
+            </div>
+            <div class="tags">
+                <label style="display:flex">
+                    <a href="#" class="custom-checkbox" data-group="custom-checkbox-group-category-8" data-max-count="1" style="margin-right:9px">
+                        <i class="fa fa-square-o" aria-hidden="true"></i>
+                        <input type="checkbox" name="Contribute[category_ids][]" value="4" data-group="custom-checkbox-group-category-8" style="display:none">
+                    </a>
+                    <span style="position:relative;word-break:break-word">Kinh dị</span>
+                </label>
+            </div>
+            <div class="tags">
+                <label style="display:flex">
+                    <a href="#" class="custom-checkbox" data-group="custom-checkbox-group-category-8" data-max-count="1" style="margin-right:9px">
+                        <i class="fa fa-square-o" aria-hidden="true"></i>
+                        <input type="checkbox" name="Contribute[category_ids][]" value="7" data-group="custom-checkbox-group-category-8" style="display:none">
+                    </a>
+                    <span style="position:relative;word-break:break-word">Hành động</span>
+                </label>
+            </div>
+            <div class="tags">
+                <label style="display:flex">
+                    <a href="#" class="custom-checkbox" data-group="custom-checkbox-group-category-8" data-max-count="1" style="margin-right:9px">
+                        <i class="fa fa-square-o" aria-hidden="true"></i>
+                        <input type="checkbox" name="Contribute[category_ids][]" value="8" data-group="custom-checkbox-group-category-8" style="display:none">
+                    </a>
+                    <span style="position:relative;word-break:break-word">Tình yêu</span>
+                </label>
+            </div>
+            <div class="tags">
+                <label style="display:flex">
+                    <a href="#" class="custom-checkbox" data-group="custom-checkbox-group-category-8" data-max-count="1" style="margin-right:9px">
+                        <i class="fa fa-square-o" aria-hidden="true"></i>
+                        <input type="checkbox" name="Contribute[category_ids][]" value="9" data-group="custom-checkbox-group-category-8" style="display:none">
+                    </a>
+                    <span style="position:relative;word-break:break-word">Đam mỹ</span>
+                </label>
+
+
+            </div>
+            <div class="tags">
+                <label style="display:flex">
+                <a href="#" class="custom-checkbox" data-group="custom-checkbox-group-category-8" data-max-count="1" style="margin-right:9px">
+                    <i class="fa fa-square-o" aria-hidden="true"></i>
+                    <input type="checkbox" name="Contribute[category_ids][]" value="11" data-group="custom-checkbox-group-category-8" style="display:none">
+                </a>
+                <span style="position:relative;word-break:break-word">Xuyên không</span>
+            </label>
+            </div>
+            <div class="tags">
+                <label style="display:flex">
+                <a href="#" class="custom-checkbox" data-group="custom-checkbox-group-category-8" data-max-count="1" style="margin-right:9px">
+                    <i class="fa fa-square-o" aria-hidden="true"></i>
+                    <input type="checkbox" name="Contribute[category_ids][]" value="12" data-group="custom-checkbox-group-category-8" style="display:none">
+                </a>
+                <span style="position:relative;word-break:break-word">Hài hước</span>
+            </label>
+            </div>
+            <div class="tags">
+                <label style="display:flex">
+                <a href="#" class="custom-checkbox" data-group="custom-checkbox-group-category-8" data-max-count="1" style="margin-right:9px">
+                    <i class="fa fa-square-o" aria-hidden="true"></i>
+                    <input type="checkbox" name="Contribute[category_ids][]" value="12" data-group="custom-checkbox-group-category-8" style="display:none">
+                </a>
+                <span style="position:relative;word-break:break-word">Viễn tưởng</span>
+            </label>
+            </div>
+            <div class="tags">
+                <label style="display:flex">
+                <a href="#" class="custom-checkbox" data-group="custom-checkbox-group-category-8" data-max-count="1" style="margin-right:9px">
+                    <i class="fa fa-square-o" aria-hidden="true"></i>
+                    <input type="checkbox" name="Contribute[category_ids][]" value="13" data-group="custom-checkbox-group-category-8" style="display:none">
+                </a>
+                <span style="position:relative;word-break:break-word">Fantic </span>
+            </label>
+            </div>
+            <div class="tags">
+                <label style="display:flex">
+                <a href="#" class="custom-checkbox" data-group="custom-checkbox-group-category-8" data-max-count="1" style="margin-right:9px">
+                    <i class="fa fa-square-o" aria-hidden="true"></i>
+                    <input type="checkbox" name="Contribute[category_ids][]" value="14" data-group="custom-checkbox-group-category-8" style="display:none">
+                </a>
+                <span style="position:relative;word-break:break-word">Tổng tài</span>
+            </label>
+            </div>
+            <div class="tags">
+                <label style="display:flex">
+                <a href="#" class="custom-checkbox" data-group="custom-checkbox-group-category-8" data-max-count="1" style="margin-right:9px">
+                    <i class="fa fa-square-o" aria-hidden="true"></i>
+                    <input type="checkbox" name="Contribute[category_ids][]" value="15" data-group="custom-checkbox-group-category-8" style="display:none">
+                </a>
+                <span style="position:relative;word-break:break-word">Mạo hiểm</span>
+            </label>
+            </div>
+            <div class="tags">
+                <label style="display:flex">
+                <a href="#" class="custom-checkbox" data-group="custom-checkbox-group-category-8" data-max-count="1" style="margin-right:9px">
+                    <i class="fa fa-square-o" aria-hidden="true"></i>
+                    <input type="checkbox" name="Contribute[category_ids][]" value="16" data-group="custom-checkbox-group-category-8" style="display:none">
+                </a>
+                <span style="position:relative;word-break:break-word">Bách hợp</span>
+            </label>
+            </div>
+            <div class="tags">
+                <label style="display:flex">
+                <a href="#" class="custom-checkbox" data-group="custom-checkbox-group-category-8" data-max-count="1" style="margin-right:9px">
+                    <i class="fa fa-square-o" aria-hidden="true"></i>
+                    <input type="checkbox" name="Contribute[category_ids][]" value="17" data-group="custom-checkbox-group-category-8" style="display:none">
+                </a>
+                <span style="position:relative;word-break:break-word">Siêu năng lực</span>
+            </label>
+            </div>
+            <div class="tags">
+                <label style="display:flex">
+                <a href="#" class="custom-checkbox" data-group="custom-checkbox-group-category-8" data-max-count="1" style="margin-right:9px">
+                    <i class="fa fa-square-o" aria-hidden="true"></i>
+                    <input type="checkbox" name="Contribute[category_ids][]" value="18" data-group="custom-checkbox-group-category-8" style="display:none">
+                </a>
+                <span style="position:relative;word-break:break-word">Tiên hiệp</span>
+            </label>
+            </div>
+            <div class="tags">
+                <label style="display:flex">
+                <a href="#" class="custom-checkbox" data-group="custom-checkbox-group-category-8" data-max-count="1" style="margin-right:9px">
+                    <i class="fa fa-square-o" aria-hidden="true"></i>
+                    <input type="checkbox" name="Contribute[category_ids][]" value="19" data-group="custom-checkbox-group-category-8" style="display:none">
+                </a>
+                <span style="position:relative;word-break:break-word">Ép hôn</span>
+            </label>
+            </div>
+            <div class="tags">
+                <label style="display:flex">
+                <a href="#" class="custom-checkbox" data-group="custom-checkbox-group-category-8" data-max-count="1" style="margin-right:9px">
+                    <i class="fa fa-square-o" aria-hidden="true"></i>
+                    <input type="checkbox" name="Contribute[category_ids][]" value="20" data-group="custom-checkbox-group-category-8" style="display:none">
+                </a>
+                <span style="position:relative;word-break:break-word">Sinh con</span>
+            </label>
+            </div>
+            <div class="tags">
+                <label style="display:flex">
+                <a href="#" class="custom-checkbox" data-group="custom-checkbox-group-category-8" data-max-count="1" style="margin-right:9px">
+                    <i class="fa fa-square-o" aria-hidden="true"></i>
+                    <input type="checkbox" name="Contribute[category_ids][]" value="21" data-group="custom-checkbox-group-category-8" style="display:none">
+                </a>
+                <span style="position:relative;word-break:break-word">Công sở</span>
+            </label>
+            </div>
+            <div class="tags">
+                <label style="display:flex">
+                <a href="#" class="custom-checkbox" data-group="custom-checkbox-group-category-8" data-max-count="1" style="margin-right:9px">
+                    <i class="fa fa-square-o" aria-hidden="true"></i>
+                    <input type="checkbox" name="Contribute[category_ids][]" value="22" data-group="custom-checkbox-group-category-8" style="display:none">
+                </a>
+                <span style="position:relative;word-break:break-word">Ngọt sủng</span>
+            </label>
+            </div>
+            <div class="tags">
+                <label style="display:flex">
+                <a href="#" class="custom-checkbox" data-group="custom-checkbox-group-category-8" data-max-count="1" style="margin-right:9px">
+                    <i class="fa fa-square-o" aria-hidden="true"></i>
+                    <input type="checkbox" name="Contribute[category_ids][]" value="23" data-group="custom-checkbox-group-category-8" style="display:none">
+                </a>
+                <span style="position:relative;word-break:break-word">Truy thê</span>
+            </label>
+            </div>
+            <div class="tags">
+                <label style="display:flex">
+                <a href="#" class="custom-checkbox" data-group="custom-checkbox-group-category-8" data-max-count="1" style="margin-right:9px">
+                    <i class="fa fa-square-o" aria-hidden="true"></i>
+                    <input type="checkbox" name="Contribute[category_ids][]" value="10" data-group="custom-checkbox-group-category-8" style="display:none">
+                </a>
+                <span style="position:relative;word-break:break-word">Huyền huyễn</span>
+            </label>
+            </div>
+        </div>
+    </div>
+</div>
+@endsection

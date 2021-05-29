@@ -2,6 +2,7 @@ const passport = require('passport');
 const passportJWT = require('passport-jwt');
 const ExtractJwt = passportJWT.ExtractJwt;
 const jwt = require('jsonwebtoken');
+const models = require("../app/model/index");
 
 const issueJWT = (user,remember = false) => {
     let now = Date.now();
@@ -31,6 +32,8 @@ const checkPropertiesInObject = (arrProperties, object) => {
     return true;
 }
 
+
+
 const checkUrlOfString = (str) => {
     let arr = splitContent(str);
     let regex = /(http(s?):)([/|.|\w|\s|-])*\.(?:jpg|png|mp3)([/|.|\w|\s|-])*/;
@@ -51,6 +54,22 @@ const splitContent = (str) => {
     return str.split("|");
 }
 
+const updateView = async (id, book = true) => {
+    if(book){
+        let x = await models.book.findOne({
+            where: { idbook : id},
+        });
+        x.view += 1;
+        await x.save({ silent: true });
+    }else{
+        let x = await models.episode.findOne({
+            where: { idepisode : id},
+        });
+        x.view += 1;
+        await x.save();
+    }
+}
+
 module.exports = {
     checkUrlOfString,
     joinContent,
@@ -58,4 +77,5 @@ module.exports = {
     issueJWT,
     jwtOptions,
     checkPropertiesInObject,
+    updateView
 };  

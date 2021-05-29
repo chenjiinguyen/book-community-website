@@ -1,57 +1,69 @@
 <!DOCTYPE html>
 <html lang="en">
-@!section('css')
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<<<<<<< HEAD:app/views/layout/master.edge
-    <title>
-        @yield($data.title) 
-            Book Comunity 
-        @endyield
-    </title>
-    <link rel="stylesheet" href="/stylesheets/css_main.css">
-=======
-    <title>Homepage</title>
+    <title>{{ (title)?title+" - Book Community":"Book Community" }} </title>
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,600;0,700;1,600;1,700&display=swap"
         rel="stylesheet">
-    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
     <link rel="stylesheet" href="/assets/css/master.css">
     <link rel="stylesheet" href="/assets/css/reponsive.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/typicons/2.1.1/typicons.min.css">
->>>>>>> xuan-view:views/layout/master.edge
+    @!section('css')
 </head>
 
 <body>
-<<<<<<< HEAD:app/views/layout/master.edge
-    @!section('content')
-    @!section('main')
-=======
     <div class="top">
         <div class="top-container">
-            <div class="top-logo">
-                <img src="https://mangatoon.mobi/official/logo.svg" alt="">
-            </div>
-            <div class="top-nav">
-                <div class="nav-item">
-                    <a href="#">Trang Chủ</a>
+            <div class="top-right">
+                <div class="top-logo">
+                    <img src="/assets/img/logo.png" alt="">
                 </div>
-                <div class="nav-item">
-                    <a href="#">Truyện tranh</a>
-                </div>
-                <div class="nav-item">
-                    <a href="#">Trang Chủ</a>
-                </div>
-                <div class="nav-item">
-                    <a href="#">Trang Chủ</a>
+                <div class="top-nav">
+                    <div class="nav-item">
+                        <a href="/">Trang Chủ</a>
+                    </div>
+                    
                 </div>
             </div>
+            
+            @if(me)
+            <div id="login-user">
+                <img class="user-img" src="{{ me.avatar }}">
+                <div class="nickname">
+                    <div style="display:flex">
+                        <a href="#" class="yourname" style="max-height:22px;overflow:hidden">{{ me.name }}</a>
+                        
+                    </div>
+                    <div class="user-id">{{ me.username }}</div>
+                </div>
+
+                <div class="down-icon" data-id="login-user-down-menus">
+                    <i style="color: #999" class="fa fa-caret-down" aria-hidden="true"></i>
+                </div>
+                <ul id="login-user-down-menus" class="down-menus" style="display: none;">
+                @each(role in me.roles)
+                    @if(role.idrole == "DIEUKHIEN")
+                    <li> 
+                        <a  href="/admin">Bảng Điều Khiển</a> 
+                    </li>
+                    @endif
+                @endeach
+                    <li>
+                        <a href="/logout">Đăng xuất</a>
+                    </li>
+                </ul>
+            </div>
+            @else
             <div class="top-user">
-                <a href="#"> <i class="typcn typcn-user-outline icon-main white-icon"></i></a>
+                <a href="/auth"> <i class="typcn typcn-user-outline icon-main white-icon"></i> Đăng Nhập </a>
             </div>
+            @endif
+            
             <div id="top-menu-icon" class="top-menu-icon">
                 <i class="typcn typcn-th-menu icon-main"></i>
             </div>
@@ -94,13 +106,6 @@
         </div>
     </div>
     <div class="page-content">
-        <div class="breadcrumb-bg">
-            <ul class="breadcrumb">
-                <li><a class="breadcrumb-active" href="#">Trang chủ</a></li>
-                <li><a class="breadcrumb-active" href="#">Truyện tranh</a></li>
-                <li>Đây là tiêu đề dài rất là dài</li>
-            </ul>
-        </div>
         @!section('content')
     </div>
     <div class="footer">
@@ -142,10 +147,14 @@
             <div class="about-copyright">©2021 chenjinguyen
             </div>
         </div>
-    </div>
+    </div> 
 
-    <script src="./assets/js/navigation.js"></script>
->>>>>>> xuan-view:views/layout/master.edge
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+    <script src="/assets/js/navigation.js"></script>
+    @include('partial.web.messages')
+    @!section('js')
 </body>
 
 </html>

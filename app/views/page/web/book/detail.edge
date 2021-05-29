@@ -1,0 +1,75 @@
+@layout('layout.master')
+
+@section('content')
+<div class="detail-wrap">
+  <div class="detail-top-info">
+      <div class="detail-img">
+          <img src="{{ book.poster }}" class="ori-image">
+          <img src="{{ book.poster }}" alt="{{ book.title }}" class="big-img">
+          <span class="read-for-free-img">
+             <!-- <img src="/official/read-for-free.png"> -->
+          </span>
+      </div>
+      <div class="detail-info">
+          <div class="detail-title-bg">
+              <span class="detail-title">{{ book.title }}</span>
+              <div class="detail-status">
+                  Tiếp tục cập nhật
+              </div>
+          </div>
+          <div class="detail-tags-info"><span>{{book.category_name}}</span></div>
+          <div class="detail-views-likes">
+              <span class="typcn typcn-eye view-icon"></span>
+              <span class="view-count">{{ book.view+0 }}</span>
+              <span class="typcn typcn-heart like-icon"></span>
+              <span class="like-count">{{ book.like+0 }}</span>
+          </div>
+          <div class="detail-author-name"><span>Tên tác giả: {{ book.author }}</span></div>
+          <div class="detail-author-name"><span>Người đăng: {{ book.uploader }}</span></div>
+          <div class="detail-description">
+              <div class="detail-description-short">
+                  {{{ book.description }}}
+              </div>
+          </div>
+          <div class="detail-related-bg">
+          </div>
+      </div>
+
+  </div>
+  <div class="detail-menu-wrap">
+      <div class="detail-tab-bg">
+          <a href="/detail/{{ book.idbook }}/episodes">
+              <div class="menu-item active" id="episodes"><span>Chương</span></div>
+          </a>
+          <span class="detail-episode-num">Đã cập nhật {{ count_episodes+0 }} chương</span>
+          <span class="detail-split-line"> &nbsp;&nbsp; / &nbsp;&nbsp; </span>
+          <a href="/detail/{{ book.idbook }}/comments">
+              <div class="menu-item " id="comments"><span>Bình Luận</span></div>
+          </a>
+          <span class="detail-episode-num"> (0) </span>
+      </div>
+      <div class="detail-episode-order">
+          <a href="/detail/{{ book.idbook }}?order=asc">
+              <div>
+                  <span id="asc-order-icon" class="typcn typcn-arrow-up-outline"></span>
+                  <span id="asc-order-title" class="default-order-style active-order">Cũ nhất</span>
+              </div>
+          </a> <span> &nbsp;/&nbsp; </span>
+          <a href="/detail/{{ book.idbook }}?order=desc">
+              <div>
+                  <span id="desc-order-icon" class="typcn typcn-arrow-down-outline "></span>
+                  <span id="desc-order-title" class="default-order-style ">Mới nhất</span>
+              </div>
+          </a>
+      </div>
+  </div>
+    <div class="selected-episodes selected-tag">
+      <div class="episodes-wrap-new">
+      @each(ep in episodes)
+          @!component('component.detail.episode',ep)
+      @endeach
+  </div>
+  </div>
+
+</div>
+@endsection

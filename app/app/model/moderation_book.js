@@ -1,50 +1,46 @@
-const { Sequelize, DataTypes } = require("sequelize");
-const sequelize = require("../config/database");
-const Book = require("./book");
-const User = require("./user");
-
-const Moderation_Book = sequelize.define("Moderation_Book", {
-  idbook: {
-    type: DataTypes.INTEGER,
-    primaryKey: true,
-    allowNull: false,
-    references: {
-      model: Book,
-      key: "idbook",
+module.exports = (sequelize, DataTypes) => {
+  const moderation_book = sequelize.define(
+    "moderation_book",
+    {
+      id: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true,
+        allowNull: false,
+      },
+      idbook: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+      },
+      moderator: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
+      moderation: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+      },
+      content: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
+      review: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue: 0,
+      }
     },
-  },
-  moderator: {
-    type: DataTypes.STRING,
-    primaryKey: true,
-    allowNull: false,
-    references: {
-      model: User,
-      key: "username",
-    },
-  },
-  moderation: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-  },
-  content: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-}, {
-    sequelize,
-    modelName: 'MODERATION_BOOK',
-    tableName: 'MODERATION_BOOKS'
-});
+    {
+      modelName: "moderation_book",
+      tableName: "moderation_book",
+    }
+  );
 
-Moderation_Book.associate = (models) => {
-    Moderation_Book.belongsTo(models.Book, {
-        as: 'Book',
-        foreignKey: "idbook"
-    });
-    Moderation_Book.belongsTo(models.User, {
-        as: 'User',
-        foreignKey: "moderator"
-    });
+  moderation_book.associate = (models) => {
+    //Belong
+    moderation_book.belongsTo(models.book, { foreignKey: "idbook" });
+    moderation_book.belongsTo(models.user, { foreignKey: "moderator" });
+  };
+
+  return moderation_book;
 };
-
-module.exports = Moderation_Book;

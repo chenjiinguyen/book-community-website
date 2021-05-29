@@ -7,8 +7,8 @@
         <div class="performance">
             <div class="items">
                 <div class="item">
-                    <div class="subject">Độ hot</div>
-                    <div class="count">0</div>
+                    <div class="subject">Tổng số sách</div>
+                    <div class="count">{{me.count_book}}</div>
                 </div>
                 <div class="item">
                     <div class="subject">Thích</div>
@@ -51,39 +51,61 @@
             <ul id="nav-tags">
                 <li class="selected" data-type="novel">
 
-                    Tiểu thuyết của tôi (0)
+                    Truyện chữ của tôi ({{ mytexts.length }})
                 </li>
                 <li class data-type="comic">
 
-                    Truyện tranh của tôi (0)
+                    Truyện tranh của tôi ({{ mycomics.length }})
+                </li>
+
+                <li class data-type="audio">
+
+                    Truyện audio của tôi ({{ myaudios.length }})
                 </li>
             </ul>
             <a href="#" class="btn btn-red create-content selected" id="btn-create-novel" style="display: block;">
-                Tạo tiểu thuyết
+                Tạo truyện chữ
             </a>
             <a href="#" class="btn btn-red create-content" id="btn-create-comic" style="display: none;">
                 Tạo truyện tranh
             </a>
+            <a href="#" class="btn btn-red create-content" id="btn-create-audio" style="display: none;">
+                Tạo truyện audio
+            </a>
         </div>
         <div id="my-contents">
             <div class="my-novel" style="display:block">
-                <div class="no-content">
-                    <div class="icon"><i class="fa fa-book" aria-hidden="true"></i></div>
-                    <div class="description">Hiện tại chưa có tác phẩm nào</div>
-                </div>
+                @each(text in mytexts)
+                    @!component('component.book.my',text)
+                @else
+                    <div class="no-content">
+                        <div class="icon"><i class="fa fa-book" aria-hidden="true"></i></div>
+                        <div class="description">Hiện tại chưa có tác phẩm nào</div>
+                    </div>
+                @endeach
+                
             </div>
             <div class="my-comic">
-                <div class="no-content">
-                    <div class="icon"></div>
-                    <div class="description">Hiện tại chưa có tác phẩm nào</div>
-                </div>
+                @each(comic in mycomics)
+                    @!component('component.book.my',comic)
+                @else
+                    <div class="no-content">
+                        <div class="icon"><i class="fa fa-book" aria-hidden="true"></i></div>
+                        <div class="description">Hiện tại chưa có tác phẩm nào</div>
+                    </div>
+                @endeach
             </div>
             <div class="my-audio">
-                <div class="no-content">
-                    <div class="icon"></div>
-                    <div class="description">Tạm thời chưa có nhiệm vụ ghi âm</div>
-                </div>
+                @each(audio in myaudios)
+                    @!component('component.book.my',audio)
+                @else
+                    <div class="no-content">
+                        <div class="icon"><i class="fa fa-book" aria-hidden="true"></i></div>
+                        <div class="description">Hiện tại chưa có tác phẩm nào</div>
+                    </div>
+                @endeach
             </div>
+            
             <div class="apply-contract-div">
                 <div>Bạn muốn kiếm thêm nhiều thu nhập?</div>
                 <div>
@@ -93,4 +115,24 @@
         </div>
     </div>
 </div>
+@endsection
+
+@section('js')
+  <script>
+
+  $('#nav-tags li').click(function() {
+    if(!$(this).hasClass('selected')) {
+      $('#nav-tags li').removeClass('selected');
+      $(this).addClass('selected');
+      $('.create-content').hide();
+    //   if($(this).data('type') !== 'audio') $('#btn-create-' + $(this).data('type')).show();
+      $('.my-comic,.my-novel,.my-audio').hide();
+      $('.my-' + $(this).data('type')).show();
+      $('#btn-create-' + $(this).data('type')).show();
+    //   if($(this).data('type') === 'audio') $('.apply-contract-div').hide();
+    //   else $('.apply-contract-div').show();
+    }
+  })
+
+    </script>
 @endsection

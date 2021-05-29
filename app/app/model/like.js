@@ -1,40 +1,29 @@
-const { Sequelize, DataTypes } = require('sequelize');
-const sequelize = require('../config/database');
-const Book = require('./book');
-const User = require('./user');
+module.exports = (sequelize, DataTypes) => {
+  const like = sequelize.define(
+    "like",
+    {
+      // Model attributes are defined here
+      username: {
+        type: DataTypes.STRING,
+        primaryKey: true,
+        allowNull: false,
+      },
+      idbook: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        allowNull: false,
+      },
+    },
+    {
+      modelName: "like",
+      tableName: "like",
+    }
+  );
+  like.associate = (models) => {
+    //Belong
+    like.belongsTo(models.book, { foreignKey: "idbook" });
+    like.belongsTo(models.user, { foreignKey: "username" });
+  };
 
-const Like = sequelize.define('Like', {
-  // Model attributes are defined here
-  username : {
-    type: DataTypes.STRING,
-    primaryKey: true,
-    allowNull: false,
-    references: {
-        model: User,
-        key: "username"
-    }
- 
-  },idbook: {
-    type: DataTypes.INTEGER,
-    primaryKey: true,
-    allowNull: false,
-    references: {
-        model: Book,
-        key: "idbook"
-    }
-  }
-}, {
-    sequelize,
-    modelName: 'LIKE',
-});
-Like.associate = (models) => {
-    Like.belongsTo(models.Book, {
-        as: 'Book',
-        foreignKey: "idbook"
-    });
-    Like.belongsTo(models.User, {
-        as: 'User',
-        foreignKey: "username"
-    });
+  return like;
 };
-module.exports = Like;

@@ -1,26 +1,30 @@
-const { Sequelize, DataTypes } = require("sequelize");
-const sequelize = require("../config/database");
-
-const Role = sequelize.define(
-  "Role",
-  {
-    idrole: {
-      type: DataTypes.STRING,
-      primaryKey: true,
-      allowNull: false,
+module.exports = (sequelize, DataTypes) => {
+  const role = sequelize.define(
+    "role",
+    {
+      idrole: {
+        type: DataTypes.STRING,
+        primaryKey: true,
+        allowNull: false,
+      },
+      name: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
     },
-    name: {
-      type: DataTypes.STRING,
-      allowNull: true,
-    },
-  },
-  {
-    sequelize,
-    modelName: "ROLE",
-    tableName: 'ROLES'
-  }
-);
-Role.associate = (models) => {
-  Role.belongsToMany(models.Usergroup, { through: models.Usergroup_Role });
+    {
+      modelName: "role",
+      tableName: "role",
+      timestamps: false,
+      createdAt: false,
+      updatedAt: false,
+    }
+  );
+  role.associate = (models) => {
+    //Has
+    role.hasMany(models.usergroup_role, { foreignKey: "idrole" });
+    //Belongs
+    // role.belongsToMany(models.usergroup, { through: models.usergroup_role });
+  };
+  return role;
 };
-module.exports = Role;

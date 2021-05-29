@@ -1,42 +1,49 @@
-const { Sequelize, DataTypes } = require('sequelize');
-const sequelize = require('../config/database');
-
-const Episode = sequelize.define('Episode', {
-    idepisode : {
+module.exports = (sequelize, DataTypes) => {
+  const episode = sequelize.define(
+    "episode",
+    {
+      idepisode: {
         type: DataTypes.INTEGER,
         autoIncrement: true,
         primaryKey: true,
-        allowNull: false
-    },
-    idbook : {
+        allowNull: false,
+      },
+      idbook: {
         type: DataTypes.INTEGER,
         allowNull: false,
-    },
-    index: {
+      },
+      index: {
         type: DataTypes.INTEGER,
-        allowNull: false
-    },
-    name: {
+        allowNull: false,
+      },
+      name: {
         type: DataTypes.STRING,
-    },
-    content: {
+      },
+      content: {
         type: DataTypes.STRING,
-    },
-    view: {
+      },
+      view: {
         type: DataTypes.INTEGER,
-        defaultValue: 0
-    },
-    status: {
+        defaultValue: 0,
+      },
+      status: {
         type: DataTypes.INTEGER,
-        defaultValue: 0
+        defaultValue: 0,
+      },
     },
+    {
+      modelName: "episode",
+      tableName: "episode",
+      // Other model options go here
+    }
+  );
+  episode.associate = (models) => {
+    //Has
+    episode.hasMany(models.point, {foreignKey: "idepisode"});
+    episode.hasMany(models.moderation_episode, {foreignKey: "idepisode"});
+    //Belong
+    episode.belongsTo(models.book, { foreignKey: "idbook" });
+  };
 
-
-},{
-    sequelize,
-    modelName: 'EPISODE',
-    tableName: "EPISODES",
-  // Other model options go here
-});
-
-module.exports = Episode;
+  return episode;
+};

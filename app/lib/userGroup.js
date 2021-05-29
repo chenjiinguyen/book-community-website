@@ -1,8 +1,8 @@
 module.exports = {
-    MEMBER: "member",
-    UPLOADER: "uploader",
-    MOD: "mod",
-    ADMIN : "admin",
+    MEMBER: "MEMBER",
+    UPLOADER: "UPLOADER",
+    MOD: "MOD",
+    ADMIN : "ADMIN",
 }
 
 

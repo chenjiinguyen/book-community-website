@@ -1,59 +1,46 @@
-const { Sequelize, DataTypes } = require('sequelize');
-const sequelize = require('../config/database');
-const Book = require('./book');
-const User = require('./user');
-
-const Comment = sequelize.define('Comment', {
-  // Model attributes are defined here
-  idcomment : {
-    type: DataTypes.INTEGER,
-    primaryKey: true,
-    autoIncrement: true,
-    allowNull: false
-  },
-  iduser : {
-    type: DataTypes.STRING,
-    primaryKey: true,
-    allowNull: false,
-    references: {
-        model: User,
-        key: "username"
-    }
- 
-  },idbook: {
-    type: DataTypes.INTEGER,
-    primaryKey: true,
-    allowNull: false,
-    references: {
-        model: Book,
-        key: "idbook"
-    },
-    parent: {
+module.exports = (sequelize, DataTypes) => {
+  const comment = sequelize.define(
+    "comment",
+    {
+      // Model attributes are defined here
+      idcomment: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true,
+        allowNull: false,
+      },
+      iduser: {
+        type: DataTypes.STRING,
+        primaryKey: true,
+        allowNull: false,
+      },
+      idbook: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        allowNull: false,
+      },
+      parent: {
         type: DataTypes.INTEGER,
         allowNull: true,
-    },
-    content : { 
+      },
+      content: {
         type: DataTypes.STRING,
         allowNull: false,
+      },
+    },
+    {
+      modelName: "comment",
+      tableName: "comment",
     }
-  },
-}, {
-    sequelize,
-    modelName: 'COMMENT',
-    tableName: 'COMMENTS'
-});
-Comment.associate = (models) => {
-    Comment.belongsTo(models.Book, {
-        as: 'Book',
-        foreignKey: "idbook"
-    });
-    Comment.belongsTo(models.User, {
-        as: 'User',
-        foreignKey: "iduser"
-    });
-    Comment.belongsTo(models.Comment, {
-        as: 'Comment',
-        foreignKey: "idcomment"
-    });
+  );
+
+  comment.associate = (models) => {
+    //Has
+    comment.hasMany(models.comment,{foreignKey: "parent"})
+    //Belong
+    comment.belongsTo(models.book, { foreignKey: "idbook" });
+    comment.belongsTo(models.user, { foreignKey: "iduser" });
+    comment.belongsTo(models.comment, { foreignKey: "idcomment" });
+  };
+  return comment;
 };
-module.exports = Comment;

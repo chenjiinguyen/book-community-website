@@ -1,0 +1,98 @@
+@layout('layout.admin')
+
+@section('content')
+<div class="content-wrapper create-page">
+    <form method="POST" action="/admin/episode/{{ episode.idepisode }}/edit" id="create-content">
+        <div class="content">
+            <div class="form-group">
+                <div class="left">
+                    <div class="name">
+                        <span style="color:red">* </span>Chapter Tiêu đề:
+                    </div>
+                </div>
+                <div class="right">
+                    <label class="txt-label">
+                        <input class="calculate-count txt-input" data-max-num="100" name="name"
+                            value="{{episode.name}}" id="content-title" type="text"></input>
+                        <span class="text-count">
+                            <span class="current-text-count">0</span>
+                            <span class="text-max-count">/100</span>
+                        </span>
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="left">
+                    <div class="name">
+                        <span style="color:red">* </span> Nội dung:
+
+                    </div>
+                </div>
+                <div class="right" style="padding-bottom:5px;">
+                    <div id="editSection" name="content" style="box-sizing: border-box; height: auto;" class="auto-height">
+                      
+                    </div>
+                </div>
+                <textarea name="content" style="display:none;">{{{ episode.content }}}</textarea>
+            </div>
+
+           
+            <div class="btn-submit-div">
+                <input id="submitNopCho" type="submit" name="status" value="1" style="display:none;"/>
+                <input id="submitBanNhap" type="submit" name="status" value="0" style="display:none;"/>
+                <a class="btn btn-red btn-submit" id="btnNopCho">
+                  Nộp chờ      
+                </a>
+                <a class="btn btn-red btn-submit" id="btnBanNhap">
+                    Bản nháp        
+                </a>
+            </div>
+        </div>
+    </form>
+</div>
+@endsection
+
+@section('js')
+<!-- Scripts -->
+<script src="https://uicdn.toast.com/tui-editor/latest/tui-editor-Editor-full.js"></script>
+<script>
+    content = $("textarea[name='content']").val();
+    var editor = new tui.Editor({
+      el: document.querySelector('#editSection'),
+      initialEditType: 'wysiwyg',
+      previewStyle: 'vertical',
+      hideModeSwitch: true,
+      initialValue: content,
+      height: 'auto',
+      minHeight: '350px',
+      height: '500px',
+      usageStatistics: false,
+      toolbarItems: [
+        'bold',
+        'italic',
+        'strike',
+        'divider',
+        'quote',
+      ],
+      events : {
+          change: () => {
+            $("textarea[name='content'").val(editor.getHtml())
+          },
+      },
+    });
+    $( "#btnBanNhap" ).click(function() {
+        $( "#submitBanNhap" ).click();
+    });
+    $( "#btnBanNhap" ).click(function() {
+        $( "#submitBanNhap" ).click();
+    });
+</script>
+@endsection
+
+@section('css')
+  <!-- Styles -->
+<link rel="stylesheet" href="https://uicdn.toast.com/tui-editor/latest/tui-editor.css"></link>
+<link rel="stylesheet" href="https://uicdn.toast.com/tui-editor/latest/tui-editor-contents.css"></link>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.4/codemirror.css"></link>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css"></link>
+@endsection

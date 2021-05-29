@@ -1,0 +1,127 @@
+@layout('layout.master')
+
+@section('css')
+<style>
+.select {
+  position: relative;
+  min-width: 200px;
+  max-width: 400px;
+}
+.select svg {
+  position: absolute;
+  right: 12px;
+  top: calc(50% - 3px);
+  width: 10px;
+  height: 6px;
+  stroke-width: 2px;
+  stroke: #9098a9;
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  pointer-events: none;
+}
+.select select {
+  -webkit-appearance: none;
+  padding: 7px 40px 7px 12px;
+  width: 100%;
+  border: 1px solid #e8eaed;
+  border-radius: 5px;
+  background: #fff;
+  box-shadow: 0 1px 3px -2px #9098a9;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 16px;
+  transition: all 150ms ease;
+}
+.select select:required:invalid {
+  color: #5a667f;
+}
+.select select option {
+  color: #223254;
+}
+.select select option[value=""][disabled] {
+  display: none;
+}
+.select select:focus {
+  outline: none;
+  border-color: #07f;
+  box-shadow: 0 0 0 2px rgba(0,119,255,0.2);
+}
+.select select:hover + svg {
+  stroke: #07f;
+}
+.sprites {
+  position: absolute;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+  user-select: none;
+}
+
+</style>
+<svg class="sprites">
+    <symbol id="select-arrow-down" viewbox="0 0 10 6">
+      <polyline points="1 1 5 5 9 1"></polyline>
+    </symbol>
+  </svg>
+@endsection
+
+@section('js')
+<script>
+$('#listepisode').on('change', function (e) {
+    var optionSelected = $("option:selected", this);
+    var valueSelected = this.value;
+    window.location.replace(valueSelected);
+});
+</script>
+@endsection
+
+@section('content')
+<div class="view-menu">
+    <div class="view-menu-wrap">
+        <div class="view-tab-bg">
+            <a href="/detail/{{ book.idbook }}">
+                <div class="view-menu-item active" id="episodes"><span>{{ book.title }}</span></div>
+            </a>
+            <span class="view-episode-num">- {{ content.name }}</span>
+           
+        </div>
+        <div class="view-episode">
+            <div id="episodelist">
+                <div>
+                    <label class="select" for="listepisode">
+                    <select name="listepisode" id="listepisode" data-live-search="true">
+                        @each(ep in episodes)
+                            <option {{ (ep.idepisode == content.idepisode)?'selected="selected"':"" }} value="/watch/{{ep.idbook}}/{{ep.idepisode}}">{{ep.name}}</option>
+                        @endeach
+                    </select>
+                    <svg>
+                        <use xlink:href="#select-arrow-down"></use>
+                      </svg>
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div style="height: 40px"></div>
+<div class="container my-2">
+
+    @if(book.category == "IMAGE")
+    <div class="my-2" style="width: 800px;margin-left: auto;margin-right: auto;">
+        @each(image in content.images)
+            <img src="{{image}}" style="width:100%;"/>
+        @endeach
+    </div>
+    @elseif(book.category == "AUDIO")
+    
+    @else
+    <p>
+        {{{  content.content  }}}
+    </p>
+    @endif
+    
+    
+</div>
+@endsection
+

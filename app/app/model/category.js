@@ -1,26 +1,28 @@
-const { Sequelize, DataTypes } = require("sequelize");
-const sequelize = require("../config/database");
-
-const Category = sequelize.define(
-  "Category",
-  {
-    idrole: {
-      type: DataTypes.STRING,
-      primaryKey: true,
-      allowNull: false,
+module.exports = (sequelize, DataTypes) => {
+  const category = sequelize.define(
+    "category",
+    {
+      idcategory: {
+        type: DataTypes.STRING,
+        primaryKey: true,
+        allowNull: false,
+      },
+      name: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
     },
-    name: {
-      type: DataTypes.STRING,
-      allowNull: true,
-    },
-  },
-  {
-    sequelize,
-    modelName: "CATEGORY",
-    tableName: 'CATEGORIES'
-  }
-);
-Category.associate = (models) => {
-  Category.belongsToMany(models.Usergroup, { through: models.Usergroup_Category });
+    {
+      modelName: "category",
+      tableName: "category",
+      timestamps: false,
+      createdAt: false,
+      updatedAt: false,
+    }
+  );
+  category.associate = (models) => {
+    // Has
+    category.hasMany(models.book, { foreignKey: "category"});
+  };
+  return category;
 };
-module.exports = Category;

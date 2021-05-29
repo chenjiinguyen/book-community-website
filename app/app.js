@@ -2,10 +2,13 @@ const createError = require('http-errors');
 const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
+const session    = require('express-session')
 const logger = require('morgan');
 const { config, engine } = require('express-edge');
 const passport = require('./app/config/passport');
 const swagger = require('./app/config/swagger');
+const flash = require('express-flash');
+const back = require('express-back');
 require('dotenv').config();
 
 const adminRouter = require('./routes/web/admin');
@@ -26,11 +29,16 @@ app.use(engine);
 
 app.use(logger('dev'));
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use(session({ secret: 'bookcommunity',resave: true, saveUninitialized:true})); // session secret
+app.use(flash());
+app.use(back());
 app.use(passport.initialize());
+app.use(passport.session());
+
 app.use('/', webRouter);
 app.use('/api', apiRouter);
 app.use('/api-docs',swagger.serve,swagger.setup);
@@ -49,7 +57,8 @@ app.use(function(err, req, res, next) {
 
     // render the error page
     res.status(err.status || 500);
-    res.render('page/error/index');
+    // res.render('page/error/index');
+    res.send(err.message)
 });
 
 
