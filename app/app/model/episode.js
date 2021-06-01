@@ -42,7 +42,7 @@ module.exports = (sequelize, DataTypes) => {
     episode.hasMany(models.point, {foreignKey: "idepisode"});
     episode.hasMany(models.moderation_episode, {foreignKey: "idepisode"});
     //Belong
-    episode.belongsTo(models.book, { foreignKey: "idbook" });
+    episode.belongsTo(models.book, { foreignKey: "idbook", as: "books" });
   };
 
   return episode;

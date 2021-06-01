@@ -1,0 +1,140 @@
+@layout('layout.admin')
+
+@section('content')
+<div class="content-wrapper create-page">
+    <form method="POST" action="/admin/censor/book/{{ book.idbook }}}/verify" id="verify-content">
+        <div class="content">
+            <div class="form-group">
+                <div class="left">
+                    <div class="name">
+                        Tiêu đề:
+
+                    </div>
+                </div>
+                <div class="right">
+                    <label class="txt-label">
+                        <input class="calculate-count txt-input" data-max-num="100" readonly value="{{book.title}}" id="content-title" type="text"></input>
+                        <span class="text-count">
+                            <span class="current-text-count">0</span>
+                            <span class="text-max-count">/100</span>
+                        </span>
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="left">
+                    <div class="name">
+                        Tên tác giả:
+
+                    </div>
+                </div>
+                <div class="right">
+                    <label class="txt-label">
+                        <input class="calculate-count txt-input" data-max-num="100" readonly value="{{book.author}}" id="content-author" type="text"></input>
+                        <span class="text-count">
+                            <span class="current-text-count">0</span>
+                            <span class="text-max-count">/100</span>
+                        </span>
+                    </label>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <div class="left">
+                    <div class="name"><span style="color:red">* </span>Thể loại:
+                    </div>
+                </div>
+                <div class="right" style="color:#A8B0B6;font-size:12px;">
+                    <label class="txt-label">
+                        <a href="#" class="custom-select-down">
+                            <i class="fa fa-caret-down" aria-hidden="true"></i>
+                        </a>
+                        <select id="is-end"  disabled class="custom-select" name="category">
+                            <option value="TEXT" {{ (book.category=="TEXT")?"selected":"" }}>Truyện Chữ</option>
+                            <option value="IMAGE" {{ (book.category=="IMAGE")?"selected":"" }}>Truyện Tranh</option>
+                            <option value="AUDIO" {{ (book.category=="AUDIO")?"selected":"" }}>Truyện Audio</option>
+                        </select>
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="left">
+                    <div class="name" style="align-items:unset">
+                        Ảnh bìa:
+                    </div>
+                </div>
+                <div class="right">
+                    <div class="cover">
+                        <div class="cover-img-bg"></div>
+
+                        <div class="upload-btn">
+                            <img class="upload-cover" src="{{ book.poster }}" style="width:100%;height:100%;"/>
+                            
+                        </div>
+                    </div>
+                   
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="left">
+                    <div class="name">
+                        Giới thiệu:
+                    </div>
+
+                </div>
+                <div class="right">
+                    <label class="txt-label">
+                        <textarea class="calculate-count txt-area" data-max-num="1000" readonly rows="10" id="description-content">{{{  book.description  }}}</textarea>
+                       
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="left">
+                    <div class="name" style="align-items:unset">
+                        <span style="color:red">* </span>
+                        Nội dung kiểm duyệt
+                    </div>
+
+                </div>
+                <div class="right">
+                    <label class="txt-label">
+                        <textarea class="calculate-count txt-area" data-max-num="1000" name="description" rows="10" id="description-censor"></textarea>
+                       
+                    </label>
+                </div>
+            </div>
+
+            <div class="btn-submit-div">
+                <label for="no-id">
+                    <input id="submitKiemDuyet" name="status" value="" type="submit" style="display:none;"/>
+                    <a id="btn-chophep" data-value="3" class="btn btn-red">Cho phép</a>
+                    <a id="btn-tuchoi" data-value="2" class="btn btn-yellow">Từ chối</a>
+                </label>
+            </div>
+        </div>
+    </form>
+</div>
+@endsection
+
+@section('js')
+<script>
+    
+
+
+    $( "#btn-chophep" ).click(kiemduyet);
+    $( "#btn-tuchoi" ).click(kiemduyet);
+    function kiemduyet(){
+        let x = confirm("Bạn có muốn xác nhận hành đồng này không ?");
+        if(x)
+        {
+            $("#submitKiemDuyet").val($(this).data("value"));
+            $("#submitKiemDuyet").click();
+        }
+
+    }
+</script>
+@endsection
+
+

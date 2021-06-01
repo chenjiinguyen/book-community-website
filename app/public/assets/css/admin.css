@@ -400,11 +400,6 @@ ul {
   margin-bottom: 13px;
 }
 
-.btn-yellow {
-  color: #fff;
-  background-color: #f5a623;
-}
-
 .btn {
   box-sizing: border-box;
   border-radius: 5px;
@@ -413,6 +408,37 @@ ul {
   height: 40px;
   line-height: 40px;
   padding: 0 10px;
+}
+.btn-red {
+  color: #fff;
+  background-color: #fe5454;
+}
+a.btn-red:hover {
+  color: #fff;
+  background-color: #e54b4b;
+}
+.btn-yellow {
+  color: #fff;
+  background-color: #f5a623;
+}
+a.btn-yellow:hover {
+  color: #fff;
+  background-color: #e89d21;
+}
+.btn-white {
+  color: #4b4d4e;
+  background-color: #fff;
+  border: solid 1px #929598;
+}
+a.btn-white:hover {
+  color: #4b4d4e;
+}
+.btn-black {
+  color: #fff;
+  background-color: #333;
+}
+a.btn-black:hover {
+  color: #fff;
 }
 /* ========= comment.html file ======= */
 
@@ -725,7 +751,7 @@ apply-contract-bg .dialog {
   padding: 0 40px;
 }
 
-#create-content  .content {
+#create-content .content {
   margin: 50px auto 40px auto;
 }
 
@@ -1245,10 +1271,18 @@ a.icon-reject-message {
   color: #7ed321;
   font-weight: normal;
 }
-.episode_status_0{color:#F5A623}
-.episode_status_1{color:#F5A623}
-.episode_status_2{color:#D0021B}
-.episode_status_3{color:#7ed321}
+.episode_status_0 {
+  color: #f5a623;
+}
+.episode_status_1 {
+  color: #f5a623;
+}
+.episode_status_2 {
+  color: #d0021b;
+}
+.episode_status_3 {
+  color: #7ed321;
+}
 #index-page .content .update-time {
   color: #999;
   font-size: 12px;
@@ -1265,4 +1299,77 @@ a.icon-reject-message {
 }
 #index-page .content .counts li {
   margin-right: 20px;
+}
+
+
+.book-btns {
+  margin-bottom: 10px;
+}
+.book-images{
+  padding-bottom:5px;
+  height: 600px;
+  overflow-y:scroll;
+  padding:5px;
+  border: 1px solid black;
+  border-radius:5px;
+}
+
+.book-images .cover{
+  display:flex;
+  padding-bottom:2px;
+  border-bottom: 1px solid black;
+  margin-bottom: 5px;
+}
+
+.book-images .cover-right{
+  width:100%;
+  display:flex;
+  align-items:center;
+  align-self:end;
+}
+
+.book-images .txt-label {
+  width:100%;
+  margin-right:10px;
+  margin-left:10px;
+}
+#image-item {
+  display: none;
+}
+.audio-view{
+  margin-bottom: 10px;
+}
+
+.ratio-16-9,
+.ratio-16-10,
+.ratio-square {
+  display: block;
+  position: relative;
+  width: 100%;
+  height: 0;
+}
+
+.ratio-16-9 {
+  padding-top: 56.25%; /* This is your aspect-ratio */
+}
+
+.ratio-16-10 {
+  padding-top: 62.5%; /* This is your aspect-ratio */
+}
+
+.ratio-square {
+  padding-top: 100%; /* This is your aspect-ratio */
+}
+
+.ratio-inner {
+  display: block;
+  position: absolute;
+
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+
+  width: 100%;
+  height: 100%;
 }

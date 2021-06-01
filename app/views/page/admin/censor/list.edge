@@ -1,0 +1,102 @@
+@layout('layout.admin')
+
+
+@section('content')
+<div id="index-page">
+    <div id="performance">
+        <div class="censor">
+            <div class="items">
+                <div class="item">
+                    <div class="subject">Số sách chữ cần phê duyệt</div>
+                    <div class="count">{{mytexts.length}}</div>
+                </div>
+                <div class="item">
+                    <div class="subject">Số truyện tranh cần phê duyệt</div>
+                    <div class="count">{{mycomics.length}}</div>
+                </div>
+                <div class="item">
+                    <div class="subject">Số truyện audio cần phê duyệt</div>
+                    <div class="count">{{myaudios.length}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="content-wrapper">
+        <div class="nav-tags-div">
+            <ul id="nav-tags">
+                <li class="selected" data-type="novel">
+
+                    Truyện chữ ({{ mytexts.length }})
+                </li>
+                <li class data-type="comic">
+
+                    Truyện tranh ({{ mycomics.length }})
+                </li>
+
+                <li class data-type="audio">
+
+                    Truyện audio ({{ myaudios.length }})
+                </li>
+            </ul>
+        </div>
+        <div id="my-contents">
+            <div class="my-novel" style="display:block">
+                @each(text in mytexts)
+                    @!component('component.book.censor',text)
+                @else
+                    <div class="no-content">
+                        <div class="icon"><i class="fa fa-book" aria-hidden="true"></i></div>
+                        <div class="description">Hiện tại chưa có tác phẩm nào cần kiểm duyệt</div>
+                    </div>
+                @endeach
+                
+            </div>
+            <div class="my-comic">
+                @each(comic in mycomics)
+                    @!component('component.book.censor',comic)
+                @else
+                    <div class="no-content">
+                        <div class="icon"><i class="fa fa-book" aria-hidden="true"></i></div>
+                        <div class="description">Hiện tại chưa có tác phẩm nào cần kiểm duyệt</div>
+                    </div>
+                @endeach
+            </div>
+            <div class="my-audio">
+                @each(audio in myaudios)
+                    @!component('component.book.censor',audio)
+                @else
+                    <div class="no-content">
+                        <div class="icon"><i class="fa fa-book" aria-hidden="true"></i></div>
+                        <div class="description">Hiện tại chưa có tác phẩm nào cần kiểm duyệt</div>
+                    </div>
+                @endeach
+            </div>
+            
+        </div>
+    </div>
+</div>
+@endsection
+
+@section('css')
+  <style>
+      #performance .censor {
+        flex: 1;
+    }
+</style>
+@endsection
+
+@section('js')
+  <script>
+
+  $('#nav-tags li').click(function() {
+    if(!$(this).hasClass('selected')) {
+      $('#nav-tags li').removeClass('selected');
+      $(this).addClass('selected');
+      $('.create-content').hide();
+      $('.my-comic,.my-novel,.my-audio').hide();
+      $('.my-' + $(this).data('type')).show();
+    }
+  })
+
+    </script>
+@endsection

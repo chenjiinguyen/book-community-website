@@ -26,7 +26,7 @@ const controller = async (req, res, next) => {
     raw: true,
   });
   data.content = await models.episode.findOne({
-    where: { idepisode: episodeId, idbook: bookId, status: 1 },
+    where: { idepisode: episodeId, idbook: bookId, status: status.ACCEPT },
     raw: true,
   });
   data.episodes = await models.episode.findAll({

@@ -38,7 +38,7 @@ module.exports = (sequelize, DataTypes) => {
 
   moderation_episode.associate = (models) => {
     //Belong
-    moderation_episode.belongsTo(models.book, { foreignKey: "idbook" });
+    moderation_episode.belongsTo(models.book, { foreignKey: "idepisode" });
     moderation_episode.belongsTo(models.user, { foreignKey: "moderator" });
   };
 

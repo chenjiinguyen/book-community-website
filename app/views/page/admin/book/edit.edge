@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="content-wrapper create-page">
-    <form method="POST" action="/admin/book/{{ book.idbook }}}/" id="create-content">
+    <form method="POST" action="/admin/book/{{ book.idbook }}}/edit" id="create-content">
         <div class="content">
             <div class="form-group">
                 <div class="left">
@@ -50,9 +50,16 @@
                             <i class="fa fa-caret-down" aria-hidden="true"></i>
                         </a>
                         <select id="is-end" class="custom-select" name="category">
+                            @if(book.category=="TEXT")
                             <option value="TEXT" {{ (book.category=="TEXT")?"selected":"" }}>Truyện Chữ</option>
+                            @elseif(book.category=="IMAGE")
                             <option value="IMAGE" {{ (book.category=="IMAGE")?"selected":"" }}>Truyện Tranh</option>
+                            @elseif(book.category=="AUDIO")
                             <option value="AUDIO" {{ (book.category=="AUDIO")?"selected":"" }}>Truyện Audio</option>
+                            @endif
+                           
+                            
+                            
                         </select>
                     </label>
                 </div>

@@ -1,6 +1,11 @@
 @layout('layout.admin')
 
 @section('css')
+<link href="http://mangatoon.mobi/js/tui-editor/codemirror.css" rel="stylesheet">
+<link href="http://mangatoon.mobi/js/tui-editor/github.css" rel="stylesheet">
+<link href="http://mangatoon.mobi/js/tui-editor/explain.css" rel="stylesheet">
+<link href="http://mangatoon.mobi/js/tui-editor/tui-editor.css" rel="stylesheet">
+<link href="http://mangatoon.mobi/js/tui-editor/tui-editor-contents.css" rel="stylesheet">
 @endsection
 
 @section('content')
@@ -9,9 +14,9 @@
         <div class="cover-img">
             <img style="width:100%;height:100%" src="{{ book.poster }}">
         </div>
-        <a class="content-btn btn btn-white" href="/admin/book/{{ book.idbook }}/edit">Sửa</a>
-        <a id="btnXoaSach" class="content-btn btn btn-white" data-href="/admin/book/{{ book.idbook }}/delete">Xóa</a>
-        <a class="content-btn btn btn-red" href="/admin/book/{{ book.idbook }}/create">Thêm chapter</a>
+        @if(book.censor)
+            <a class="content-btn btn btn-white" href="/admin/censor/book/{{ book.idbook }}/verify">Kiểm duyệt sách</a>
+        @endif
     </div>
     <div class="content-right">
         <div>
@@ -52,7 +57,6 @@
             <div class="content-tags">
                 <ul>
                     <li>{{ book["categories.name"] }}</li>
-                    <li>{{ book.author }}</li>
                 </ul>
             </div>
         </div>
@@ -84,8 +88,7 @@
                         @endif
                     </td>
                     <td>
-                        <a class="td-btn btn-edit" href="/admin/episode/{{ ep.idepisode }}/edit">Sửa</a>
-                        <a class="td-btn btn-delete" data-href="/admin/episode/{{ ep.idepisode }}/delete">Xóa</a>
+                        <a class="td-btn btn-edit" href="/admin/censor/episode/{{ ep.idepisode }}/verify">Kiểm duyệt chương</a>
                     </td>
                 </tr>
                 @else
@@ -98,21 +101,5 @@
 @endsection
 
 @section('js')
-<script>
-    $(".btn-delete").click(function(){
-        let check = confirm("Bạn có muốn xóa chương này không ?");
-        if(check){
-            let x = $(this).data("href");
-            window.location.replace(x);
-        }
-    })
 
-    $("#btnXoaSach").click(function(){
-        let check = confirm("Bạn có muốn xóa cuốn sách này không ?");
-        if(check){
-            let x = $(this).data("href");
-            window.location.replace(x);
-        }
-    })
-</script>
 @endsection

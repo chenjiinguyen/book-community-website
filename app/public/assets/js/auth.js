@@ -18,4 +18,3 @@ moveSliderRight = () => {
     document.getElementById('signInForm').classList.add('shiftRight');
   }
 
-moveSliderRight()

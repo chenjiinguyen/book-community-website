@@ -32,6 +32,13 @@ const checkPropertiesInObject = (arrProperties, object) => {
     return true;
 }
 
+const checkNotBlankInObject = (arrProperties, object) => {
+    for (const key of arrProperties) {
+        if(!object.hasOwnProperty(key) || object[key].length == 0) return false;
+    }
+    return true;
+}
+
 
 
 const checkUrlOfString = (str) => {
@@ -77,5 +84,6 @@ module.exports = {
     issueJWT,
     jwtOptions,
     checkPropertiesInObject,
+    checkNotBlankInObject,
     updateView
 };  

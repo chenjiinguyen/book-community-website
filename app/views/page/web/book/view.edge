@@ -58,6 +58,12 @@
   user-select: none;
 }
 
+.youtube-view{
+  width: 60%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 </style>
 <svg class="sprites">
     <symbol id="select-arrow-down" viewbox="0 0 10 6">
@@ -73,6 +79,23 @@ $('#listepisode').on('change', function (e) {
     var valueSelected = this.value;
     window.location.replace(valueSelected);
 });
+@if(book.category == "AUDIO")
+
+  $( document ).ready(function() {
+      let link = "{{content.content}}"
+      let regex = new RegExp('^.*(?:(?:youtu\.be\/|v\/|vi\/|u\/\w\/|embed\/)|(?:(?:watch)?\?v(?:i)?=|\&v(?:i)?=))([^#\&\?]*).*');
+      let check = link.match(regex);
+      if(check != null){
+          let url = "https://www.youtube.com/embed/"+ check[check.length-1];
+          $("#youtube-view").attr("src",url);
+          $("#youtube-view").css("display","block");
+      }else{
+          $("#youtube-view").attr("src","");
+          $("#youtube-view").css("display","none");
+      }
+  });
+
+@endif
 </script>
 @endsection
 
@@ -114,7 +137,12 @@ $('#listepisode').on('change', function (e) {
         @endeach
     </div>
     @elseif(book.category == "AUDIO")
-    
+      <div class="youtube-view">
+        <div class="ratio-16-9">
+          <iframe id="youtube-view" class="ratio-inner" src="" frameborder="0" allow="accelerometer; autoplay;encrypted-media; gyroscope; picture-in-picture;" allowfullscreen></iframe>
+        </div>
+      </div>
+      
     @else
     <p>
         {{{  content.content  }}}
@@ -124,4 +152,5 @@ $('#listepisode').on('change', function (e) {
     
 </div>
 @endsection
+
 

@@ -1,0 +1,131 @@
+@layout('layout.admin')
+
+@section('content')
+<div class="content-wrapper create-page">
+
+    <form method="POST" action="/admin/censor/episode/{{ episode.idepisode }}/verify" id="verify-content">
+        <div class="content">
+            <div class="form-group">
+                <div class="left">
+                    <div class="name">
+                        Chapter Tiêu đề:
+                    </div>
+                </div>
+                <div class="right">
+                    <label class="txt-label">
+                        <input class="calculate-count txt-input" readonly
+                            value="{{episode.name}}" id="content-title" type="text"></input>
+                        <span class="text-count">
+                            <span class="current-text-count">0</span>
+                            <span class="text-max-count">/100</span>
+                        </span>
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="left">
+                    <div class="name">
+                        Nội dung:
+
+                    </div>
+                </div>
+                <div class="right">
+                    <div class="book-images">
+                        @each(image in episode.images)
+                            <img src="{{image}}" style="width:100%;"/>
+                        @endeach
+                    </div>
+                </div>
+            </div>
+
+           
+            <div class="form-group">
+                <div class="left">
+                    <div class="name" style="align-items:unset">
+                        <span style="color:red">* </span>
+                        Nội dung kiểm duyệt
+                    </div>
+
+                </div>
+                <div class="right">
+                    <label class="txt-label">
+                        <textarea class="calculate-count txt-area" data-max-num="1000" name="description" rows="10" id="description-censor"></textarea>
+                     
+                    </label>
+                </div>
+            </div>
+           
+            <div class="btn-submit-div">
+                <label for="no-id">
+                    <input id="submitKiemDuyet" name="status" value="" type="submit" style="display:none;"/>
+                    <a id="btn-chophep" data-value="3" class="btn btn-red">Cho phép</a>
+                    <a id="btn-tuchoi" data-value="2" class="btn btn-yellow">Từ chối</a>
+                </label>
+            </div>
+        </div>
+    </form>
+</div>
+
+@endsection
+
+@section('js')
+<!-- Scripts -->
+<script src="https://uicdn.toast.com/tui-editor/latest/tui-editor-Editor-full.js"></script>
+<script>
+    
+    $( "#btn-chophep" ).click(kiemduyet);
+    $( "#btn-tuchoi" ).click(kiemduyet);
+    function kiemduyet(){
+        let x = confirm("Bạn có muốn xác nhận hành đồng này không ?");
+        if(x)
+        {
+            $("#submitKiemDuyet").val($(this).data("value"));
+            $("#submitKiemDuyet").click();
+        }
+
+    }
+</script>
+@endsection
+
+@section('css')
+  <!-- Styles -->
+<style>
+.form-group {
+    margin: 20px 20px;
+}
+.book-btns {
+    margin-bottom: 10px;
+}
+.book-images{
+    padding-bottom:5px;
+    height: 600px;
+    overflow-y:scroll;
+    padding:5px;
+    border: 1px solid black;
+    border-radius:5px;
+}
+
+.book-images .cover{
+    display:flex;
+    padding-bottom:2px;
+    border-bottom: 1px solid black;
+    margin-bottom: 5px;
+}
+
+.book-images .cover-right{
+    width:100%;
+    display:flex;
+    align-items:center;
+    align-self:end;
+}
+
+.book-images .txt-label {
+    width:100%;
+    margin-right:10px;
+    margin-left:10px;
+}
+#image-item {
+    display: none;
+}
+</style>
+@endsection

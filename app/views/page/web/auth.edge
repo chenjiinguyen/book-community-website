@@ -15,39 +15,46 @@
   <div id="overlay">
     <div id="overlayInner">
       <div id="signUp">
-        <h1>Welcome Back!</h1>
-        <p>To keep connected with us pelase login with your personal info.</p>
-        <button onClick='moveSliderRight()'>Sign In</button>
+        <h1>Chào mừng trở lại!</h1>
+        <p>Để giữ kết nối với chúng tôi, hãy đăng nhập bằng thông tin cá nhân của bạn.</p>
+        <button onClick='moveSliderRight()'>Đăng nhập</button>
       </div>
       <div id="signIn">
-        <h1>Hello, Friend!</h1>
-        <p>Enter your personal details and start your journey with us.</p>
-        <button onClick='moveSliderLeft()'>Sign Up</button>
+        <h1>Chào bạn!</h1>
+        <p>Nhập thông tin cá nhân của bạn và bắt đầu hành trình của bạn với chúng tôi.</p>
+        <button onClick='moveSliderLeft()'>Đăng ký</button>
       </div>
     </div>
   </div>
   <div id="forms">
     <form action="/login" method="POST" id="signInForm" class='shiftRight'>
       <div class="holder">
-        <h1>Sign in</h1>
+        <h1>Đăng Nhập</h1>
         <p></p>
         <input type="email" name="username" placeholder="Email or Username"><br>
         <input type="password" name="password" placeholder='Password'>
 
-        <button type="submit">Sign In</button>
+        <button type="submit">Đăng Nhập</button>
       </div>
     </form>
-    <div id="signUpForm">
+    <form id="signUpForm" action="/signup" method="POST">
         <div class="holder">
-          <h1>Create Account</h1>
+          <h1>Tạo tài khoản</h1>
 
           <p></p>
-          <input type="text" placeholder="Name"><br>
-          <input type="email" placeholder="Email"><br>
-          <input type="password" placeholder='Password'>
-          <button>Sign Up</button>
+          <input type="text" name="username" value="{{(signup.username)?signup.username:""}}" placeholder="Username"><br>
+          <input type="text" name="name" value="{{(signup.name)?signup.name:""}}" placeholder="Name"><br>
+          <input type="email" name="email" value="{{(signup.email)?signup.email:""}}" placeholder="Email"><br>
+          <input type="date" name="birthday" value="{{(signup.birthday)?signup.birthday:"2000-01-01"}}" placeholder="01/01/1999"><br>
+          <select name="gender">
+            <option value="Nam">Nam</option>
+            <option value="Nữ">Nữ</option>
+            <option value="Khác">Khác</option>
+          </select><br>
+          <input type="password" name="password" value="{{(signup.password)?signup.password:""}}" placeholder='Password'>
+          <button>Đăng Ký</button>
         </div>
-    </div>
+    </form>
   </div>
 </div>
 </div>
@@ -55,5 +62,12 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
 @include('partial.web.messages')
 <script src='/assets/js/auth.js'></script>
+<script>
+  @if(login)
+    moveSliderRight()
+  @else
+    moveSliderLeft()
+  @endif
+</script>
 </body>
 </html>

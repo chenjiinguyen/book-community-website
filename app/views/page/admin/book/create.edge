@@ -66,9 +66,9 @@
                             <i class="fa fa-caret-down" aria-hidden="true"></i>
                         </a>
                         <select id="is-end" class="custom-select" name="category">
-                            <option value="TEXT" selected>Truyện Chữ</option>
-                            <option value="IMAGE">Truyện Tranh</option>
-                            <option value="AUDIO">Truyện Audio</option>
+                            <option value="TEXT" {{ (category == "TEXT")?"selected":"" }}>Truyện Chữ</option>
+                            <option value="IMAGE" {{ (category == "IMAGE")?"selected":"" }}>Truyện Tranh</option>
+                            <option value="AUDIO" {{ (category == "AUDIO")?"selected":"" }}>Truyện Audio</option>
                         </select>
                     </label>
                 </div>

@@ -16,8 +16,27 @@ module.exports.create = {
       },
       raw: true,
     });
-    data.title = "Gửi Bản Thảo Chương";
-    res.render("page.admin.episode.text.create", data);
+    if(data.book){
+        data.title = "Gửi Bản Thảo Chương";
+        switch (data.book.category) {
+          case "TEXT":
+            res.render("page.admin.episode.text.create", data);
+            break;
+          case "IMAGE":
+            res.render("page.admin.episode.image.create", data);
+            break;
+          case "AUDIO":
+            res.render("page.admin.episode.audio.create", data);
+            break;
+          default:
+            req.flash("error", "Có lỗi thông tin sách");
+            res.redirect("/admin/");
+            break;
+        }
+      }else{
+        req.flash("error", "Sách không tồn tại");
+        res.redirect("/admin/");
+      }    
   },
   post: async (req, res, next) => {
     let id = req.params.id;
@@ -45,11 +64,35 @@ module.exports.create = {
           raw: true,
         });
         let index = (chapOfBook.length == 0)?1:Math.max(...chapOfBook.map((x) => x.index)) + 1;
+        let content = "";
+        switch (book.category) {
+          case "IMAGE":
+            let regex__images = new RegExp(/^(http(s?):).*.(?:jpg|png)([/|.|w|s|-])*$/);
+            data.content.split("|").map(x => {
+              if(x.match(regex__images) == null)
+              {
+                req.flash("error", "Link ảnh bị lỗi");
+                res.redirect("/admin/book/" + id + "/create");
+              }
+            });
+            break;
+          case "AUDIO":
+            let regex__youtube = new RegExp('^.*(?:(?:youtu\.be\/|v\/|vi\/|u\/\w\/|embed\/)|(?:(?:watch)?\?v(?:i)?=|\&v(?:i)?=))([^#\&\?]*).*');
+            if(data.content.match(regex__youtube) == null)
+            {
+              req.flash("error", "Link Youtube bị lỗi");
+              res.redirect("/admin/book/" + id + "/create");
+            }
+            break;
+          default:
+            break;
+        }
+        content = data.content;
         let episode = await models.episode.create({
           idbook: id,
           index: index,
           name: data.name,
-          content: data.content,
+          content: content,
           status: data.status,
         });
         if (episode) {
@@ -77,6 +120,13 @@ module.exports.edit = {
         let id = req.params.id;
         let data = await dataController.default(req);
         data.episode = await models.episode.findOne({
+          include:[
+            {
+              model: models.book,
+              as: "books",
+              attributes: ["category"],
+            }
+          ],
           where: {
             idepisode: id,
             status: {
@@ -86,7 +136,26 @@ module.exports.edit = {
           raw: true,
         });
         data.title = "Chỉnh Sửa Chương";
-        res.render("page.admin.episode.text.edit", data);
+        if(data.episode){
+          switch (data.episode["books.category"]) {
+            case "TEXT":
+              res.render("page.admin.episode.text.edit", data);
+              break;
+            case "IMAGE":
+              res.render("page.admin.episode.image.edit", data);
+              break;
+            case "AUDIO":
+              res.render("page.admin.episode.audio.edit", data);
+              break;
+            default:
+              req.flash("error", "Có lỗi thông tin chương");
+              res.redirect("/admin/");
+              break;
+          }
+        }else{
+          req.flash("error","Chương không tồn tại")
+          res.redirect("/admin/")
+        }
     },
     post : async (req, res, next) => {
 

@@ -1,0 +1,111 @@
+@layout('layout.admin')
+
+@section('content')
+<div class="content-wrapper create-page">
+    <form method="POST" action="/admin/censor/episode/{{ episode.idepisode }}/verify" id="verify-content">
+        <div class="content">
+            <div class="form-group">
+                <div class="left">
+                    <div class="name">
+                        Chapter Tiêu đề:
+                    </div>
+                </div>
+                <div class="right">
+                    <label class="txt-label">
+                        <input class="calculate-count txt-input" readonly
+                            value="{{episode.name}}" id="content-title" type="text"></input>
+                        <span class="text-count">
+                            <span class="current-text-count">0</span>
+                            <span class="text-max-count">/100</span>
+                        </span>
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="left">
+                    <div class="name">
+                        Nội dung:
+
+                    </div>
+                </div>
+                <div class="right">
+                    <div class="audio-view ratio-16-9">
+                        <img id="cover-view"  class="ratio-inner" src="https://i.imgur.com/iw4nK7s.png"/>
+                        <iframe id="youtube-view" class="ratio-inner" src="" frameborder="0" allow="accelerometer; autoplay;encrypted-media; gyroscope; picture-in-picture;" allowfullscreen></iframe>
+                    </div>
+                    <div class="cover-right">  
+                        <label class="txt-label">
+                            <input class="calculate-count txt-input" id="youtube-url" placeholder="Link Video Youtube"  value="{{episode.content}}" type="text">
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="left">
+                    <div class="name" style="align-items:unset">
+                        <span style="color:red">* </span>
+                        Nội dung kiểm duyệt
+                    </div>
+
+                </div>
+                <div class="right">
+                    <label class="txt-label">
+                        <textarea class="calculate-count txt-area" data-max-num="1000" name="description" rows="10" id="description-censor"></textarea>
+                     
+                    </label>
+                </div>
+            </div>
+           
+            <div class="btn-submit-div">
+                <label for="no-id">
+                    <input id="submitKiemDuyet" name="status" value="" type="submit" style="display:none;"/>
+                    <a id="btn-chophep" data-value="3" class="btn btn-red">Cho phép</a>
+                    <a id="btn-tuchoi" data-value="2" class="btn btn-yellow">Từ chối</a>
+                </label>
+            </div>
+        </div>
+    </form>
+</div>
+@endsection
+
+@section('js')
+<script>
+    
+   
+    $( document ).ready(function() {
+        let link = "{{episode.content}}"
+        let regex = new RegExp('^.*(?:(?:youtu\.be\/|v\/|vi\/|u\/\w\/|embed\/)|(?:(?:watch)?\?v(?:i)?=|\&v(?:i)?=))([^#\&\?]*).*');
+        let check = link.match(regex);
+        if(check != null){
+            let url = "https://www.youtube.com/embed/"+ check[check.length-1];
+            console.log(url)
+            $("cover-view").css("display","none");
+            $("#youtube-view").attr("src",url);
+            $("#youtube-view").css("display","block");
+        }else{
+            $("#youtube-view").attr("src","url");
+            $("cover-view").css("display","block");
+            $("#youtube-view").css("display","none");
+        }
+    });
+
+    $( "#btn-chophep" ).click(kiemduyet);
+    $( "#btn-tuchoi" ).click(kiemduyet);
+    function kiemduyet(){
+        let x = confirm("Bạn có muốn xác nhận hành đồng này không ?");
+        if(x)
+        {
+            $("#submitKiemDuyet").val($(this).data("value"));
+            $("#submitKiemDuyet").click();
+        }
+
+    }
+
+    
+</script>
+@endsection
+
+@section('css')
+  <!-- Styles -->
+
+@endsection

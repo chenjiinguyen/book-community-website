@@ -11,8 +11,8 @@
                     <div class="count">{{me.count_book}}</div>
                 </div>
                 <div class="item">
-                    <div class="subject">Thích</div>
-                    <div class="count">0</div>
+                    <div class="subject">Tổng số lượng thích</div>
+                    <div class="count">{{comment}}</div>
                 </div>
             </div>
             <div>
@@ -63,13 +63,13 @@
                     Truyện audio của tôi ({{ myaudios.length }})
                 </li>
             </ul>
-            <a href="#" class="btn btn-red create-content selected" id="btn-create-novel" style="display: block;">
+            <a href="/admin/book/create?category=TEXT" class="btn btn-red create-content selected" id="btn-create-novel" style="display: block;">
                 Tạo truyện chữ
             </a>
-            <a href="#" class="btn btn-red create-content" id="btn-create-comic" style="display: none;">
+            <a href="/admin/book/create?category=IMAGE" class="btn btn-red create-content" id="btn-create-comic" style="display: none;">
                 Tạo truyện tranh
             </a>
-            <a href="#" class="btn btn-red create-content" id="btn-create-audio" style="display: none;">
+            <a href="/admin/book/create?category=AUDIO" class="btn btn-red create-content" id="btn-create-audio" style="display: none;">
                 Tạo truyện audio
             </a>
         </div>

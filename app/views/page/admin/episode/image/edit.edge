@@ -1,0 +1,236 @@
+@layout('layout.admin')
+
+@section('content')
+<div class="content-wrapper create-page">
+    <form method="POST" action="/admin/book/{{ book.idbook }}/edit" id="create-content">
+        <div class="content">
+            <div class="form-group">
+                <div class="left">
+                    <div class="name">
+                        <span style="color:red">* </span>Chapter Tiêu đề:
+                    </div>
+                </div>
+                <div class="right">
+                    <label class="txt-label">
+                        <input class="calculate-count txt-input" data-max-num="100" name="name"
+                            value="{{episode.name}}" id="content-title" type="text"></input>
+                        <span class="text-count">
+                            <span class="current-text-count">0</span>
+                            <span class="text-max-count">/100</span>
+                        </span>
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="left">
+                    <div class="name">
+                        <span style="color:red">* </span> Nội dung:
+
+                    </div>
+                </div>
+                <div class="right">
+                    <div class="book-btns">
+                        <a class="btn btn-red" id="btnThemAnh">
+                            Thêm Ảnh    
+                        </a>
+                        <a class="btn btn-red" id="btnXoaHet">
+                            Xóa Hết Ảnh    
+                        </a>
+                    </div>
+                    <div class="book-images">
+
+
+                    </div>
+                    
+                   
+                </div>
+                <textarea name="content" style="display:none;">
+                </textarea>
+            </div>
+
+           
+            <div class="btn-submit-div">
+                <input id="submitNopCho" type="submit" name="status" value="1" style="display:none;"/>
+                <input id="submitBanNhap" type="submit" name="status" value="0" style="display:none;"/>
+                <a class="btn btn-red btn-submit" id="btnNopCho">
+                    Nộp chờ      
+                </a>
+                <a class="btn btn-red btn-submit" id="btnBanNhap">
+                    Bản nháp        
+                </a>
+            </div>
+        </div>
+    </form>
+</div>
+<div id="image-item" class="cover">
+    <div class="cover-img-bg"></div>
+
+    <div class="upload-btn">
+        <img class="upload-cover" src="" style="width:100%;height:0%;"/>
+        <div class="upload-cover-blank">
+            <div style="height:60px;"></div>
+            <div>
+                <span style="font-size:40px;">
+                    <i class="fa fa-cloud-upload" aria-hidden="true"></i>
+                </span>
+            </div>
+            <div style="margin-top:10px;">
+                <span>IMAGE 450*600px</span>
+            </div>
+        </div>
+        
+    </div>
+    <div class="cover-right">  
+        <label class="txt-label">
+            <input class="calculate-count txt-input"  value="" type="text">
+        </label>
+        <a class="btn btn-red btn-xoa">
+            Xóa   
+        </a>
+    </div>
+   
+</div>
+@endsection
+
+@section('js')
+<!-- Scripts -->
+<script src="https://uicdn.toast.com/tui-editor/latest/tui-editor-Editor-full.js"></script>
+<script>
+    
+    $( "#btnNopCho" ).click(function() {
+        $( "#submitNopCho" ).click();
+    });
+    $( "#btnBanNhap" ).click(function() {
+        $( "#submitBanNhap" ).click();
+    });
+
+    $("#btnXoaHet").click(function (){
+        let check = confirm("Bạn có muốn xóa tất cả ảnh không?");
+            if(check)
+            {
+                $(".book-item").remove();
+                $("textarea[name=content]").val("");
+            }
+                
+    })
+    let images = "{{episode.content}}";
+    $(document).ready(() => {
+        data = images.split("|");
+        data.forEach(ele => {
+            let image_example = $("#image-item").clone();
+            $(image_example).removeAttr("id");
+            $(image_example).addClass("book-item");
+            $(image_example).find(".txt-input").addClass("txt-image");
+            $(image_example).find(".txt-input").val(ele)
+            $(".book-images").append(image_example);
+            let txt = $(image_example).find(".txt-image")
+            let link =  $(txt).val();
+            let regex = new RegExp(/^(http(s?):).*.(?:jpg|png)([/|.|w|s|-])*$/);
+            if(link.match(regex) != null){
+                $(image_example).find(".upload-cover").attr("src",link);
+                $(image_example).find(".upload-cover").css("height","100%");
+                getAll();
+            }else{
+                $(image_example).find(".upload-cover").css("height","0%");
+            }
+            $(txt).on('input propertychange',() => {
+                let link =  $(txt).val();
+                let regex = new RegExp(/^(http(s?):).*.(?:jpg|png)([/|.|w|s|-])*$/);
+                if(link.match(regex) != null){
+                    $(image_example).find(".upload-cover").attr("src",link);
+                    $(image_example).find(".upload-cover").css("height","100%");
+                    getAll();
+                }else{
+                    $(image_example).find(".upload-cover").css("height","0%");
+                }
+                
+            });
+            $(image_example).find(".btn-xoa").click(function(){
+                let check = confirm("Bạn có muốn xóa ảnh này không?");
+                if(check)
+                    $(this).parent().parent().remove();
+            })
+        });
+    })
+
+    $("#btnThemAnh").click(function(){
+        let image_example = $("#image-item").clone();
+        $(image_example).removeAttr("id");
+        $(image_example).addClass("book-item");
+        $(image_example).find(".txt-input").addClass("txt-image");
+        $(".book-images").append(image_example);
+        let txt = $(image_example).find(".txt-image")
+        $(txt).on('input propertychange',() => {
+            let link =  $(txt).val();
+            let regex = new RegExp(/^(http(s?):).*.(?:jpg|png)([/|.|w|s|-])*$/);
+            if(link.match(regex) != null){
+                $(image_example).find(".upload-cover").attr("src",link);
+                $(image_example).find(".upload-cover").css("height","100%");
+                getAll();
+            }else{
+                $(image_example).find(".upload-cover").css("height","0%");
+            }
+            
+        });
+        $(image_example).find(".btn-xoa").click(function(){
+            let check = confirm("Bạn có muốn xóa ảnh này không?");
+            if(check)
+                $(this).parent().parent().remove();
+        })
+    });
+
+    function getAll(){
+
+        let values = $(".txt-image").map((i,e) => {
+            let link =  $(e).val();
+            let regex = new RegExp(/^(http(s?):).*.(?:jpg|png)([/|.|w|s|-])*$/);
+            if(link.match(regex) != null){
+                return link;
+            }
+            return '';
+        }).get().filter(o => o.length > 0).join("|");
+        $("textarea[name=content]").val(values);
+
+    };
+</script>
+@endsection
+
+@section('css')
+  <!-- Styles -->
+<style>
+.book-btns {
+    margin-bottom: 10px;
+}
+.book-images{
+    padding-bottom:5px;
+    height: 600px;
+    overflow-y:scroll;
+    padding:5px;
+    border: 1px solid black;
+    border-radius:5px;
+}
+
+.book-images .cover{
+    display:flex;
+    padding-bottom:2px;
+    border-bottom: 1px solid black;
+    margin-bottom: 5px;
+}
+
+.book-images .cover-right{
+    width:100%;
+    display:flex;
+    align-items:center;
+    align-self:end;
+}
+
+.book-images .txt-label {
+    width:100%;
+    margin-right:10px;
+    margin-left:10px;
+}
+#image-item {
+    display: none;
+}
+</style>
+@endsection

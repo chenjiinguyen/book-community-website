@@ -3,10 +3,12 @@ const dataController = require("../../../../lib/dataController");
 const utils = require("../../../../lib/utils");
 const status = require("../../../../lib/status");
 const moment = require("moment");
+const { book } = require("./censor");
 
 module.exports.create = {
   get: async (req, res, next) => {
     let data = await dataController.default(req);
+    data.category = req.query.category;
     data.title = "Gửi Bản Thảo";
     data.breadcrumb = [
       {
@@ -37,7 +39,7 @@ module.exports.create = {
       } else {
         data.poster = checkLink(data.poster)
           ? data.poster
-          : "http://e-library.stkipsingkawang.ac.id/assets/cover/no_image_book.jpg";
+          : "https://i.imgur.com/ds209S4.jpg";
         let book = await models.book.create({
           title: data.title,
           author: data.author,
@@ -50,7 +52,6 @@ module.exports.create = {
         if (book) {
           let mod = await models.moderation_book.create({
             idbook: book.idbook,
-
           });
           req.flash("success", "Gửi bản thảo thành công.");
           res.redirect("/admin/book/" + book.idbook + "/create");
@@ -96,7 +97,15 @@ module.exports.detail = {
             [models.Sequelize.Op.not]: status.DELETED,
           },
         },
-        attributes: ["idepisode", "idbook", "name", "view","status", "content", "updatedAt"],
+        attributes: [
+          "idepisode",
+          "idbook",
+          "name",
+          "view",
+          "status",
+          "content",
+          "updatedAt",
+        ],
         order: [["index", "DESC"]],
         raw: true,
       })
@@ -108,7 +117,63 @@ module.exports.detail = {
     data.title = "Chi Tiết Bản Thảo";
     res.render("page.admin.book.content", data);
   },
+};
 
+module.exports.delete = {
+  book: async (req, res, next) => {
+    let id = req.params.id;
+    let book = await models.book.findOne({
+      where: {
+        idbook: id,
+        status: {
+          [models.Sequelize.Op.not]: status.DELETED,
+        },
+      },
+    });
+    if (book) {
+      book.status = status.DELETED;
+
+      await book.save({ silent: true });
+      req.flash("success", "Xóa sách thành công");
+      res.redirect("/admin/");
+    } else {
+      req.flash("error", "Sách không tồn tại");
+      res.redirect("/admin/");
+    }
+  },
+  episode: async (req, res, next) => {
+    let id = req.params.id;
+    let episode = await models.episode.findOne({
+      include: [
+        {
+          model: models.book,
+          as: "books",
+          attributes: ["uploader"],
+        },
+      ],
+      where: {
+        idepisode: id,
+        status: {
+          [models.Sequelize.Op.not]: status.DELETED,
+        },
+      },
+    });
+    if (episode) {
+      if (episode.books.uploader == req.user.username) {
+        episode.status = status.DELETED;
+
+        await episode.save({ silent: true });
+        req.flash("success", "Xóa chương thành công");
+        res.redirect("/admin/book/" + episode.idbook + "/detail");
+      } else {
+        req.flash("error", "Bạn không phải tác giả của sách");
+        res.redirect("/admin/book/" + episode.idbook + "/detail");
+      }
+    } else {
+      req.flash("error", "Sách không tồn tại");
+      res.redirect("/admin/");
+    }
+  },
 };
 
 module.exports.edit = {
@@ -132,12 +197,58 @@ module.exports.edit = {
       },
       raw: true,
     });
-    res.render("page.admin.book.edit", data);
-  }
-}
+    if (data.book) {
+      res.render("page.admin.book.edit", data);
+    } else {
+      req.flash("error", "Sách không tồn tại");
+      res.redirect("/admin/");
+    }
+  },
+  post: async (req, res, next) => {
+    let id = req.params.id;
+    let data = req.body;
+    let require_fields = ["title", "author"];
+    if (utils.checkPropertiesInObject(require_fields, data)) {
+      if (data.title.length == 0 || data.author.length == 0) {
+        if (data.title.length == 0)
+          req.flash("error", "Vui lòng điền tên tác phẩm");
+        if (data.author.length == 0)
+          req.flash("error", "Vui lòng điền tên tác giả");
+        res.redirect("/admin/book/create");
+      } else {
+        data.poster = checkLink(data.poster)
+          ? data.poster
+          : "https://i.imgur.com/ds209S4.jpg";
+        let book = await models.book.findOne({
+          where: {
+            idbook: id,
+            status: {
+              [models.Sequelize.Op.not]: status.DELETED,
+            },
+          },
+        });
+        if (book) {
+          book.title = data.title;
+          book.author = data.author;
+          book.description = data.description;
+          await book.save({ silent: true });
+
+          req.flash("success", "Chỉnh sửa sách thành công.");
+          res.redirect("/admin/book/" + book.idbook + "/detail");
+        } else {
+          req.flash("error", "Sách không tồn tại");
+          res.redirect("/admin/");
+        }
+      }
+    } else {
+      req.flash("error", "Vui lòng điền tất cả các trường bắt buộc");
+      res.redirect("/admin/book/create");
+    }
+  },
+};
 
 module.exports.success = {
-  get: async (req,res,next) => {
+  get: async (req, res, next) => {
     let idbook = req.params.id;
     let data = await dataController.default(req);
     data.book = await models.book.findOne({
@@ -159,8 +270,8 @@ module.exports.success = {
 
     data.title = "Gửi Bản Thảo Thành Công";
     res.render("page.admin.book.success", data);
-  }
-}
+  },
+};
 
 function checkLink(url) {
   let regex = /(http(s?):)([/|.|\w|\s|-])*\.(?:jpg|png|mp3)([/|.|\w|\s|-])*/;

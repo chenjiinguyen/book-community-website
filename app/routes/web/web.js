@@ -16,10 +16,16 @@ router.get('/watch/:bookId/:episodeId',book_view);
 router.get('/auth',auth.get_login);
 router.get('/logout',auth.logout);
 router.post('/login',passport.authenticateLocal());
+router.post('/signup',auth.post_signup);
 
-
-router.get('/truyentranh', function(req, res, next) {
-  res.render('page.web.truyentranh', { title: 'Express' });
+router.get('/login',async (req,res,next)=>{
+  res.redirect("/auth?login")
 });
+router.get('/signup',async (req,res,next)=>{
+  res.redirect("/auth?signup");
+});
+// router.get('/truyentranh', function(req, res, next) {
+//   res.render('page.web.truyentranh', { title: 'Express' });
+// });
 
 module.exports = router;

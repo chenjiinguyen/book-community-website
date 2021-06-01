@@ -1,12 +1,12 @@
 <div class="content">
     <div class="cover">
-      <a href="/admin/book/{{ idbook }}/detail">
+      <a href="/admin/censor/book/{{ idbook }}">
         <img src="{{ poster }}">
       </a>
     </div>
     <div class="content-data">
       <div class="title" style="position:relative">
-        <a href="/admin/book/{{ idbook }}/detail">{{ title }}</a>
+        <a href="/admin/censor/book/{{ idbook }}">{{ title }}</a>
         <span class="content_status content_status_{{status+0}}">
           @if(status == 1)
               Đang chờ xét duyệt
@@ -21,11 +21,11 @@
         <span>Update Time: {{ updatedAt }}</span>
         <span>Create Time: {{ createdAt }}</span>
       </div>
-
+   
       <ul class="counts">
-        <li class="watch-icon"><i class="fa fa-eye" aria-hidden="true"></i> 0</li>
-        <li class="like-icon"><i class="fa fa-heart " aria-hidden="true"></i> 0</li>
-        <li class="comment-icon"><i class="fa fa-commenting" aria-hidden="true"></i> 0</li>
+        <li class="watch-icon">Uploader</li>
+        <li class="like-icon">{{ users_name }}</li>
+       
       </ul>
     </div>
 </div>
