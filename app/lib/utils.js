@@ -4,7 +4,7 @@ const ExtractJwt = passportJWT.ExtractJwt;
 const jwt = require('jsonwebtoken');
 const models = require("../app/model/index");
 
-const issueJWT = (user,remember = false) => {
+const issue_JWT = (user,remember = false) => {
     let now = Date.now();
     console.log(new Date(now))
     let payload = { 
@@ -12,7 +12,7 @@ const issueJWT = (user,remember = false) => {
         iat: now,
      };
     let expiresIn = (remember)?"30d":"24h";
-    let token = jwt.sign(payload, jwtOptions.secretOrKey,{expiresIn:expiresIn});
+    let token = jwt.sign(payload, jwt_options.secretOrKey,{expiresIn:expiresIn});
 
     return {
         token: "Bearer " + token,
@@ -20,19 +20,19 @@ const issueJWT = (user,remember = false) => {
     }
 }
 
-const jwtOptions = {
+const jwt_options = {
     jwtFromRequest : ExtractJwt.fromAuthHeaderAsBearerToken(),
     secretOrKey : process.env.SALT || 'bookcommunity',
 }
 
-const checkPropertiesInObject = (arrProperties, object) => {
+const check_properties_in_object = (arrProperties, object) => {
     for (const key of arrProperties) {
         if(!object.hasOwnProperty(key)) return false;
     }
     return true;
 }
 
-const checkNotBlankInObject = (arrProperties, object) => {
+const check_not_blank_in_object = (arrProperties, object) => {
     for (const key of arrProperties) {
         if(!object.hasOwnProperty(key) || object[key].length == 0) return false;
     }
@@ -41,8 +41,8 @@ const checkNotBlankInObject = (arrProperties, object) => {
 
 
 
-const checkUrlOfString = (str) => {
-    let arr = splitContent(str);
+const check_url_of_string = (str) => {
+    let arr = split_content(str);
     let regex = /(http(s?):)([/|.|\w|\s|-])*\.(?:jpg|png|mp3)([/|.|\w|\s|-])*/;
     let check = arr.reduce((x,y) => {
         if(!y.match(regex)){
@@ -53,15 +53,15 @@ const checkUrlOfString = (str) => {
     return check;
 }
 
-const joinContent = (arr) => {
+const join_content = (arr) => {
 
 }
 
-const splitContent = (str) => {
+const split_content = (str) => {
     return str.split("|");
 }
 
-const updateView = async (id, book = true) => {
+const update_view = async (id, book = true) => {
     if(book){
         let x = await models.book.findOne({
             where: { idbook : id},
@@ -78,12 +78,12 @@ const updateView = async (id, book = true) => {
 }
 
 module.exports = {
-    checkUrlOfString,
-    joinContent,
-    splitContent,
-    issueJWT,
-    jwtOptions,
-    checkPropertiesInObject,
-    checkNotBlankInObject,
-    updateView
+    check_url_of_string,
+    join_content,
+    split_content,
+    issue_JWT,
+    jwt_options,
+    check_properties_in_object,
+    check_not_blank_in_object,
+    update_view
 };  

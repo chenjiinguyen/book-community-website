@@ -1,9 +1,9 @@
 const models = require("../../../model/index");
-const dataController = require("../../../../lib/dataController");
+const data_controller = require("../../../../lib/data_controller");
 const status = require("../../../../lib/status");
 
 const controller = async (req, res, next) => {
-  let data = await dataController.default(req);
+  let data = await data_controller.default(req);
   data.title = "Trang chủ";
   let categories = [
     { name: "TEXT", val: "new_textbook" },

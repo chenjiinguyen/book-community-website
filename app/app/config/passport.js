@@ -3,10 +3,10 @@ const passportJWT = require("passport-jwt");
 const JwtStrategy = passportJWT.Strategy;
 const LocalStrategy = require("passport-local").Strategy;
 const models = require("../model/index");
-const jwtOptions = require("../../lib/utils").jwtOptions;
+const jwt_options = require("../../lib/utils").jwt_options;
 const type = require("../../lib/type");
 
-var jwtLogin = new JwtStrategy(jwtOptions, async function (jwt_payload, done) {
+var jwtLogin = new JwtStrategy(jwt_options, async function (jwt_payload, done) {
   const current_time = Date.now();
   const second_div = jwt_payload.exp - jwt_payload.iat;
   const back_time = jwt_payload.iat + second_div * 1000;

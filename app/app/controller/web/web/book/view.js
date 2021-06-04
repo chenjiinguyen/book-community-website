@@ -1,15 +1,15 @@
 const models = require("../../../../model/index");
 const ultis = require("../../../../../lib/utils");
 const status = require("../../../../../lib/status");
-const dataController = require("../../../../../lib/dataController");
+const data_controller = require("../../../../../lib/data_controller");
 const moment = require("moment");
 
 const controller = async (req, res, next) => {
-  let data = await dataController.default(req);
+  let data = await data_controller.default(req);
   let bookId = req.params.bookId;
   let episodeId = req.params.episodeId;
 
-  await ultis.updateView(episodeId, false);
+  await ultis.update_view(episodeId, false);
   data.book = await models.book.findOne({
     attributes: {
       include: [
@@ -35,7 +35,7 @@ const controller = async (req, res, next) => {
     raw: true,
   });
   if (data.book.category == "IMAGE") {
-    data.content.images = ultis.splitContent(data.content.content);
+    data.content.images = ultis.split_content(data.content.content);
   }
   data.title = data.book.title + " - " + data.content.name;
   res.render("page.web.book.view", data);

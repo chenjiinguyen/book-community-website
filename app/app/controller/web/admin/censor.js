@@ -1,12 +1,12 @@
 const models = require("../../../model/index");
-const dataController = require("../../../../lib/dataController");
+const data_controller = require("../../../../lib/data_controller");
 const utils = require("../../../../lib/utils");
 const status = require("../../../../lib/status");
 const moment = require("moment");
 
 module.exports.all = {
   get: async (req, res, next) => {
-    let data = await dataController.default(req);
+    let data = await data_controller.default(req);
     data.title = "Kiểm Duyệt";
     let categories = [
       { name: "TEXT", val: "mytexts" },
@@ -44,7 +44,7 @@ module.exports.all = {
 module.exports.detail = {
   get: async (req, res, next) => {
     let idbook = req.params.id;
-    let data = await dataController.default(req);
+    let data = await data_controller.default(req);
     data.book = await models.book.findOne({
       include: [
         {
@@ -133,7 +133,7 @@ module.exports.detail = {
 module.exports.book = {
   get: async (req, res, next) => {
     let idbook = req.params.id;
-    let data = await dataController.default(req);
+    let data = await data_controller.default(req);
     data.title = "Kiểm Duyệt Nội Dung Sách";
     data.book = await models.book.findOne({
       include: [
@@ -233,7 +233,7 @@ module.exports.book = {
 module.exports.episode = {
   get: async(req,res,next)=>{
     let id = req.params.id;
-    let data = await dataController.default(req);
+    let data = await data_controller.default(req);
     data.title = "Kiểm Duyệt Nội Dung Sách";
     data.episode = await models.episode.findOne({
       include: [

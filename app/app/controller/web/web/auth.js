@@ -23,7 +23,7 @@ module.exports = {
         let data = req.body
         console.log(data)
         let require_fields = ["username","name","email","birthday","password"]
-        if(utils.checkNotBlankInObject(require_fields, data)){
+        if(utils.check_not_blank_in_object(require_fields, data)){
 
             let user = await models.user.findOne({
                 where: {

@@ -153,7 +153,7 @@ const controller = {
     create: async (req, res, next) => {
         let data = {};
         let attributes = ["title","author","category","poster","description"];
-        if(utils.checkPropertiesInObject(attributes,req.query)){
+        if(utils.check_properties_in_object(attributes,req.query)){
             let author = req.user;
             let param = req.query;
             let book = await models.book.create({
@@ -185,7 +185,7 @@ const controller = {
     update: async (req,res,next) => {
         let author = req.user;
         let attributes = ["title","author","category","poster","description","status"];
-        if(utils.checkPropertiesInObject(["id"],req.query)){
+        if(utils.check_properties_in_object(["id"],req.query)){
             let param = req.query;
             let book = await models.book.findOne({
                 where: {
@@ -230,7 +230,7 @@ const controller = {
     delete: async (req,res,next) => {
         let author = req.user;
         let data = {}
-        if(utils.checkPropertiesInObject(["id"],req.query)){
+        if(utils.check_properties_in_object(["id"],req.query)){
             let param = req.query;
             let book = await models.book.findOne({
                 where: {

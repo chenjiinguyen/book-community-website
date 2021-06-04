@@ -1,5 +1,5 @@
 const models = require("../../../model/index");
-const dataController = require("../../../../lib/dataController");
+const data_controller = require("../../../../lib/data_controller");
 const utils = require("../../../../lib/utils");
 const status = require("../../../../lib/status");
 const moment = require("moment");
@@ -7,7 +7,7 @@ const { book } = require("./censor");
 
 module.exports.create = {
   get: async (req, res, next) => {
-    let data = await dataController.default(req);
+    let data = await data_controller.default(req);
     data.category = req.query.category;
     data.title = "Gửi Bản Thảo";
     data.breadcrumb = [
@@ -29,7 +29,7 @@ module.exports.create = {
   post: async (req, res, next) => {
     let require_fields = ["title", "author", "category"];
     let data = req.body;
-    if (utils.checkPropertiesInObject(require_fields, data)) {
+    if (utils.check_properties_in_object(require_fields, data)) {
       if (data.title.length == 0 || data.author.length == 0) {
         if (data.title.length == 0)
           req.flash("error", "Vui lòng điền tên tác phẩm");
@@ -70,7 +70,7 @@ module.exports.create = {
 module.exports.detail = {
   get: async (req, res, next) => {
     let idbook = req.params.id;
-    let data = await dataController.default(req);
+    let data = await data_controller.default(req);
     data.book = await models.book.findOne({
       include: [
         {
@@ -179,7 +179,7 @@ module.exports.delete = {
 module.exports.edit = {
   get: async (req, res, next) => {
     let idbook = req.params.id;
-    let data = await dataController.default(req);
+    let data = await data_controller.default(req);
     data.title = "Chỉnh Sửa Bản Thảo";
     data.book = await models.book.findOne({
       include: [
@@ -208,7 +208,7 @@ module.exports.edit = {
     let id = req.params.id;
     let data = req.body;
     let require_fields = ["title", "author"];
-    if (utils.checkPropertiesInObject(require_fields, data)) {
+    if (utils.check_properties_in_object(require_fields, data)) {
       if (data.title.length == 0 || data.author.length == 0) {
         if (data.title.length == 0)
           req.flash("error", "Vui lòng điền tên tác phẩm");
@@ -230,6 +230,7 @@ module.exports.edit = {
         if (book) {
           book.title = data.title;
           book.author = data.author;
+          book.poster = data.poster;
           book.description = data.description;
           await book.save({ silent: true });
 
@@ -250,7 +251,7 @@ module.exports.edit = {
 module.exports.success = {
   get: async (req, res, next) => {
     let idbook = req.params.id;
-    let data = await dataController.default(req);
+    let data = await data_controller.default(req);
     data.book = await models.book.findOne({
       include: [
         {

@@ -1,14 +1,14 @@
 const models = require("../../../../model/index");
 const ultis = require("../../../../../lib/utils");
-const dataController = require("../../../../../lib/dataController");
+const data_controller = require("../../../../../lib/data_controller");
 const status = require("../../../../../lib/status");
 const moment = require("moment");
 
 const controller = async (req, res, next) => {
-    let data = await dataController.default(req);
+    let data = await data_controller.default(req);
     data.title = "Trang chủ";
     let id = req.params.id;
-    await ultis.updateView(id,true);
+    await ultis.update_view(id,true);
     data.book = await models.book.findOne({
         attributes: {
             include:[

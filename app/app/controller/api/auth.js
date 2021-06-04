@@ -16,7 +16,7 @@ const controller = {
       if (await user.isValidPassword(password)) {
         // from now on we’ll identify the user by the id and the id is
         // the only personalized value that goes into our tokend 
-        const jwt = utils.issueJWT(user,(remember)?true:false);
+        const jwt = utils.issue_JWT(user,(remember)?true:false);
         res.json({ 
             success: true,
             user: user, 
@@ -39,7 +39,7 @@ const controller = {
   signup: async (req, res, next) => {
     const attributes = ["username","email","password","name","gender","birthday"];
     const param = req.query;
-    if(utils.checkPropertiesInObject(attributes,param)){
+    if(utils.check_properties_in_object(attributes,param)){
       let data = await models.user.findOne({
         where: {
           username : param.username,

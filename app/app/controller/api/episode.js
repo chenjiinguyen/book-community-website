@@ -68,7 +68,7 @@ const controller = {
     let author = req.user;
     let book = await models.book.findOne({ where: { idbook: req.params.bookId } });
     if (author.username == book.uploader) {
-      if (utils.checkPropertiesInObject(attributes, req.query)) {
+      if (utils.check_properties_in_object(attributes, req.query)) {
         let chapOfBook = await models.episode.findAll({
           where: { idbook: req.params.bookId },
           raw: true,
@@ -104,7 +104,7 @@ const controller = {
     let author = req.user;
     let book = await models.book.findOne({ where: { idbook: req.params.bookId } });
     if (author.username == book.uploader) {
-      if (utils.checkPropertiesInObject(attributes, req.query)) {
+      if (utils.check_properties_in_object(attributes, req.query)) {
         let param = req.query;
         let episode = await models.episode.findOne({
           where: { idepisode: req.params.episodeId },

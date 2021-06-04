@@ -1,12 +1,12 @@
 const models = require("../../../model/index");
-const dataController = require("../../../../lib/dataController");
+const data_controller = require("../../../../lib/data_controller");
 const utils = require("../../../../lib/utils");
 const status = require("../../../../lib/status");
 
 module.exports.create = {
   get: async (req, res, next) => {
     let id = req.params.id;
-    let data = await dataController.default(req);
+    let data = await data_controller.default(req);
     data.book = await models.book.findOne({
       where: {
         idbook: id,
@@ -118,7 +118,7 @@ module.exports.create = {
 module.exports.edit = {
     get: async (req, res, next) => {
         let id = req.params.id;
-        let data = await dataController.default(req);
+        let data = await data_controller.default(req);
         data.episode = await models.episode.findOne({
           include:[
             {

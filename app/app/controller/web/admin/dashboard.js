@@ -1,11 +1,11 @@
 
-const dataController = require("../../../../lib/dataController");
+const data_controller = require("../../../../lib/data_controller");
 const models = require("../../../model/index");
 const status = require('../../../../lib/status');
 const moment = require("moment");
 
 module.exports = async (req, res, next) => {
-  let data = await dataController.default(req);
+  let data = await data_controller.default(req);
   data.title = "Bảng Điều Khiển";
   data.breadcrumb = [
     {

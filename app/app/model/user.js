@@ -1,4 +1,4 @@
-const userGroup = require("../../lib/userGroup");
+const user_group = require("../../lib/user_group");
 const bcrypt = require("bcrypt");
 
 module.exports = (sequelize, DataTypes) => {
@@ -34,7 +34,7 @@ module.exports = (sequelize, DataTypes) => {
       usergroup: {
         type: DataTypes.STRING,
         allowNull: false,
-        defaultValue: userGroup.MEMBER,
+        defaultValue: user_group.MEMBER,
       },
       birthday: {
         type: DataTypes.DATEONLY,
