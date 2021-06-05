@@ -10,31 +10,33 @@ module.exports.create = {
     let data = await data_controller.default(req);
     data.category = req.query.category;
     data.title = "Gửi Bản Thảo";
-    data.breadcrumb = [
-      {
-        title: "Trang chu",
-        link: "/admin/",
-      },
-      {
-        title: "Admin",
-        link: "/admin/",
-      },
-      {
-        title: "Bang dieu khien",
-        link: "",
-      },
-    ];
+    // data.breadcrumb = [
+    //   {
+    //     title: "Trang chu",
+    //     link: "/admin/",
+    //   },
+    //   {
+    //     title: "Admin",
+    //     link: "/admin/",
+    //   },
+    //   {
+    //     title: "Bang dieu khien",
+    //     link: "",
+    //   },
+    // ];
     res.render("page.admin.book.create", data);
   },
   post: async (req, res, next) => {
-    let require_fields = ["title", "author", "category"];
+    let require_fields = ["title", "author", "category","description"];
     let data = req.body;
     if (utils.check_properties_in_object(require_fields, data)) {
-      if (data.title.length == 0 || data.author.length == 0) {
+      if (!utils.check_not_blank_in_object(require_fields,data)) {
         if (data.title.length == 0)
           req.flash("error", "Vui lòng điền tên tác phẩm");
         if (data.author.length == 0)
           req.flash("error", "Vui lòng điền tên tác giả");
+        if (data.description.length == 0)
+          req.flash("error", "Vui lòng điền giới thiệu về tác phẩm");
         res.redirect("/admin/book/create");
       } else {
         data.poster = checkLink(data.poster)
@@ -207,13 +209,15 @@ module.exports.edit = {
   post: async (req, res, next) => {
     let id = req.params.id;
     let data = req.body;
-    let require_fields = ["title", "author"];
+    let require_fields = ["title", "author","description"];
     if (utils.check_properties_in_object(require_fields, data)) {
-      if (data.title.length == 0 || data.author.length == 0) {
+      if (utils.check_not_blank_in_object(require_fields,data)) {
         if (data.title.length == 0)
           req.flash("error", "Vui lòng điền tên tác phẩm");
         if (data.author.length == 0)
           req.flash("error", "Vui lòng điền tên tác giả");
+        if (data.description.length == 0)
+          req.flash("error", "Vui lòng điền giới thiệu về tác phẩm");
         res.redirect("/admin/book/create");
       } else {
         data.poster = checkLink(data.poster)

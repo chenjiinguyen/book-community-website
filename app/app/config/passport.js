@@ -99,6 +99,7 @@ module.exports = {
     passport.authenticate("local", {
       successRedirect: "/",
       failureRedirect: "/auth",
+      failureFlash: 'Sai email hoặc mật khẩu',
     }),
   authLocalMiddleware: (req, res, next) => {
     if (!req.isAuthenticated()) {

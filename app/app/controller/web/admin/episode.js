@@ -52,7 +52,8 @@ module.exports.create = {
       raw: true,
     });
     if (book) {
-      if (data.name.length == 0 || data.content.length == 0) {
+
+      if (!utils.check_not_blank_in_object(["name","content"],data)) {
         if (data.name.length == 0)
           req.flash("error", "Vui lòng điền tên chương");
         if (data.content.length == 0)
@@ -101,7 +102,7 @@ module.exports.create = {
                 idepisode: episode.idepisode
             });
           }
-          req.flash("success", "Gửi bản thảo thành công.");
+          req.flash("success", "Gửi bản thảo thành công");
           res.redirect("/admin/book/" + id + "/success");
         } else {
           req.flash("error", "Có lỗi trong quá trình đăng");

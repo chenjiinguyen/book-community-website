@@ -24,6 +24,9 @@ const controller = async (req, res, next) => {
             idbook : id,
             status: status.ACCEPT 
         },
+        order: [
+            ['index', 'ASC'],
+        ],
         attributes: ["idepisode","idbook", "name", "view", "updatedAt"],
         raw: true,
     })).map(x => {

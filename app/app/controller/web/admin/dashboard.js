@@ -7,20 +7,20 @@ const moment = require("moment");
 module.exports = async (req, res, next) => {
   let data = await data_controller.default(req);
   data.title = "Bảng Điều Khiển";
-  data.breadcrumb = [
-    {
-      title: "Trang chu",
-      link: "/admin/",
-    },
-    {
-      title: "Admin",
-      link: "/admin/",
-    },
-    {
-      title: "Bang dieu khien",
-      link: "",
-    },
-  ];
+  // data.breadcrumb = [
+  //   {
+  //     title: "Trang chu",
+  //     link: "/admin/",
+  //   },
+  //   {
+  //     title: "Admin",
+  //     link: "/admin/",
+  //   },
+  //   {
+  //     title: "Bang dieu khien",
+  //     link: "",
+  //   },
+  // ];
   let categories = [
     {name: "TEXT",val : "mytexts"},
     {name: "IMAGE",val : "mycomics"},

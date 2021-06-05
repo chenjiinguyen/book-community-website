@@ -23,7 +23,7 @@ const controller = async (req, res, next) => {
         order: [
             ['createdat', 'DESC'],
         ],
-        limit: 10,
+        limit: 12,
         raw: true,
       });
   }

@@ -1,0 +1,41 @@
+@layout('layout/master')
+
+@section('css')
+<link rel="stylesheet" href="/assets/css/truyentranh.css">
+@endsection
+
+
+
+@section('content')
+<div class="container my-2">
+    
+      <div class="category-book">
+                    <div class="category-title">
+                        <h2>{{ name }}</h2>
+                     
+                    </div>
+                    <div class="book-list">
+                      @each(book in books)
+                          @!component('component.book.item',book)
+                      @endeach
+                    </div>
+                </div>
+        </div>
+    </div>
+
+    
+        
+    
+</div>
+ @endsection
+
+ @section('xxx')
+ <div class="page">
+  <div class="previous un-click"><span>Trang trước</span>
+</div>
+      <a href="/vi/genre/comic?type=1&amp;page=1">
+<span class="next">
+  Trang sau        </span>
+</a>
+</div>
+ @endsection

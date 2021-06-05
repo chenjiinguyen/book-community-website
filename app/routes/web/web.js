@@ -5,6 +5,7 @@ const passport = require('../../app/config/passport');
 
 const auth = require("../../app/controller/web/web/auth");
 const home = require("../../app/controller/web/web/home");
+const category = require("../../app/controller/web/web/category");
 const book_detail = require("../../app/controller/web/web/book/detail");
 const book_view = require("../../app/controller/web/web/book/view");
 
@@ -12,6 +13,8 @@ const book_view = require("../../app/controller/web/web/book/view");
 router.get('/',home);
 router.get('/detail/:id',book_detail);
 router.get('/watch/:bookId/:episodeId',book_view);
+
+router.get('/category/:category',category);
 
 router.get('/auth',auth.get_login);
 router.get('/logout',auth.logout);

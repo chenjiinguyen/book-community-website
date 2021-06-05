@@ -31,6 +31,7 @@ const controller = async (req, res, next) => {
   });
   data.episodes = await models.episode.findAll({
     where: { idbook: bookId, status: status.ACCEPT },
+    order: [["index", "ASC"]],
     attributes: ["idepisode", "idbook", "name", "view", "updatedAt"],
     raw: true,
   });

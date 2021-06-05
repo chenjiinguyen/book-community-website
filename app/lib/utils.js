@@ -34,7 +34,11 @@ const check_properties_in_object = (arrProperties, object) => {
 
 const check_not_blank_in_object = (arrProperties, object) => {
     for (const key of arrProperties) {
-        if(!object.hasOwnProperty(key) || object[key].length == 0) return false;
+        if(!object.hasOwnProperty(key))
+            return false;
+        if(object[key].length == 0) 
+            return false;
+        
     }
     return true;
 }
