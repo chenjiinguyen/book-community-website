@@ -12,23 +12,19 @@ const controller = {
         let result = {};
         if(id != null){
             result = await models.book.findOne({
+                attributes: {
+                    include:[[models.sequelize.literal('(SELECT COUNT(`like`.`idbook`) FROM `like` WHERE `like`.`idbook` = `book`.`idbook`)'), 'like']],
+                    exclude: ['status']
+                },
                 where : {
                     idbook : id,
-                    status: {
-                        [Op.or] : [status.CHECKED,status.DRAFT]
-                    }
+                    status: status.ACCEPT
                 },
                 raw: true,
             })
             if(result != null){
                 code = type.SUCCESS;
-                await result.map(async (x) => {
-                    x.like = await models.like.count({
-                        where: {
-                          id: x.idbook
-                        }
-                      });
-                })
+            
             }
             else
                 code = type.NOT_FOUND;
@@ -39,23 +35,17 @@ const controller = {
             }
         }else{
             result = await models.book.findAll({
+                attributes: {
+                    include:[[models.sequelize.literal('(SELECT COUNT(`like`.`idbook`) FROM `like` WHERE `like`.`idbook` = `book`.`idbook`)'), 'like']],
+                    exclude: ['status']
+                },
                 where: {
-                    status: {
-                        [Op.or] : [status.CHECKED,status.DRAFT]
-                    }
+                    status: status.ACCEPT
                 },
                 raw: true,
             });
             if(result != null){
                 code = type.SUCCESS;
-                for (let i = 0; i < result.length; i++) {
-                    result[i].like = await models.like.count({
-                        where: {
-                            idbook: result[i].idbook
-                        }
-                    });
-                    
-                }
             }
             else
                 code = type.NOT_FOUND;
@@ -73,9 +63,13 @@ const controller = {
         let result = {};
         if(id != null){
             result = await models.book.findOne({
+                attributes: {
+                    include:[[models.sequelize.literal('(SELECT COUNT(`like`.`idbook`) FROM `like` WHERE `like`.`idbook` = `book`.`idbook`)'), 'like']],
+                    exclude: ['status']
+                },
                 where : {
                     idbook : id,
-                    status: status.CHECKED
+                    status: status.ACCEPT
                 }
             })
             if(result != null)
@@ -89,8 +83,12 @@ const controller = {
             }
         }else{
             result = await models.book.findAll({
+                attributes: {
+                    include:[[models.sequelize.literal('(SELECT COUNT(`like`.`idbook`) FROM `like` WHERE `like`.`idbook` = `book`.`idbook`)'), 'like']],
+                    exclude: ['status']
+                },
                 where : {
-                    status: status.CHECKED
+                    status: status.ACCEPT
                 }
             });
             if(result != null)
@@ -112,10 +110,14 @@ const controller = {
         let author = req.user;
         if(id != null){
             result = await models.book.findOne({
+                attributes: {
+                    include:[[models.sequelize.literal('(SELECT COUNT(`like`.`idbook`) FROM `like` WHERE `like`.`idbook` = `book`.`idbook`)'), 'like']],
+                    exclude: ['status']
+                },
                 where : {
                     idbook : id,
                     status: {
-                        [Op.or] : [status.CHECKED,status.DRAFT]
+                        [Op.or] : [status.ACCEPT,status.DRAFT]
                     },
                     uploader: author.username
                 }
@@ -131,9 +133,13 @@ const controller = {
             }
         }else{
             result = await models.book.findAll({
+                attributes: {
+                    include:[[models.sequelize.literal('(SELECT COUNT(`like`.`idbook`) FROM `like` WHERE `like`.`idbook` = `book`.`idbook`)'), 'like']],
+                    exclude: ['status']
+                },
                 where : {
                     status: {
-                        [Op.or] : [status.CHECKED,status.DRAFT]
+                        [Op.or] : [status.ACCEPT,status.DRAFT]
                     },
                     uploader: author.username
                 }
@@ -237,7 +243,7 @@ const controller = {
                     idbook: param.id,
                     uploader: author.username,
                     status: {
-                        [Op.or] : [status.CHECKED,status.DRAFT]
+                        [Op.or] : [status.ACCEPT,status.DRAFT]
                     },
                 }
             });

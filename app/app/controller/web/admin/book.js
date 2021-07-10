@@ -211,14 +211,14 @@ module.exports.edit = {
     let data = req.body;
     let require_fields = ["title", "author","description"];
     if (utils.check_properties_in_object(require_fields, data)) {
-      if (utils.check_not_blank_in_object(require_fields,data)) {
+      if (!utils.check_not_blank_in_object(require_fields,data)) {
         if (data.title.length == 0)
           req.flash("error", "Vui lòng điền tên tác phẩm");
         if (data.author.length == 0)
           req.flash("error", "Vui lòng điền tên tác giả");
         if (data.description.length == 0)
           req.flash("error", "Vui lòng điền giới thiệu về tác phẩm");
-        res.redirect("/admin/book/create");
+        res.redirect("/admin/book/"+id+"/edit");
       } else {
         data.poster = checkLink(data.poster)
           ? data.poster

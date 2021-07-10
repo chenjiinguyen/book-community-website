@@ -86,11 +86,11 @@ module.exports = {
   authenticateJWT: (req, res, next) => {
     passport.authenticate("jwt", { session: false }, async (error, token) => {
       if (error || !token) {
-        response
+        res
           .status(type.UNAUTHORIZED.status)
           .json({ ...type.UNAUTHORIZED });
       } else {
-        request.user = token;
+        req.user = token;
         next();
       }
     })(req, res, next);

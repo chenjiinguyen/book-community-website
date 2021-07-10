@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 const passport = require('../../app/config/passport');
+const models = require('../../app/model/index');
 
 
 const auth = require("../../app/controller/web/web/auth");
@@ -30,5 +31,20 @@ router.get('/signup',async (req,res,next)=>{
 // router.get('/truyentranh', function(req, res, next) {
 //   res.render('page.web.truyentranh', { title: 'Express' });
 // });
+
+router.get("/test",async (req,res,next)=>{
+  let books = await models.book.findAll();
+  for (const key in books) {
+    const book = books[key];
+    cleanText = book.description.replace(/(&lt;|<)br\s*\/?(&gt;|>)/g, "\n");
+    cleanText = cleanText.replace(/<\/?[^>]+(>|$)/g, "");
+    console.log(cleanText)
+    book.description  = cleanText
+
+    await book.save({silent: false})
+  }
+   
+
+})
 
 module.exports = router;

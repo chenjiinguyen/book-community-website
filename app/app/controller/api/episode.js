@@ -18,7 +18,7 @@ const controller = {
           let episode = await models.episode.findOne({
             where: {
               idepisode: _episode,
-              status: status.CHECKED,
+              status: status.ACCEPT,
             },
             raw: true,
           });
@@ -29,7 +29,7 @@ const controller = {
               : result.content.split("|");
         } else {
           let episodes = await models.episode.findAll({
-            where: { idbook: _book, status: status.CHECKED },
+            where: { idbook: _book, status: status.ACCEPT },
             raw: true,
           });
 
@@ -155,7 +155,7 @@ const controller = {
       where: {
         idepisode: req.params.episodeId,
         status: {
-          [Op.or]: [status.CHECKED, status.DRAFT],
+          [Op.or]: [status.ACCEPT, status.DRAFT],
         },
       },
     });
