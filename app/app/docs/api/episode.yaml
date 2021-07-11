@@ -1,0 +1,33 @@
+paths:
+  /api/episode/{id}:
+    get:
+      tags: [Episode]
+      summary: Returns episode with id
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: number
+          required: true
+          description: ID of episode
+      responses:
+        200:
+          description: Returns episode with id
+        404:
+          description: Not found
+  /api/book/{id}/episode:
+    get:
+      tags: [Episode]
+      summary: Returns all episodes of book with id
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: number
+          required: true
+          description: ID of book
+      responses:
+        200:
+          description: Returns all episodes of book with id
+        404:
+          description: Not found      

@@ -9,10 +9,12 @@ const episode = require('../app/controller/api/episode');
 
 // User
 router.get('/user',user.index);
-router.get('/book', book.index);
+
 
 // Book
-router.get('/book/:bookId/episode',episode.index);
+router.get('/book', book.index);
+router.get('/user/:username/book', book.getUserBook);
+router.get('/book/search', book.search);
 router.post('/book',passport.authenticateJWT,book.create);
 router.put('/book', passport.authenticateJWT,book.update);
 router.delete('/book', passport.authenticateJWT,book.delete);
@@ -22,8 +24,10 @@ router.get('/episode/:episodeId',episode.index)
 router.post('/book/:bookId/episode',passport.authenticateJWT,episode.create);
 router.put('/episode/:episodeId',passport.authenticateJWT,episode.update);
 router.delete('/episode/:episodeId',passport.authenticateJWT,episode.delete);
+router.get('/book/:bookId/episode',episode.inBook);
 
 // My Post
+router.get('/me',passport.authenticateJWT,user.me);
 router.get('/me/book',passport.authenticateJWT, book.getMyBook);
 
 // Auth

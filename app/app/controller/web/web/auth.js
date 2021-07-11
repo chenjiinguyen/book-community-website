@@ -21,7 +21,7 @@ module.exports = {
     },
     post_signup : async(req,res,next) =>{
         let data = req.body
-        console.log(data)
+        // console.log(data)
         let require_fields = ["username","name","email","birthday","password"]
         if(utils.check_not_blank_in_object(require_fields, data)){
 

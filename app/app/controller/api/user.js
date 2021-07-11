@@ -50,6 +50,22 @@ const controller = {
             }
         }
         res.json(data);
+    },
+    me : async function(req,res,next){
+        let data = {};
+        let result = {};
+        let me = req.user;
+        if(me != null){
+            data = {
+                ...type.SUCCESS,
+                data: me,
+            }
+        }else{
+            data = {
+                ...type.NOT_FOUND,
+            }
+        }
+        res.json(data);
     }
 }
 

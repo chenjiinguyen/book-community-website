@@ -41,7 +41,7 @@ module.exports.create = {
   post: async (req, res, next) => {
     let id = req.params.id;
     let data = req.body;
-    console.log(data);
+    // console.log(data);
     let book = await models.book.findOne({
       where: {
         idbook: id,

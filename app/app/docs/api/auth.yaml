@@ -8,20 +8,20 @@ paths:
           name: username
           schema:
             type: string
-          required: true
+          required: false
           description: Username
         - in: query
           name: password
           schema:
             type: string
             format: password
-          required: true
+          required: false
           description: Password
         - in: query
           name: remember
           schema:
             type: boolean
-          required: true
+          required: false
           description: Remember session  
       responses:
         200:
@@ -35,38 +35,38 @@ paths:
           name: username
           schema:
             type: string
-          required: true
+          required: false
           description: Your Username
         - in: query
           name: email
           schema:
             type: string
-          required: true
+          required: false
           description: Your Email
         - in: query
           name: password
           schema:
             type: string
             format: password
-          required: true
+          required: false
           description: Your Password
         - in: query
           name: name
           schema:
             type: string
-          required: true
+          required: false
           description: Your name
         - in: query
           name: birthday
           schema:
             type: string
-          required: true
+          required: false
           description: Your Birthday        
         - in: query
           name: gender
           schema:
             type: string
-          required: true
+          required: false
           description: Male or Female          
       responses:
         200:

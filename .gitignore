@@ -132,3 +132,5 @@ temp/
 
 .env
 *.sql
+
+yarn.lock

@@ -1,3 +1,9 @@
 tags:
-    name: Authorization
-    description: API to Authorization.
+    - name: Authorization
+      description: API to Authorization.
+    - name: Book 
+      description: API to Book.
+    - name: Episode 
+      description: API to Episode.
+    - name: User 
+      description: API to User.

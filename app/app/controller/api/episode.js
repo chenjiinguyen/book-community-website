@@ -7,50 +7,25 @@ const status = require("../../../lib/status");
 
 const controller = {
   index: async (req, res, next) => {
-    let _book = req.params.bookId;
     let _episode = req.params.episodeId;
     let data = {};
-    if (_book != null) {
-      let book = await models.book.findOne({ where: { idbook: _book } });
-      let result = {};
-      if (book != null) {
-        if (_episode != null) {
-          let episode = await models.episode.findOne({
-            where: {
-              idepisode: _episode,
-              status: status.ACCEPT,
-            },
-            raw: true,
-          });
-          result = { ...episode };
-          result.content =
-            result.content == null || result.content.length == 0
-              ? []
-              : result.content.split("|");
-        } else {
-          let episodes = await models.episode.findAll({
-            where: { idbook: _book, status: status.ACCEPT },
-            raw: true,
-          });
 
-          result = [...episodes];
-          result.map((x) => {
-            x.content =
-              x.content == null || x.content.length == 0
-                ? []
-                : x.content.split("|");
-            return x;
-          });
-        }
-        data = {
-          ...type.SUCCESS,
-          data: result,
-        };
-        // console.log(result)
-      } else {
-        data = {
-          ...type.NOT_FOUND,
-        };
+    if (_episode != null) {
+      let episode = await models.episode.findOne({
+        where: {
+          idepisode: _episode,
+          status: status.ACCEPT,
+        },
+        raw: true,
+      });
+      result = episode
+      result.content =
+        result.content == null || result.content.length == 0
+          ? []
+          : result.content.split("|");
+      data = {
+        ...type.SUCCESS,
+        data: result,
       }
     } else {
       data = {
@@ -176,6 +151,45 @@ const controller = {
         ...type.UNAUTHORIZED,
       };
     }
+    res.json(data);
+  },
+  inBook: async (req, res, next) => {
+    let _book = req.params.bookId;
+    let data = {};
+    if (_book != null) {
+      let book = await models.book.findOne({ where: { idbook: _book } });
+      let result = {};
+      if (book != null){
+          let episodes = await models.episode.findAll({
+            where: { idbook: _book, status: status.ACCEPT },
+            order: [ ['index', 'ASC'],],
+            raw: true,
+          });
+
+          result = [...episodes];
+          result.map((x) => {
+            x.content =
+              x.content == null || x.content.length == 0
+                ? []
+                : x.content.split("|");
+            return x;
+          });
+        data = {
+          ...type.SUCCESS,
+          data: result,
+        };
+        // console.log(result)
+      } else {
+        data = {
+          ...type.NOT_FOUND,
+        };
+      }
+    } else {
+      data = {
+        ...type.NOT_FOUND,
+      };
+    }
+
     res.json(data);
   },
 };

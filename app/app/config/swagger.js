@@ -5,13 +5,13 @@ const options = {
   definition: {
     openapi: "3.0.0",
     info: {
-      title: "Analytics Project",
+      title: "API Book Community - Doc",
       version: "1.0.0",
-      description: "Analytics API swagger documentation",
+      description: "API Book Community - Doc",
       contact: {
         name: "chenjinguyen",
-        url: "https://chenjinguyen.com",
-        email: "info@email.com",
+        url: "#",
+        email: "#",
       },
     }
   },

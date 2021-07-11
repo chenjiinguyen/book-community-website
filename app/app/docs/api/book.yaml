@@ -1,17 +1,60 @@
 paths:
- /api/user:
+  /api/book:
     get:
-      tags: [User]
-      summary: Returns a user
+      tags: [Book]
+      summary: Returns all books or book with ID
       parameters:
-        - name: username
+        - in: query
+          name: id
+          schema:
+            type: number
           required: false
-          description: Username of user
-        - name: email
-          required: false
-          description: Email of user
+          description: ID of book (if you want get that)
       responses:
         200:
-          description: Returns a user
+          description: Returns all books or book with ID
         404:
           description: Not found
+  /api/book/search:
+    get:
+      tags: [Book]
+      summary: Returns all books for keyword in title
+      parameters:
+        - in: query
+          name: title
+          schema:
+            type: string
+          required: false
+          description: The keyword you want to find in the title
+      responses:
+        200:
+          description: Returns all books for keyword in title
+        404:
+          description: Not found   
+  /api/user/{username}/book:
+    get:
+      tags: [Book]
+      summary: Returns all books of user
+      parameters:
+        - in: path
+          name: username
+          schema:
+            type: string
+          required: true
+          description: The username of user
+      responses:
+        200:
+          description: Returns all books of user
+        404:
+          description: Not found     
+  /api/me/book/:
+    get:
+      tags: [Book]
+      summary: Return all your published books
+      security:
+        - Bearer: []
+      responses:
+        200:
+          description: Return all your published books
+        404:
+          description: Not found      
