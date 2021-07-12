@@ -9,7 +9,26 @@ const controller = {
     let result = {};
     let data = [];
     if (username != null) {
-      data = await models.point.findAll({ where: { username: username } });
+      data = await models.point.findAll({
+        attributes: {
+          include: [
+            [
+              models.sequelize.literal(
+                "(SELECT `name` FROM `episode` WHERE `episode`.`idepisode` = `point`.`idepisode`)"
+              ),
+              "episode",
+            ],
+            [
+              models.sequelize.literal(
+                "(SELECT `b`.`title` FROM `book` AS `b`, `episode` AS `e` WHERE `e`.`idbook` = `b`.`idbook` AND `e`.`idepisode` = `point`.`idepisode`)"
+              ),
+              "book",
+            ],
+          ],
+          exclude: ["idepisode"],
+        },
+        where: { username: username },
+      });
       result = {
         ...type.SUCCESS,
         data: data,
@@ -26,7 +45,26 @@ const controller = {
     let result = {};
     let data = [];
     if (me != null) {
-      data = await models.point.findAll({ where: { username: me.username } });
+      data = await models.point.findAll({
+        attributes: {
+          include: [
+            [
+              models.sequelize.literal(
+                "(SELECT `name` FROM `episode` WHERE `episode`.`idepisode` = `point`.`idepisode`)"
+              ),
+              "episode",
+            ],
+            [
+              models.sequelize.literal(
+                "(SELECT `b`.`title` FROM `book` AS `b`, `episode` AS `e` WHERE `e`.`idbook` = `b`.`idbook` AND `e`.`idepisode` = `point`.`idepisode`)"
+              ),
+              "book",
+            ],
+          ],
+          exclude: ["idepisode"],
+        },
+        where: { username: me.username },
+      });
       result = {
         ...type.SUCCESS,
         data: data,
