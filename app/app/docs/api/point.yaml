@@ -1,0 +1,29 @@
+paths:
+  /api/point/username/{username}:
+    get:
+      tags: [Point]
+      summary: Returns all transaction of user with ID
+      parameters:
+        - in: path
+          name: username
+          schema:
+            type: string
+          required: false
+          description: ID of username
+      responses:
+        200:
+          description: Returns all transaction of user with ID
+        404:
+          description: Not found
+
+  /api/me/point:
+    get:
+      tags: [Point]
+      summary: Returns all transaction of user with ID
+      security:
+        - Bearer: []
+      responses:
+        200:
+          description: Returns all transaction of user with ID
+        404:
+          description: Not found

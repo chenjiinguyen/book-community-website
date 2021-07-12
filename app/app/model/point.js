@@ -29,7 +29,7 @@ module.exports = (sequelize, DataTypes) => {
   );
   point.associate = (models) => {
     point.belongsTo(models.episode, { foreignKey: "idepisode" });
-    point.belongsTo(models.user, { foreignKey: "iduser" });
+    point.belongsTo(models.user, { foreignKey: "username" });
   };
   return point;
 };
