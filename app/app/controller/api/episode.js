@@ -22,7 +22,7 @@ const controller = {
       result.content =
         result.content == null || result.content.length == 0
           ? []
-          : result.content.split("|");
+          : result.content.replace(/<br ?\/?>/g, "\n").replace(/<[^>]+>/g, '').split("|");
       data = {
         ...type.SUCCESS,
         data: result,
@@ -171,7 +171,7 @@ const controller = {
             x.content =
               x.content == null || x.content.length == 0
                 ? []
-                : x.content.split("|");
+                : x.content.replace(/<br ?\/?>/g, "\n").replace(/<[^>]+>/g, '').split("|");
             return x;
           });
         data = {

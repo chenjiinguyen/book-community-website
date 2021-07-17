@@ -21,6 +21,9 @@ const controller = {
           ],
           exclude: ["status"],
         },
+        order: [
+          ['createdat', 'DESC'],['updatedat', 'DESC'],
+        ],
         where: {
           idbook: id,
           status: status.ACCEPT,
@@ -48,6 +51,9 @@ const controller = {
           ],
           exclude: ["status"],
         },
+        order: [
+          ['createdat', 'DESC'],['updatedat', 'DESC'],
+        ],
         where: {
           status: status.ACCEPT,
         },
@@ -81,6 +87,9 @@ const controller = {
           ],
           exclude: ["status"],
         },
+        order: [
+          ['createdat', 'DESC'],['updatedat', 'DESC'],
+        ],
         where: {
           idbook: id,
           status: status.ACCEPT,
@@ -120,6 +129,69 @@ const controller = {
     }
     res.json(data);
   },
+  getCategory: async (req, res, next) => {
+    let category = req.params.category;
+    let data = {};
+    let result = {};
+    if (category != null) {
+      result = await models.book.findAll({
+        attributes: {
+          include: [
+            [
+              models.sequelize.literal(
+                "(SELECT COUNT(`like`.`idbook`) FROM `like` WHERE `like`.`idbook` = `book`.`idbook`)"
+              ),
+              "like",
+            ],
+          ],
+          exclude: ["status"],
+        },
+        order: [
+          ['createdat', 'DESC'],['updatedat', 'DESC'],
+        ],
+        where: {
+          category: category,
+          status: status.ACCEPT,
+        },
+        raw: true,
+      });
+      if (result != null) {
+        code = type.SUCCESS;
+      } else code = type.NOT_FOUND;
+
+      data = {
+        ...code,
+        data: result,
+      };
+    } else {
+      result = await models.book.findAll({
+        attributes: {
+          include: [
+            [
+              models.sequelize.literal(
+                "(SELECT COUNT(`like`.`idbook`) FROM `like` WHERE `like`.`idbook` = `book`.`idbook`)"
+              ),
+              "like",
+            ],
+          ],
+          exclude: ["status"],
+        },
+        where: {
+          status: status.ACCEPT,
+        },
+        raw: true,
+      });
+      if (result != null) {
+        code = type.SUCCESS;
+      } else code = type.NOT_FOUND;
+
+      data = {
+        ...code,
+        data: result,
+      };
+    }
+    res.json(data);
+  },
   getMyBook: async (req, res, next) => {
     let data = {};
     let result = {};
@@ -136,6 +208,9 @@ const controller = {
           ],
           exclude: ["status"],
         },
+        order: [
+          ['createdat', 'DESC'],['updatedat', 'DESC'],
+        ],
         where: {
           status: {
             [models.Sequelize.Op.or]: [status.ACCEPT, status.DRAFT],
@@ -170,6 +245,9 @@ const controller = {
           ],
           exclude: ["status"],
         },
+        order: [
+          ['createdat', 'DESC'],['updatedat', 'DESC'],
+        ],
         where: {
           status: {
             [models.Sequelize.Op.or]: [status.ACCEPT, status.DRAFT],
@@ -316,6 +394,9 @@ const controller = {
         ],
         exclude: ["status"],
       },
+      order: [
+        ['createdat', 'DESC'],['updatedat', 'DESC'],
+      ],
       where: {
         title: {
           [models.Sequelize.Op.substring]: title,

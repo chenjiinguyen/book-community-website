@@ -5,7 +5,7 @@ const moment = require("moment");
 
 const controller = {
   signin: async (req, res, next) => {
-    const { username, password, remember } = req.query;
+    const { username, password, remember} = req.body;
     if (username && password) {
       let user = await models.user.findOne({ where: { username: username } });
       if (!user) {
@@ -17,14 +17,14 @@ const controller = {
       } else {
         if (await user.isValidPassword(password)) {
           // from now on we’ll identify the user by the id and the id is
-          // the only personalized value that goes into our tokend
-
-          const jwt = utils.issue_JWT(user, remember == "true" ? true : false);
-          res.json({
-            success: true,
-            data: user,
-            token: jwt.token,
-            expiresIn: jwt.expiresIn,
+          // the only personalized value that goes into our tokend 
+          
+          const jwt = utils.issue_JWT(user,(remember == "true")?true:false);
+          res.json({ 
+              success: true,
+              data: user, 
+              token: jwt.token, 
+              expiresIn: jwt.expiresIn 
           });
         } else {
           res.json({
@@ -43,15 +43,8 @@ const controller = {
     }
   },
   signup: async (req, res, next) => {
-    const attributes = [
-      "username",
-      "email",
-      "password",
-      "name",
-      "gender",
-      "birthday",
-    ];
-    const param = req.query;
+    const attributes = ["username","email","password","name","gender","birthday"];
+    const param = req.body;
     let result = {
       status: 200,
       success: false,

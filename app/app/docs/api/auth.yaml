@@ -3,26 +3,23 @@ paths:
     post:
       tags: [Authorization]
       description: Signin for system
-      parameters:
-        - in: query
-          name: username
-          schema:
-            type: string
-          required: false
-          description: Username
-        - in: query
-          name: password
-          schema:
-            type: string
-            format: password
-          required: false
-          description: Password
-        - in: query
-          name: remember
-          schema:
-            type: boolean
-          required: false
-          description: Remember session  
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                username:    
+                  type: string
+                password:   
+                  type: string
+                remember:
+                  type: boolean
+              required:
+                - username
+                - password
+                - remember
       responses:
         200:
           description: Returns a response
@@ -30,54 +27,32 @@ paths:
     post:
       tags: [Authorization]
       description: Signup for system
-      parameters:
-        - in: query
-          name: username
-          schema:
-            type: string
-          required: false
-          description: Your Username
-        - in: query
-          name: email
-          schema:
-            type: string
-          required: false
-          description: Your Email
-        - in: query
-          name: password
-          schema:
-            type: string
-            format: password
-          required: false
-          description: Your Password
-        - in: query
-          name: name
-          schema:
-            type: string
-          required: false
-          description: Your name
-        - in: query
-          name: birthday
-          schema:
-            type: string
-          required: false
-          description: Your Birthday        
-        - in: query
-          name: gender
-          schema:
-            type: string
-          required: false
-          description: Male or Female          
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                username:    
+                  type: string
+                email:   
+                  type: string
+                password:
+                  type: string
+                name:
+                  type: string    
+                birthday:
+                  type: string     
+                gender:
+                  type: string      
+              required:
+                - username
+                - email
+                - password
+                - name
+                - birthday
+                - gender
       responses:
         200:
           description: Returns a response
-# definitions:        # Schema definition for the request body
-#   signUp:
-#     type: object
-#         properties:
-#           username:
-#             type: string
-#           email:
-#             type: string
-#           password:
-#             type: string

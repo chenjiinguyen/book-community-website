@@ -15,6 +15,7 @@ router.get("/user", user.index);
 router.get("/book", book.index);
 router.get("/user/:username/book", book.getUserBook);
 router.get("/book/search", book.search);
+router.get("/book/category/:category", book.getCategory);
 router.post("/book", passport.authenticateJWT, book.create);
 router.put("/book", passport.authenticateJWT, book.update);
 router.delete("/book", passport.authenticateJWT, book.delete);

@@ -46,7 +46,27 @@ paths:
         200:
           description: Returns all books of user
         404:
-          description: Not found     
+          description: Not found 
+  /api/book/category/{category}:
+    get:
+      tags: [Book]
+      summary: Returns all books of category
+      parameters:
+        - in: path
+          name: category
+          schema:
+            type: string
+            enum:
+              - TEXT
+              - IMAGE
+              - AUDIO
+          required: true
+          description: id category
+      responses:
+        200:
+          description: Returns all books of category
+        404:
+          description: Not found      
   /api/me/book/:
     get:
       tags: [Book]

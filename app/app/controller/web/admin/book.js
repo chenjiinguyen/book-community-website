@@ -247,7 +247,7 @@ module.exports.edit = {
       }
     } else {
       req.flash("error", "Vui lòng điền tất cả các trường bắt buộc");
-      res.redirect("/admin/book/create");
+      res.redirect("/admin/book/"+id+"/edit");
     }
   },
 };
