@@ -5,7 +5,7 @@ const moment = require('moment');
 
 const controller = {
   signin: async (req, res, next) => {
-    const { username, password, remember} = req.query;
+    const { username, password, remember} = req.body;
     if (username && password) {
       let user = await models.user.findOne({ where: { username: username } });
       if (!user) {
@@ -21,7 +21,7 @@ const controller = {
           const jwt = utils.issue_JWT(user,(remember == "true")?true:false);
           res.json({ 
               success: true,
-              user: user, 
+              data: user, 
               token: jwt.token, 
               expiresIn: jwt.expiresIn 
           });
@@ -43,7 +43,7 @@ const controller = {
   },
   signup: async (req, res, next) => {
     const attributes = ["username","email","password","name","gender","birthday"];
-    const param = req.query;
+    const param = req.body;
     let result = {
       status : 200,
       success : false,
@@ -73,7 +73,7 @@ const controller = {
           });
           if(user){
             result.success = true;
-            result.user = user;
+            result.data = user;
           }else{
             result.message = "Có lỗi trong quá trình đăng ký. Vui lòng thử lại";
           }
