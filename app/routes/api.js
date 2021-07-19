@@ -7,6 +7,7 @@ const book = require("../app/controller/api/book");
 const auth = require("../app/controller/api/auth");
 const episode = require("../app/controller/api/episode");
 const point = require("../app/controller/api/point");
+const comment = require("../app/controller/api/comment");
 
 // User
 router.get("/user", user.index);
@@ -38,5 +39,10 @@ router.post("/signup", auth.signup);
 // Point
 router.get("/point/username/:username", point.index);
 router.get("/me/point", passport.authenticateJWT, point.mePoint);
+router.post("/me/point/create", passport.authenticateJWT, point.addPoint);
+
+// Comment
+router.get("/book/:id/comment", comment.index);
+router.post("/comment", passport.authenticateJWT,comment.create);
 
 module.exports = router;

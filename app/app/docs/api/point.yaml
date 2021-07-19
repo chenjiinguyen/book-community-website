@@ -15,7 +15,6 @@ paths:
           description: Returns all transaction of user with ID
         404:
           description: Not found
-
   /api/me/point:
     get:
       tags: [Point]
@@ -25,5 +24,33 @@ paths:
       responses:
         200:
           description: Returns all transaction of user with ID
+        404:
+          description: Not found
+  /api/me/point/create:
+    post:
+      tags: [Point]
+      summary: Create transaction point
+      security:
+        - Bearer: []
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                idepisode:   
+                  type: string
+                charge:
+                  type: boolean
+                point:
+                  type: number
+              required:
+                - idepisode
+                - charge
+                - point
+      responses:
+        200:
+          description: Returns transaction was created
         404:
           description: Not found

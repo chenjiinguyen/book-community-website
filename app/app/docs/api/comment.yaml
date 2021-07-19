@@ -1,0 +1,42 @@
+paths:
+  /api/book/{id}/comment:
+    get:
+      tags: [Comment]
+      summary: Returns all comments of book with ID
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: number
+          required: false
+          description: ID of book (if you want get that)
+      responses:
+        200:
+          description: Returns all comments of book with ID
+        404:
+          description: Not found
+  /api/comment:
+    post:
+      tags: [Comment]
+      summary: Create new comment in book with ID
+      security:
+        - Bearer: []
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                idbook:   
+                  type: number
+                content:
+                  type: string
+              required:
+                - idbook
+                - content
+      responses:
+        200:
+          description: Returns new comment in book with ID
+        404:
+          description: Not found

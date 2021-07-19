@@ -76,6 +76,48 @@ const controller = {
     }
     return res.json(result);
   },
+  addPoint: async (req, res, next) => {
+    let me = req.user;
+    let { idepisode, charge, point } = req.body;
+    let result = {};
+    if (me != null) {
+      let username = me.username;
+      charge = charge == "true" ? true : false;
+      let data = {
+        username,
+        idepisode,
+        charge,
+        point,
+      };
+      let trans = await models.point.findOne({
+        where: { username, idepisode },
+      });
+      if (trans) {
+        result = {
+          ...type.BAD_REQUEST,
+        };
+      } else {
+        let point_result = await models.point.create(data);
+        if (point_result) {
+          me.point = charge ? parseInt(me.point) + parseInt(point) : parseInt(me.point) - (point);
+          await me.save();
+          result = {
+            ...type.SUCCESS,
+            data: point_result,
+          };
+        } else {
+          result = {
+            ...type.BAD_REQUEST,
+          };
+        }
+      }
+    } else {
+      result = {
+        ...type.NOT_FOUND,
+      };
+    }
+    return res.json(result);
+  },
 };
 
 module.exports = controller;

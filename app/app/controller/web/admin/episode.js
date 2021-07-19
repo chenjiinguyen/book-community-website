@@ -16,27 +16,27 @@ module.exports.create = {
       },
       raw: true,
     });
-    if(data.book){
-        data.title = "Gửi Bản Thảo Chương";
-        switch (data.book.category) {
-          case "TEXT":
-            res.render("page.admin.episode.text.create", data);
-            break;
-          case "IMAGE":
-            res.render("page.admin.episode.image.create", data);
-            break;
-          case "AUDIO":
-            res.render("page.admin.episode.audio.create", data);
-            break;
-          default:
-            req.flash("error", "Có lỗi thông tin sách");
-            res.redirect("/admin/");
-            break;
-        }
-      }else{
-        req.flash("error", "Sách không tồn tại");
-        res.redirect("/admin/");
-      }    
+    if (data.book) {
+      data.title = "Gửi Bản Thảo Chương";
+      switch (data.book.category) {
+        case "TEXT":
+          res.render("page.admin.episode.text.create", data);
+          break;
+        case "IMAGE":
+          res.render("page.admin.episode.image.create", data);
+          break;
+        case "AUDIO":
+          res.render("page.admin.episode.audio.create", data);
+          break;
+        default:
+          req.flash("error", "Có lỗi thông tin sách");
+          res.redirect("/admin/");
+          break;
+      }
+    } else {
+      req.flash("error", "Sách không tồn tại");
+      res.redirect("/admin/");
+    }
   },
   post: async (req, res, next) => {
     let id = req.params.id;
@@ -52,8 +52,7 @@ module.exports.create = {
       raw: true,
     });
     if (book) {
-
-      if (!utils.check_not_blank_in_object(["name","content"],data)) {
+      if (!utils.check_not_blank_in_object(["name", "content"], data)) {
         if (data.name.length == 0)
           req.flash("error", "Vui lòng điền tên chương");
         if (data.content.length == 0)
@@ -64,23 +63,28 @@ module.exports.create = {
           where: { idbook: id },
           raw: true,
         });
-        let index = (chapOfBook.length == 0)?1:Math.max(...chapOfBook.map((x) => x.index)) + 1;
+        let index =
+          chapOfBook.length == 0
+            ? 1
+            : Math.max(...chapOfBook.map((x) => x.index)) + 1;
         let content = "";
         switch (book.category) {
           case "IMAGE":
-            let regex__images = new RegExp(/^(http(s?):).*.(?:jpg|png)([/|.|w|s|-])*$/);
-            data.content.split("|").map(x => {
-              if(x.match(regex__images) == null)
-              {
+            let regex__images = new RegExp(
+              /^(http(s?):).*.(?:jpg|png)([/|.|w|s|-])*$/
+            );
+            data.content.split("|").map((x) => {
+              if (x.match(regex__images) == null) {
                 req.flash("error", "Link ảnh bị lỗi");
                 res.redirect("/admin/book/" + id + "/create");
               }
             });
             break;
           case "AUDIO":
-            let regex__youtube = new RegExp('^.*(?:(?:youtu\.be\/|v\/|vi\/|u\/\w\/|embed\/)|(?:(?:watch)?\?v(?:i)?=|\&v(?:i)?=))([^#\&\?]*).*');
-            if(data.content.match(regex__youtube) == null)
-            {
+            let regex__youtube = new RegExp(
+              "^.*(?:(?:youtu.be/|v/|vi/|u/w/|embed/)|(?:(?:watch)??v(?:i)?=|&v(?:i)?=))([^#&?]*).*"
+            );
+            if (data.content.match(regex__youtube) == null) {
               req.flash("error", "Link Youtube bị lỗi");
               res.redirect("/admin/book/" + id + "/create");
             }
@@ -97,9 +101,9 @@ module.exports.create = {
           status: data.status,
         });
         if (episode) {
-          if(data.status == status.PENDING){
+          if (data.status == status.PENDING) {
             await models.moderation_episode.create({
-                idepisode: episode.idepisode
+              idepisode: episode.idepisode,
             });
           }
           req.flash("success", "Gửi bản thảo thành công");
@@ -117,49 +121,46 @@ module.exports.create = {
 };
 
 module.exports.edit = {
-    get: async (req, res, next) => {
-        let id = req.params.id;
-        let data = await data_controller.default(req);
-        data.episode = await models.episode.findOne({
-          include:[
-            {
-              model: models.book,
-              as: "books",
-              attributes: ["category"],
-            }
-          ],
-          where: {
-            idepisode: id,
-            status: {
-              [models.Sequelize.Op.not]: status.DELETED,
-            },
-          },
-          raw: true,
-        });
-        data.title = "Chỉnh Sửa Chương";
-        if(data.episode){
-          switch (data.episode["books.category"]) {
-            case "TEXT":
-              res.render("page.admin.episode.text.edit", data);
-              break;
-            case "IMAGE":
-              res.render("page.admin.episode.image.edit", data);
-              break;
-            case "AUDIO":
-              res.render("page.admin.episode.audio.edit", data);
-              break;
-            default:
-              req.flash("error", "Có lỗi thông tin chương");
-              res.redirect("/admin/");
-              break;
-          }
-        }else{
-          req.flash("error","Chương không tồn tại")
-          res.redirect("/admin/")
-        }
-    },
-    post : async (req, res, next) => {
-
-        
+  get: async (req, res, next) => {
+    let id = req.params.id;
+    let data = await data_controller.default(req);
+    data.episode = await models.episode.findOne({
+      include: [
+        {
+          model: models.book,
+          as: "books",
+          attributes: ["category"],
+        },
+      ],
+      where: {
+        idepisode: id,
+        status: {
+          [models.Sequelize.Op.not]: status.DELETED,
+        },
+      },
+      raw: true,
+    });
+    data.title = "Chỉnh Sửa Chương";
+    if (data.episode) {
+      switch (data.episode["books.category"]) {
+        case "TEXT":
+          res.render("page.admin.episode.text.edit", data);
+          break;
+        case "IMAGE":
+          res.render("page.admin.episode.image.edit", data);
+          break;
+        case "AUDIO":
+          res.render("page.admin.episode.audio.edit", data);
+          break;
+        default:
+          req.flash("error", "Có lỗi thông tin chương");
+          res.redirect("/admin/");
+          break;
+      }
+    } else {
+      req.flash("error", "Chương không tồn tại");
+      res.redirect("/admin/");
     }
-}
+  },
+  post: async (req, res, next) => {},
+};
