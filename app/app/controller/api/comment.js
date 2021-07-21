@@ -24,7 +24,7 @@ const controller = {
                 "avatar",
               ],
           ],
-          exclude: ["iduser","parent"],
+          exclude: ["parent"],
         },
         order: [
           ['createdat', 'DESC'],['updatedat', 'DESC'],

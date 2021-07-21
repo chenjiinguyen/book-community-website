@@ -78,3 +78,35 @@ paths:
           description: Return all your published books
         404:
           description: Not found      
+  /api/me/book/favorite:
+    get:
+      tags: [Book]
+      summary: Return all your favorite books
+      security:
+        - Bearer: []
+      responses:
+        200:
+          description: Return all your favorite books
+        404:
+          description: Not found      
+    post:
+      tags: [Book]
+      summary: Return all your favorite books
+      security:
+        - Bearer: []
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                idbook:
+                  type: string        
+              required:
+                - idbook
+      responses:
+        200:
+          description: Return all your favorite books
+        404:
+          description: Not found     

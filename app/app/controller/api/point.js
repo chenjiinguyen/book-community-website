@@ -28,6 +28,9 @@ const controller = {
           exclude: ["idepisode"],
         },
         where: { username: username },
+        order: [
+          ['createdat', 'DESC'],['updatedat', 'DESC'],
+        ],
       });
       result = {
         ...type.SUCCESS,
@@ -64,6 +67,9 @@ const controller = {
           exclude: ["idepisode"],
         },
         where: { username: me.username },
+        order: [
+          ['createdat', 'DESC'],['updatedat', 'DESC'],
+        ],
       });
       result = {
         ...type.SUCCESS,

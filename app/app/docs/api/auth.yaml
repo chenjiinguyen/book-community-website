@@ -56,3 +56,65 @@ paths:
       responses:
         200:
           description: Returns a response
+
+  /api/me/update/name:
+    post:
+      tags: [Authorization]
+      description: Update name
+      security:
+        - Bearer: []
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string        
+              required:
+                - name
+      responses:
+        200:
+          description: Returns a response
+  /api/me/update/password:
+    post:
+      tags: [Authorization]
+      description: Update password
+      security:
+        - Bearer: []
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                password:
+                  type: string        
+              required:
+                - password
+      responses:
+        200:
+          description: Returns a response
+  /api/me/update/avatar:
+    post:
+      tags: [Authorization]
+      description: Update avatar
+      security:
+        - Bearer: []
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                avatar:
+                  type: string
+                  format: binary
+              required:
+                - avatar
+      responses:
+        200:
+          description: Returns a response

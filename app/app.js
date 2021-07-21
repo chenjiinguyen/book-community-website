@@ -1,5 +1,6 @@
 const createError = require('http-errors');
 const express = require('express');
+const fileUpload = require('express-fileupload');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const session    = require('express-session')
@@ -26,6 +27,10 @@ config({ cache: process.env.NODE_ENV === 'production' });
 app.set('views', path.join(__dirname, 'views'));
 // app.set('view engine',  'ejs');
 app.use(engine);
+
+app.use(fileUpload({
+    createParentPath: true
+}));
 
 app.use(logger('dev'));
 app.use(express.json());

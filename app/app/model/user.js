@@ -84,5 +84,11 @@ module.exports = (sequelize, DataTypes) => {
     return compare;
   };
 
+  user.prototype.changePassword = async function (password) {
+    const user = this;
+    const hash = await bcrypt.hash(password, 10);
+    return await user.update({ password: hash });
+  };
+
   return user;
 };

@@ -264,6 +264,42 @@ const controller = {
       };
     res.json(data);
   },
+  getMyFavourite: async (req, res, next) => {
+    let result = {};
+    let me = req.user;
+    let data = await models.book.findAll({
+      attributes: {
+        include: [
+          [
+            models.sequelize.literal(
+              "(SELECT COUNT(`like`.`idbook`) FROM `like` WHERE `like`.`idbook` = `book`.`idbook`)"
+            ),
+            "like",
+          ],
+        ],
+        exclude: ["status"],
+      },
+      order: [
+        ['createdat', 'DESC'],['updatedat', 'DESC'],
+      ],
+      where: {
+        status: {
+          [models.Sequelize.Op.or]: [status.ACCEPT, status.DRAFT],
+        },
+      },
+      include: [{
+        model:models.like,
+        where: {
+          username: me.username
+        },
+      }],
+    });
+    result = {
+      ...type.SUCCESS,
+      data: data,
+    };
+    res.json(result);
+  },
   create: async (req, res, next) => {
     let data = {};
     let attributes = ["title", "author", "category", "poster", "description"];

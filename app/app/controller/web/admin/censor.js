@@ -3,6 +3,8 @@ const data_controller = require("../../../../lib/data_controller");
 const utils = require("../../../../lib/utils");
 const status = require("../../../../lib/status");
 const moment = require("moment");
+const axios = require("axios");
+const FormData = require('form-data');
 
 module.exports.all = {
   get: async (req, res, next) => {
@@ -209,6 +211,27 @@ module.exports.book = {
           book.status = data.status;
           await book.save();
           await censor.save();
+          let url = "https://fcm.googleapis.com/fcm/send";
+          let fcmKey = "AAAAb3t5DKk:APA91bGn5Ak41jMmR_aDvfX6r4JmjmYvtau01IG7hVKWqInfWYQBR2lG97pKLrNi0oAaONgSGLdCViXFiXUrzqg-IseCqhfvPCke96nkfrT3xpdijmancwN_2jU5uKuh90ikgenqzQkB";
+          let device_noti = (await models.device.findAll({raw:true})).map((x) => x.token);
+          let data_noti = {
+            data: {
+              id : book.idbook,
+              book : book.title,
+            },
+            registration_ids: device_noti,
+          };
+          const request_config = {
+            method: "post",
+            url: url,
+            headers: {
+                "Authorization": "key=" + fcmKey,
+                "Content-Type": "application/json"
+            },
+            data: data_noti
+          };
+          let response = await axios(request_config);
+ 
           req.flash("success", "Kiểm duyệt thành công");
           res.redirect("/admin/censor/book/" + idbook);
         } else {
@@ -323,6 +346,28 @@ module.exports.episode = {
           episode.status = data.status;
           await episode.save();
           await censor.save();
+          let book = await models.book.findOne({where: {idbook: episode.idbook}, raw: true});
+          let url = "https://fcm.googleapis.com/fcm/send";
+          let fcmKey = "AAAAb3t5DKk:APA91bGn5Ak41jMmR_aDvfX6r4JmjmYvtau01IG7hVKWqInfWYQBR2lG97pKLrNi0oAaONgSGLdCViXFiXUrzqg-IseCqhfvPCke96nkfrT3xpdijmancwN_2jU5uKuh90ikgenqzQkB";
+          let device_noti = (await models.device.findAll({raw:true})).map((x) => x.token);
+          let data_noti = {
+            data: {
+              id : book.idbook,
+              book : book.title,
+              episode : episode.name,
+            },
+            registration_ids: device_noti,
+          };
+          const request_config = {
+            method: "post",
+            url: url,
+            headers: {
+                "Authorization": "key=" + fcmKey,
+                "Content-Type": "application/json"
+            },
+            data: data_noti
+          };
+          let response = await axios(request_config);
           req.flash("success", "Kiểm duyệt thành công");
           res.redirect("/admin/censor/book/" + episode.idbook);
         } else {
