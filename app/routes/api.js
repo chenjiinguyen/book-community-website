@@ -54,5 +54,6 @@ router.post("/device/create",device.create);
 
 // Like
 router.post("/me/book/favorite", passport.authenticateJWT, auth.postLike);
+router.get("/me/book/:idbook/favorite", passport.authenticateJWT, auth.meGetLikeBook);
 
 module.exports = router;

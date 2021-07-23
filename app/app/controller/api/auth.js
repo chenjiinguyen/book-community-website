@@ -141,11 +141,13 @@ const controller = {
     let result = {};
     try {
       if (!req.files) {
+        console.log("Không Có File");
         result = {
           ...type.BAD_REQUEST,
         }
       } else {
         //Use the name of the input field (i.e. "avatar") to retrieve the uploaded file
+        console.log(req.files);
         let avatar = req.files.avatar;
         console.log(avatar);
         if (avatar.name.match(/\.(jpg|JPG|jpeg|JPEG|png|PNG)$/)) {
@@ -155,21 +157,21 @@ const controller = {
             method: "post",
             url: url,
             headers: {
-                ...form_data.getHeaders(),
-                "Authorization": "Client-ID f9568f6615eb164",
-                "Content-Type": "multipart/form-data;"
+              ...form_data.getHeaders(),
+              "Authorization": "Client-ID f9568f6615eb164",
+              "Content-Type": "multipart/form-data;"
             },
             data: form_data
           };
           let response = await axios(request_config);
-          if(response.data.success){
+          if (response.data.success) {
             me.avatar = response.data.data.link;
             me.save();
             result = {
               ...type.SUCCESS,
               data: me,
             }
-          }else{
+          } else {
             result = {
               ...type.BAD_REQUEST,
             }
@@ -179,23 +181,29 @@ const controller = {
             ...type.BAD_REQUEST,
           }
         }
-        
-        
+
+
       }
     } catch (err) {
       result = {
         ...type.BAD_REQUEST,
       }
     };
-    
+
     return res.json(result);
   },
   postLike: async (req, res, next) => {
     let me = req.user;
     let result = {};
     let { idbook } = req.body;
-    if (me != null) {
-      let username = me.username; 
+    get_like = await models.like.findOne({
+      where: {
+        username: me.username,
+        idbook: idbook,
+      },
+    });
+    if (get_like == null) {
+      let username = me.username;
       let input = {
         username,
         idbook,
@@ -204,19 +212,48 @@ const controller = {
       if (like) {
         result = {
           ...type.SUCCESS,
+          like: true,
         };
-      }else{
+      } else {
         result = {
           ...type.BAD_REQUEST,
         }
       }
     } else {
+      x = await get_like.destroy();
+      
       result = {
-        ...type.BAD_REQUEST,
+        ...type.SUCCESS,
+        like: false,
+      };
+    }
+    console.log(result);
+    return res.json(result);
+  },
+  meGetLikeBook: async (req, res, next) => {
+    let me = req.user;
+    const idbook = req.params.idbook;
+    let result = {};
+    like = await models.like.findOne({
+      where: {
+        username: me.username,
+        idbook: idbook,
+      },
+    });
+    if (like) {
+      result = {
+        ...type.SUCCESS,
+        like: true,
+      };
+    } else {
+      result = {
+        ...type.SUCCESS,
+        like: false,
       };
     }
 
     return res.json(result);
+
   },
 };
 

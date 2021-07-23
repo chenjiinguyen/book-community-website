@@ -110,3 +110,20 @@ paths:
           description: Return all your favorite books
         404:
           description: Not found     
+  /api/me/book/{idbook}/favorite:
+    get:
+      tags: [Book]
+      summary: Return you favorite that book
+      security:
+        - Bearer: []
+      parameters:
+        - in: path
+          name: idbook
+          schema:
+            type: number
+          required: true
+      responses:
+        200:
+          description: Return all your favorite books
+        404:
+          description: Not found      
