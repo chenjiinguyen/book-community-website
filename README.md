@@ -1,5 +1,19 @@
 # BOOK COMMUNITY - WEBSITE
 
+## INFOMATION
+This is a system for storing books and stories for everyone. Combine APIs for other platforms to use.
+It is programmed from Express JS - MySQL. Using Docker technology to optimize installation.
+
+## AUTHORS
+- chenjiinguyen
+- NhuQuynh0711
+- xuankim
+- sonkoi24112
+## OTHER PLATFORMS
+
+- ANDROID: [https://github.com/chenjiinguyen/book-community-android](https://github.com/chenjiinguyen/book-community-android)
+- WINDOWS DESKTOP: [https://github.com/chenjiinguyen/PTUDTM](https://github.com/chenjiinguyen/PTUDTM)
+
 ## LINK
 
 - Website: [http://localhost:3000](http://localhost:3000)
