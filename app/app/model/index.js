@@ -9,7 +9,7 @@ var models = {};
 let reconnectOptions = {
   max_retries: 999,
   onRetry: function (count) {
-    console.log("connection lost, trying to reconnect (" + count + ")");
+   
   },
 };
 
@@ -69,10 +69,10 @@ Object.keys(models).forEach((modelName) => {
   sequelize
     .sync()
     .then(function () {
-      console.log("Nice! Database looks fine");
+     
     })
     .catch(function (err) {
-      console.log(err, "Something went wrong with the Database Update!");
+     
     });
 })();
 

@@ -71,7 +71,7 @@ passport.deserializeUser(function (id, done) {
        
       raw : true,
     })
-    // console.log(me)
+    
     return done(null, me);
   });
 });

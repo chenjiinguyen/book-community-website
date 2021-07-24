@@ -64,11 +64,11 @@ module.exports = async (req, res, next) => {
       return parseInt(x.comment)
       return parseInt(x.comment) + parseInt(y.comment) + 0;
     },parseInt(0));
-    // console.log(like)
+    
     data.like = data.like + like;
     data.comment = data.comment + comment;
 
   }
-  // console.log(data)
+  
   res.render("page.admin.dashboard", data);
 };

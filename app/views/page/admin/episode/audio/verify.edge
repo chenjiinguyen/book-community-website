@@ -78,7 +78,7 @@
         let check = link.match(regex);
         if(check != null){
             let url = "https://www.youtube.com/embed/"+ check[check.length-1];
-            console.log(url)
+           
             $("cover-view").css("display","none");
             $("#youtube-view").attr("src",url);
             $("#youtube-view").css("display","block");

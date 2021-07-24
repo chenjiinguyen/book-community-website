@@ -37,7 +37,7 @@ module.exports.all = {
     });
     for (const category of categories) {
       data[category.val] = books.filter((o) => o.category == category.name);
-      // console.log(data[category.val]);
+      
     }
     res.render("page.admin.censor.list", data);
   },

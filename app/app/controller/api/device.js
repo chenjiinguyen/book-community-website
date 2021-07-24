@@ -7,18 +7,28 @@ const controller = {
         let { token } = req.body;
         let result = {};
         if (token != null) {
-            device = await models.device.create({
-                token: token,
-            });
-            if(device){
-                result = {
-                    token,
-                };
+            let dev = await models.device.findOne({
+            where: {token :token}});
+            if(dev == null){
+                device = await models.device.create({
+                    token: token,
+                });
+                if(device){
+                    result = {
+                        token,
+                    };
+                }else{
+                    result = {
+                        token: null,
+                    }
+                }
             }else{
                 result = {
-                    token: "null",
+                    token: dev.token,
                 }
             }
+
+            
             
         }else{
             result = {

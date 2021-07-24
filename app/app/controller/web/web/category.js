@@ -27,7 +27,7 @@ const controller = async (req, res, next) => {
       ],
       raw: true,
     });
-    // console.log(data)
+    
     res.render("page.web.category", data);
   }else{
     req.flash("error", "Không có thể loại sách này");

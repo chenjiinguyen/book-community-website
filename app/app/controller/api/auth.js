@@ -141,15 +141,15 @@ const controller = {
     let result = {};
     try {
       if (!req.files) {
-        console.log("Không Có File");
+       
         result = {
           ...type.BAD_REQUEST,
         }
       } else {
         //Use the name of the input field (i.e. "avatar") to retrieve the uploaded file
-        console.log(req.files);
+       
         let avatar = req.files.avatar;
-        console.log(avatar);
+       
         if (avatar.name.match(/\.(jpg|JPG|jpeg|JPEG|png|PNG)$/)) {
           let form_data = new FormData();
           form_data.append("image", avatar.data, avatar.name);
@@ -227,7 +227,7 @@ const controller = {
         like: false,
       };
     }
-    console.log(result);
+   
     return res.json(result);
   },
   meGetLikeBook: async (req, res, next) => {

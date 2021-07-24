@@ -114,13 +114,13 @@
 
     $("#youtube-url").on('input propertychange',function (){
         let link = $(this).val();
-        console.log(link)
+       
         let regex = new RegExp('^.*(?:(?:youtu\.be\/|v\/|vi\/|u\/\w\/|embed\/)|(?:(?:watch)?\?v(?:i)?=|\&v(?:i)?=))([^#\&\?]*).*');
         let check = link.match(regex);
-        console.log(check)
+       
         if(check != null){
             let url = "https://www.youtube.com/embed/"+ check[check.length-1];
-            console.log(url)
+           
             $("cover-view").css("display","none");
             $("#youtube-view").attr("src",url);
             $("#youtube-view").css("display","block");

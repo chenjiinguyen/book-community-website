@@ -38,7 +38,7 @@ router.get("/test",async (req,res,next)=>{
     const book = books[key];
     cleanText = book.description.replace(/(&lt;|<)br\s*\/?(&gt;|>)/g, "\n");
     cleanText = cleanText.replace(/<\/?[^>]+(>|$)/g, "");
-    // console.log(cleanText)
+    
     book.description  = cleanText
 
     await book.save({silent: false})

@@ -6,7 +6,7 @@ const models = require("../app/model/index");
 
 const issue_JWT = (user,remember = false) => {
     let now = Date.now();
-    // console.log(new Date(now))
+    
     let payload = { 
         username: user.username,
         iat: now,

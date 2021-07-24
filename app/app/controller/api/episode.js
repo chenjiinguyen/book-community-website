@@ -178,7 +178,7 @@ const controller = {
           ...type.SUCCESS,
           data: result,
         };
-        // console.log(result)
+        
       } else {
         data = {
           ...type.NOT_FOUND,
